@@ -16,6 +16,7 @@ public class Main extends StateBasedGame{
         super(string);
         contenedor = new AppGameContainer(this);
         contenedor.setDisplayMode(1920, 1080, true);
+        contenedor.setVSync(true);
         //contenedor.setShowFPS(false);
         contenedor.start();
     }
