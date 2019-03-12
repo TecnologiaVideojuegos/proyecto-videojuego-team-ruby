@@ -96,36 +96,44 @@ public class Demo extends BasicGameState {
         //Movimiento del jugador
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
+            y -= i / 3.f;  //i=tiempo de update
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+            x += i / 3.f;  //i=tiempo de update
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+            x -= i / 3.f;  //i=tiempo de update
+        }
+        
+        //Animación del personaje
+        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+            if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
+                esqueleto.start();
+            } else {
+                esqueleto.setCurrentFrame(9);
+            }
+        }else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+            if ((26 < esqueleto.getFrame()) && (esqueleto.getFrame() < 35)) {
+                esqueleto.start();
+            } else {
+                esqueleto.setCurrentFrame(27);
+            }
+        }else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             if (esqueleto.getFrame() < 8) {
                 esqueleto.start();
             } else {
                 esqueleto.setCurrentFrame(0);
             }
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-            y -= i / 3.f;  //i=tiempo de update
+        }else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
             if ((17 < esqueleto.getFrame()) && (esqueleto.getFrame() < 26)) {
                 esqueleto.start();
             } else {
                 esqueleto.setCurrentFrame(18);
             }
         }
-        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            x += i / 3.f;  //i=tiempo de update
-            if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(9);
-            }
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            x -= i / 3.f;  //i=tiempo de update
-            if ((26 < esqueleto.getFrame()) && (esqueleto.getFrame() < 35)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(27);
-            }
-        }
+        
         if (!(gc.getInput().isKeyDown(Input.KEY_W)
                 || gc.getInput().isKeyDown(Input.KEY_A)
                 || gc.getInput().isKeyDown(Input.KEY_S)
