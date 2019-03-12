@@ -15,16 +15,22 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class Demo extends BasicGameState {
 
-    private TiledMap map; //Mapa de la demo
+    //MAPA
+    private TiledMap map;
     private double x, y;
-    private Animation esqueleto; //Frames de la animación del personaje
-    private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65; //Propieadades del personaje
+
+    //PERSONAJE
+    private Animation esqueleto;
+    private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
+
+    //RATÓN
+    private String coordenadas="", click="";
 
     //HITBOX
     private boolean ver_hitbox = true;
     private Rectangle personaje_R;
     private ArrayList<Rectangle> blocks;
-    
+
     public Demo() {
         blocks = new ArrayList<>();
     }
@@ -42,10 +48,10 @@ public class Demo extends BasicGameState {
                 esqueleto.addFrame(sprite_esqueleto.getSprite(i, j), 50);
             }
         }
-        
+
         //Rectangulo colision personaje
-        personaje_R = new Rectangle(gc.getWidth()/2 - (ancho_esqueleto - 30 ), gc.getHeight()/2 - (largo_esqueleto-25) , (ancho_esqueleto - 30 )* size_esqueleto, (largo_esqueleto - 15)* size_esqueleto);
-        
+        personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), gc.getHeight() / 2 - (largo_esqueleto - 25), (ancho_esqueleto - 30) * size_esqueleto, (largo_esqueleto - 15) * size_esqueleto);
+
         //Carga de muros en memoria
         cargaMuros();
     }
@@ -56,26 +62,28 @@ public class Demo extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
-        
+        grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+        grphcs.drawString(coordenadas, 100, 100);
+
         //Jugador
-        esqueleto.draw(gc.getWidth()/2 - ancho_esqueleto, gc.getHeight()/2 - largo_esqueleto , ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
-        
+        esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
+
         //Dibujo de los elementos de colision
-        if(ver_hitbox){
-            grphcs.drawRect(personaje_R.getX(),personaje_R.getY() , personaje_R.getWidth(), personaje_R.getHeight());
-        
+        if (ver_hitbox) {
+            grphcs.drawRect(personaje_R.getX(), personaje_R.getY(), personaje_R.getWidth(), personaje_R.getHeight());
+
             boolean rojo = true;
-            for(Rectangle rectangle : blocks){
-                if (rojo){
+            for (Rectangle rectangle : blocks) {
+                if (rojo) {
                     grphcs.setColor(Color.red);
                     rojo = false;
-                }else{
+                } else {
                     grphcs.setColor(Color.yellow);
                     rojo = true;
                 }
-                grphcs.drawRect(rectangle.getX() + (float) x,rectangle.getY() + (float) y, rectangle.getWidth(), rectangle.getHeight());
+                grphcs.drawRect(rectangle.getX() + (float) x, rectangle.getY() + (float) y, rectangle.getWidth(), rectangle.getHeight());
             }
-            grphcs.setColor(Color.white);     
+            grphcs.setColor(Color.white);
         }
     }
 
@@ -130,25 +138,30 @@ public class Demo extends BasicGameState {
         } else {
             esqueleto.start();
         }
+
+        //MOVIMENTO DEL RATÓN
+        if(gc.getInput().isMouseButtonDown(0)){
+            click="click";
+        }else{
+            click="";
+        }
     }
 
     @Override
     public int getID() {
         return 0;
     }
-    
-    
-    public void cargaMuros(){
-        int wallLayer = map.getLayerIndex("Walls");        
+
+    public void cargaMuros() {
+        int wallLayer = map.getLayerIndex("Walls");
         //ArrayList<Integer> walls = new ArrayList<Integer>();
-        
-        for(int j = 0; j < map.getHeight(); j++){
-            for(int i = 0; i < map.getWidth(); i++){
+
+        for (int j = 0; j < map.getHeight(); j++) {
+            for (int i = 0; i < map.getWidth(); i++) {
                 //walls.add(map.getTileId(i, j, wallLayer));
                 //System.out.format("%4d", map.getTileId(i, j, wallLayer));
-                
-                
-                if(map.getTileId(i, j, wallLayer) != 0){
+
+                if (map.getTileId(i, j, wallLayer) != 0) {
                     blocks.add(new Rectangle((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
                 }
             }
