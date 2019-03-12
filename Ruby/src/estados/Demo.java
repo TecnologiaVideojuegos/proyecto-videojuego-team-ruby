@@ -86,7 +86,7 @@ public class Demo extends BasicGameState {
                 esqueleto.setCurrentFrame(27);
             }
         }
-        if (!(gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_D))) {
+        if (!(gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_D)|| gc.getInput().isKeyDown(Input.KEY_UP)|| gc.getInput().isKeyDown(Input.KEY_LEFT)|| gc.getInput().isKeyDown(Input.KEY_RIGHT)|| gc.getInput().isKeyDown(Input.KEY_DOWN))) {
             esqueleto.stop();
         } else {
             esqueleto.start();
