@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -24,7 +25,7 @@ public class Demo extends BasicGameState {
     private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
 
     //RATÓN
-    private String coordenadas="", click="";
+    private String coordenadas = "", click = "";
 
     //HITBOX
     private boolean ver_hitbox = true;
@@ -50,7 +51,7 @@ public class Demo extends BasicGameState {
         }
 
         //Rectangulo colision personaje
-        personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), gc.getHeight() / 2 - (largo_esqueleto - 25), (ancho_esqueleto - 30) * size_esqueleto, (largo_esqueleto - 15) * size_esqueleto);
+        personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60);
 
         //Carga de muros en memoria
         cargaMuros();
@@ -106,7 +107,7 @@ public class Demo extends BasicGameState {
         if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             x -= i / 3.f;  //i=tiempo de update
         }
-        
+
         //Animación del personaje
         if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
@@ -114,26 +115,26 @@ public class Demo extends BasicGameState {
             } else {
                 esqueleto.setCurrentFrame(9);
             }
-        }else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+        } else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             if ((26 < esqueleto.getFrame()) && (esqueleto.getFrame() < 35)) {
                 esqueleto.start();
             } else {
                 esqueleto.setCurrentFrame(27);
             }
-        }else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
+        } else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             if (esqueleto.getFrame() < 8) {
                 esqueleto.start();
             } else {
                 esqueleto.setCurrentFrame(0);
             }
-        }else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
+        } else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
             if ((17 < esqueleto.getFrame()) && (esqueleto.getFrame() < 26)) {
                 esqueleto.start();
             } else {
                 esqueleto.setCurrentFrame(18);
             }
         }
-        
+
         if (!(gc.getInput().isKeyDown(Input.KEY_W)
                 || gc.getInput().isKeyDown(Input.KEY_A)
                 || gc.getInput().isKeyDown(Input.KEY_S)
@@ -148,11 +149,19 @@ public class Demo extends BasicGameState {
         }
 
         //MOVIMENTO DEL RATÓN
-        coordenadas="("+gc.getInput().getMouseX()+","+gc.getInput().getMouseY()+")";
-        if(gc.getInput().isMouseButtonDown(0)){
-            click="click";
-        }else{
-            click="";
+        coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
+        if (gc.getInput().isMouseButtonDown(0)) {
+            click = "click";
+        } else {
+            click = "";
+        }
+
+        //HITBOX
+        for (int j = 0; j < blocks.size(); j++) {
+            if (personaje_R.intersects(blocks.get(j))) {
+                click = "colisión";
+                y -= i / 3.f;
+            }
         }
     }
 
