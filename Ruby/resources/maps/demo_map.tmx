@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="53">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="53">
  <tileset firstgid="1" source="Basic.tsx"/>
- <layer id="1" name="Capa de Patrones 1" width="50" height="50">
+ <layer id="7" name="Capa de Patrones 1" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3VywqAIBSEYXtUoRfzTaOVIeElS+fYv/iIqMUZxlN+c84DwIv2xOx5AETBRed9uq+l3a19b0SO67U1h4rePlSR475f5Ry5ZyHZN2WlHAp99OaAltx+WerPYg4rc5Jj/mzQ8PezYTW/2qxPZ6nJMbKbL3NY6ENNy9mwusPW/9MWZwbQZoVv1Uo5AABYxQF4PY5DECcAAA==
+   H4sIAAAAAAAACu3WQQ6DIBBAUXpUEy/GTZsuGhMWYqtTy/AWb2F0AT8jujxKWQBIa23cvR6Af1XL5nXdnp+9s/Toc6N59/i2S1b15LzMQpeYLrWZvyyOdNm7V5vzaia9LjXhvJztAp/YO59mni9d5t23LrrAFbwLekZ2uHsdkfuL6jLy7ER2GVnmvUV28b/Wb6GLBgC/5FukCwAAY3sCnaIr8LA2AAA=
   </data>
  </layer>
- <layer id="5" name="Vendedor" width="50" height="50">
+ <layer id="11" name="Walls" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OAQ0AAAgDoPfPYVBjXDdIQAIA8M+0AwAAAAAAAACcs9I8FBAQJwAA
+   H4sIAAAAAAAACu3YQQqDMAAFURPQk2tvYk8mPUcjYk1goC5SGnQG/qab2keE6hS6ro8u3yOZvNKsbNEF04XThdOF04XThbuKyxSO/x01uorL/hsWXT5nZN0Qt8904eu+g8u3Z5j9jOTnpo91vrtll7P94vp14Vp2OftOYKh07+S17PLPdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04XThdOF04VaXOW10xZ5pb5bcd6mwNgAA
   </data>
  </layer>
- <layer id="6" name="Enemigo" width="50" height="50">
+ <layer id="8" name="Vendedor" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OMQ0AAAgDsPnXgVAULOHjaRU0AQAA6OY7AAAAAAAAAEcLmWHpkxAnAAA=
+   H4sIAAAAAAAACu3OMQ0AAAgDsPnXgVAU7CYkrYImAAAA3VwHAAAAAAAAAAAAAHhjAUFhrtqwNgAA
   </data>
  </layer>
- <layer id="4" name="Huerto" width="50" height="50">
+ <layer id="9" name="Enemigo" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3PsQkAIBRDwa+zuYj7L2ErCNpGuIPXJ1UAAABwmu3eD/a9o79L5UcWPwAAAAAAci1kQ79XECcAAA==
+   H4sIAAAAAAAACu3OAQ0AAAjAoPfPYVBjODdIQAEAAAD8N9cBAAAAAAAAAAAAWjHjKPywNgAA
+  </data>
+ </layer>
+ <layer id="10" name="Huerto" width="70" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3QsQ0AIAwDwcBsLML+S9BSRCBKlDvJA/gjAAAAAIBfzHZeRfv/0e+rQpecLjldcroAAAAAAAAAvFs8frwTsDYAAA==
   </data>
  </layer>
 </map>
