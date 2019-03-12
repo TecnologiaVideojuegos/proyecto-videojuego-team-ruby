@@ -63,7 +63,7 @@ public class Demo extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
         grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
-        grphcs.drawString(coordenadas, 100, 100);
+        grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
         esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
@@ -140,6 +140,7 @@ public class Demo extends BasicGameState {
         }
 
         //MOVIMENTO DEL RATÓN
+        coordenadas="("+gc.getInput().getMouseX()+","+gc.getInput().getMouseY()+")";
         if(gc.getInput().isMouseButtonDown(0)){
             click="click";
         }else{
