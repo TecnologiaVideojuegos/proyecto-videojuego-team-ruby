@@ -8,8 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -82,7 +81,8 @@ public class Demo extends BasicGameState {
                     grphcs.setColor(Color.yellow);
                     rojo = true;
                 }
-                grphcs.drawRect(rectangle.getX() + (float) x, rectangle.getY() + (float) y, rectangle.getWidth(), rectangle.getHeight());
+                //grphcs.drawRect(rectangle.getX() + (float) x, rectangle.getY() + (float) y, rectangle.getWidth(), rectangle.getHeight()); 
+                grphcs.drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
             }
             grphcs.setColor(Color.white);
         }
@@ -97,15 +97,19 @@ public class Demo extends BasicGameState {
         //Movimiento del jugador
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, (i / 3.f));
         }
         if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
             y -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, -(i / 3.f));
         }
         if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             x += i / 3.f;  //i=tiempo de update
+            actualizaMuros((i / 3.f), 0);
         }
         if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             x -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(-(i / 3.f), 0);
         }
 
         //Animación del personaje
@@ -157,11 +161,13 @@ public class Demo extends BasicGameState {
         }
 
         //HITBOX
-        for (int j = 0; j < blocks.size(); j++) {
-            if (personaje_R.intersects(blocks.get(j))) {
+        for (Rectangle re : blocks) {
+            if (personaje_R.intersects(re)) {
+                System.out.println("Colision");
                 click = "colisión";
-                y -= i / 3.f;
             }
+
+            //y -= i / 3.f;
         }
     }
 
@@ -184,6 +190,13 @@ public class Demo extends BasicGameState {
                 }
             }
             System.out.println("");
+        }
+    }
+
+    public void actualizaMuros(float x_cor, float y_cor) {
+        for (Rectangle rectangle : blocks) {
+            rectangle.setX(rectangle.getX() + x_cor);
+            rectangle.setY(rectangle.getY() + y_cor);
         }
     }
 

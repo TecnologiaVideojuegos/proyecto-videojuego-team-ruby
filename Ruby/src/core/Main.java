@@ -8,10 +8,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Main extends StateBasedGame{
+public class Main extends StateBasedGame {
 
     private AppGameContainer contenedor;
-    
+
     public Main(String string) throws SlickException {
         super(string);
         contenedor = new AppGameContainer(this);
@@ -21,7 +21,6 @@ public class Main extends StateBasedGame{
         contenedor.start();
     }
 
-    
     //  Inicializa la lista de estados del juego
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
@@ -36,5 +35,5 @@ public class Main extends StateBasedGame{
             System.out.println(ex.getMessage());
         }
     }
-    
+
 }
