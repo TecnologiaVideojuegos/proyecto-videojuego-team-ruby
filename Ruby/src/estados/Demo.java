@@ -5,6 +5,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -25,6 +26,7 @@ public class Demo extends BasicGameState {
 
     //RATÓN
     private String coordenadas = "", click = "";
+    private Image cursor;
 
     //HITBOX
     private boolean ver_hitbox = true;
@@ -40,6 +42,7 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        cursor = new Image("./resources/sprites/cursor.png");
         map = new TiledMap("./resources/maps/demo_map.tmx");
         SpriteSheet sprite_esqueleto = new SpriteSheet("./resources/sprites/sprite_esqueleto.png", ancho_esqueleto, largo_esqueleto);
         esqueleto = new Animation();
@@ -54,6 +57,7 @@ public class Demo extends BasicGameState {
 
         //Carga de muros en memoria
         cargaMuros();
+        gc.setMouseCursor(cursor, gc.getInput().getMouseX(), gc.getInput().getMouseY());
     }
 
     /**
@@ -61,6 +65,7 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+        
         map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
         grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
         grphcs.drawString(coordenadas, 35, 35);
@@ -68,6 +73,9 @@ public class Demo extends BasicGameState {
         //Jugador
         esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
 
+        //Cursor
+        grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+        
         //Dibujo de los elementos de colision
         if (ver_hitbox) {
             grphcs.drawRect(personaje_R.getX(), personaje_R.getY(), personaje_R.getWidth(), personaje_R.getHeight());
@@ -93,7 +101,7 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-
+        
         //Movimiento del jugador
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
