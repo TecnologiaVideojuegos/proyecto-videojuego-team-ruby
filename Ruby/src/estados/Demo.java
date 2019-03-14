@@ -112,7 +112,85 @@ public class Demo extends BasicGameState {
             actualizaMuros(-(i / 3.f), 0);
         }
 
-        //Animación del personaje
+        animaPersonaje(gc);
+
+        //MOVIMENTO DEL RATÓN
+        coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
+        if (gc.getInput().isMouseButtonDown(0)) {
+            click = "click";
+        } else {
+            click = "";
+        }
+
+        //HITBOX
+        ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
+        Rectangle reNear = null;
+        float reDistance, newReDistance;
+        boolean hayColision;
+        do {
+            blocksColision.clear();
+            hayColision = false;
+            for (Rectangle re : blocks) {
+                if (personaje_R.intersects(re)) {
+                    hayColision = true;
+                    blocksColision.add(re);
+                    /*
+                    y -= i / 3.f;
+                    actualizaMuros(0, -(i / 3.f));
+                    click = "colisión";
+                     */
+                }
+            }
+            if (blocksColision.size() > 0) {
+                reNear = blocksColision.get(0);
+                reDistance = (float) Math.sqrt((Math.pow(reNear.getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(reNear.getCenterY() - personaje_R.getCenterY(), 2)));
+                for (int j = 1; j < blocksColision.size(); j++) {
+                    newReDistance = (float) Math.sqrt((Math.pow(blocksColision.get(j).getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(blocksColision.get(j).getCenterY() - personaje_R.getCenterY(), 2)));
+                    if (newReDistance < reDistance) {
+                        reDistance = newReDistance;
+                        reNear = blocksColision.get(j);
+                    }
+                }
+            }
+            if (hayColision) {
+                colision(reNear, i, gc);
+            }
+        } while (false);
+    }
+
+    public void colision(Rectangle re, int i, GameContainer gc) {
+        boolean isUp, isLeft;
+
+        if ((personaje_R.getCenterY() - re.getCenterY()) > 0) {
+            isUp = false;
+        } else {
+            isUp = true;
+        }
+        if ((personaje_R.getCenterX() - re.getCenterX()) > 0) {
+            isLeft = false;
+        } else {
+            isLeft = true;
+        }
+
+        if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
+            y -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, -(i / 3.f));
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
+            y += i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, (i / 3.f));
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+            x -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(-(i / 3.f), 0);
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+            x += i / 3.f;  //i=tiempo de update
+            actualizaMuros((i / 3.f), 0);
+        }
+    }
+
+    public void animaPersonaje(GameContainer gc) {
         if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
                 esqueleto.start();
@@ -150,24 +228,6 @@ public class Demo extends BasicGameState {
             esqueleto.stop();
         } else {
             esqueleto.start();
-        }
-
-        //MOVIMENTO DEL RATÓN
-        coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
-        if (gc.getInput().isMouseButtonDown(0)) {
-            click = "click";
-        } else {
-            click = "";
-        }
-
-        //HITBOX
-        for (Rectangle re : blocks) {
-            if (personaje_R.intersects(re)) {
-                System.out.println("Colision");
-                click = "colisión";
-            }
-
-            //y -= i / 3.f;
         }
     }
 
