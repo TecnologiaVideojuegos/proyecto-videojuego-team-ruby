@@ -1,56 +1,224 @@
 package elementos;
 
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Mapa {
+
+    private TiledMap map;
+
+    //Elementos del mapa
+    private ArrayList<Hitbox> blocks;   //Elementos del mapa bloqueados al movimiento
+    private ArrayList<Hitbox> enemigos;
+    private ArrayList<Hitbox> npcs;
+    private ArrayList<Hitbox> huerto;
     
-    private TiledMap map; 
-    
-    //Elementos del mapa bloqueados al movimiento
-    private ArrayList<Hitbox> blocks; 
     
     //Constructor por defecto
-    public Mapa(){
-        
+    public Mapa() {
+
     }
 
     public Mapa(String ruta) throws SlickException {
         this.map = new TiledMap(ruta);;
-        
+
         //Carga de elementos del mapa
+        blocks = new ArrayList<>();
+        enemigos = new ArrayList<>();
+        npcs = new ArrayList<>();
+        huerto = new ArrayList<>();
         cargaMuros();
-        /*TODO: cargaNPCs
-                cargaHuerto
-                cargaSaltosEstado
-        */
+        cargaEnemigos();
+        cargaNPCs();
+        cargaHuerto();
+        /*TODO: cargaSaltosEstado */
+    }
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public void setMap(TiledMap map) {
+        this.map = map;
+    }
+
+    public ArrayList<Hitbox> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(ArrayList<Hitbox> blocks) {
+        this.blocks = blocks;
+    }
+
+    public ArrayList<Hitbox> getEnemigos() {
+        return enemigos;
+    }
+
+    public void setEnemigos(ArrayList<Hitbox> enemigos) {
+        this.enemigos = enemigos;
+    }
+
+    public ArrayList<Hitbox> getNpcs() {
+        return npcs;
+    }
+
+    public void setNpcs(ArrayList<Hitbox> npcs) {
+        this.npcs = npcs;
+    }
+
+    public ArrayList<Hitbox> getHuerto() {
+        return huerto;
+    }
+
+    public void setHuerto(ArrayList<Hitbox> huerto) {
+        this.huerto = huerto;
     }
     
     
     //*****************************************************//
     //***              CARGA DE ELEMENTOS               ***//
     //*****************************************************//
-    public void cargaMuros() {
-        int wallLayer = map.getLayerIndex("Walls"); //TODO: definir otro nombre par la capa
-
-        for (int j = 0; j < map.getHeight(); j++) {
-            for (int i = 0; i < map.getWidth(); i++) {
-                if (map.getTileId(i, j, wallLayer) != 0) {
-                    blocks.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+    private void cargaMuros() {
+        int wallLayer = map.getLayerIndex("Walls"); //TODO: definir otro nombre para la capa
+        
+        if(wallLayer != -1){    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        blocks.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                    }
                 }
             }
         }
     }
     
-    
-    //*****************************************************//
-    //***               UPDATE ELEMENTOS                ***//
-    //*****************************************************//
-    public void actualizaMuros(float pos_x, float pos_y) {
-        for (Hitbox hitbox : blocks) {
-            hitbox.updatePos(pos_x, pos_y);
+    private void cargaEnemigos() {
+        int wallLayer = map.getLayerIndex("Enemigos");
+        
+        if(wallLayer != -1){    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        enemigos.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                    }
+                }
+            }
         }
     }
     
+    private void cargaNPCs() {
+        int wallLayer = map.getLayerIndex("NPCs");
+        
+        if(wallLayer != -1){    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        npcs.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                    }
+                }
+            }
+        }
+    }
+    
+    private void cargaHuerto() {
+        int wallLayer = map.getLayerIndex("Huerto");
+        
+        if(wallLayer != -1){    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        huerto.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                    }
+                }
+            }
+        }
+    }
+
+    //*****************************************************//
+    //***               UPDATE ELEMENTOS                ***//
+    //*****************************************************//
+    public void actualizarElementos(float pos_x, float pos_y) {
+  
+        //Elementos muro
+        if(!blocks.isEmpty()){
+            blocks.forEach((hitbox) -> {
+                hitbox.updatePos(pos_x, pos_y);
+            });
+        }
+        
+        //Elementos enemigos
+        if(!enemigos.isEmpty()){
+            enemigos.forEach((hitbox) -> {
+                hitbox.updatePos(pos_x, pos_y);
+            });
+        }
+        
+        //Elementos npc
+        if(!npcs.isEmpty()){
+            npcs.forEach((hitbox) -> {
+                hitbox.updatePos(pos_x, pos_y);
+            });
+        }
+        
+        //Elementos huerto
+        if(!huerto.isEmpty()){
+            huerto.forEach((hitbox) -> {
+                hitbox.updatePos(pos_x, pos_y);
+            });
+        }
+    }
+
+    //*****************************************************//
+    //***               RENDER ELEMENTOS                ***//
+    //*****************************************************//
+    public void renderMap(GameContainer gc, double x, double y, Graphics grphcs, boolean ver_hitbox) {
+        map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
+
+        //Dibujo de los elementos de colision
+        if (ver_hitbox) {
+            
+            //Elementos tipo muro
+            boolean amarillo = true;
+            for (Hitbox hitbox : blocks) {
+                if (amarillo) {
+                    grphcs.setColor(Color.cyan);
+                    amarillo = false;
+                } else {
+                    grphcs.setColor(Color.yellow);
+                    amarillo = true;
+                }
+                grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
+            }
+            
+            //Elementos tipo enemigo
+            for (Hitbox hitbox : enemigos) {
+                grphcs.setColor(Color.red);
+                grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
+            }
+            
+            //Elementos tipo npc
+            for (Hitbox hitbox : npcs) {
+                grphcs.setColor(Color.green);
+                grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
+            }
+            
+            //Elementos tipo huerto
+            amarillo = true;
+            for (Hitbox hitbox : huerto) {
+                if (amarillo) {
+                    grphcs.setColor(Color.orange);
+                    amarillo = false;
+                } else {
+                    grphcs.setColor(Color.yellow);
+                    amarillo = true;
+                }
+                grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
+            }
+            grphcs.setColor(Color.white);
+        }
+    }
 }
