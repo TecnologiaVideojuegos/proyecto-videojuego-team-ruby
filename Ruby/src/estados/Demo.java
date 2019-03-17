@@ -65,7 +65,7 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-        
+
         map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
         grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
         grphcs.drawString(coordenadas, 35, 35);
@@ -75,7 +75,7 @@ public class Demo extends BasicGameState {
 
         //Cursor
         grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
-        
+
         //Dibujo de los elementos de colision
         if (ver_hitbox) {
             grphcs.drawRect(personaje_R.getX(), personaje_R.getY(), personaje_R.getWidth(), personaje_R.getHeight());
@@ -101,7 +101,7 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        
+
         //Movimiento del jugador
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
@@ -162,23 +162,12 @@ public class Demo extends BasicGameState {
             }
             if (hayColision) {
                 colision(reNear, i, gc);
+                mejora_colision(i, gc);
             }
         } while (false);
     }
 
     public void colision(Rectangle re, int i, GameContainer gc) {
-        boolean isUp, isLeft;
-
-        if ((personaje_R.getCenterY() - re.getCenterY()) > 0) {
-            isUp = false;
-        } else {
-            isUp = true;
-        }
-        if ((personaje_R.getCenterX() - re.getCenterX()) > 0) {
-            isLeft = false;
-        } else {
-            isLeft = true;
-        }
 
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y -= i / 3.f;  //i=tiempo de update
@@ -195,6 +184,49 @@ public class Demo extends BasicGameState {
         if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             x += i / 3.f;  //i=tiempo de update
             actualizaMuros((i / 3.f), 0);
+        }
+    }
+
+    public void mejora_colision(int i, GameContainer gc) {
+        if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
+            y += i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, (i / 3.f));
+            for (Rectangle re : blocks) {
+                if (re.intersects(personaje_R)) {
+                    y -= i / 3.f;  //i=tiempo de update
+                    actualizaMuros(0, -(i / 3.f));
+                }
+            }
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
+            y -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(0, -(i / 3.f));
+            for (Rectangle re : blocks) {
+                if (re.intersects(personaje_R)) {
+                    y += i / 3.f;  //i=tiempo de update
+                    actualizaMuros(0, (i / 3.f));
+                }
+            }
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+            x += i / 3.f;  //i=tiempo de update
+            actualizaMuros((i / 3.f), 0);
+            for (Rectangle re : blocks) {
+                if (re.intersects(personaje_R)) {
+                    x -= i / 3.f;  //i=tiempo de update
+                    actualizaMuros(-(i / 3.f), 0);
+                }
+            }
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+            x -= i / 3.f;  //i=tiempo de update
+            actualizaMuros(-(i / 3.f), 0);
+            for (Rectangle re : blocks) {
+                if (re.intersects(personaje_R)) {
+                    x += i / 3.f;  //i=tiempo de update
+                    actualizaMuros((i / 3.f), 0);
+                }
+            }
         }
     }
 
