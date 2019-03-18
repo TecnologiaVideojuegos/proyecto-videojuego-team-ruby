@@ -26,12 +26,15 @@ public class Demo extends BasicGameState {
 
     //RATÓN
     private String coordenadas = "", click = "";
-    private Image cursor;
+    private Image cursor_img;
+    private Circle cursor_hitbox;
+    private ArrayList<Rectangle> blocks;
+    private int dist_inter = 200;
 
     //HITBOX
     private boolean ver_hitbox = true;
     private Rectangle personaje_R;
-    private ArrayList<Rectangle> blocks;
+    private Rectangle relleno = null;
 
     public Demo() {
         blocks = new ArrayList<>();
@@ -42,7 +45,9 @@ public class Demo extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        cursor = new Image("./resources/sprites/cursor.png");
+        //gc.setMouseGrabbed(true);
+        //cursor_img = new Image("./resources/sprites/cursor.png");
+
         map = new TiledMap("./resources/maps/demo_map.tmx");
         SpriteSheet sprite_esqueleto = new SpriteSheet("./resources/sprites/sprite_esqueleto.png", ancho_esqueleto, largo_esqueleto);
         esqueleto = new Animation();
@@ -57,7 +62,9 @@ public class Demo extends BasicGameState {
 
         //Carga de muros en memoria
         cargaMuros();
-        gc.setMouseCursor(cursor, gc.getInput().getMouseX(), gc.getInput().getMouseY());
+
+        //Circulo colision mouse
+        cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
 
     /**
@@ -74,11 +81,11 @@ public class Demo extends BasicGameState {
         esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
 
         //Cursor
-        grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
-
+        //cursor_img.draw(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY(), cursor_img.getHeight(), cursor_img.getWidth());
         //Dibujo de los elementos de colision
         if (ver_hitbox) {
             grphcs.drawRect(personaje_R.getX(), personaje_R.getY(), personaje_R.getWidth(), personaje_R.getHeight());
+            grphcs.drawOval(cursor_hitbox.getX(), cursor_hitbox.getY(), cursor_hitbox.getHeight(), cursor_hitbox.getWidth());
 
             boolean rojo = true;
             for (Rectangle rectangle : blocks) {
@@ -94,6 +101,9 @@ public class Demo extends BasicGameState {
             }
             grphcs.setColor(Color.white);
         }
+        if (relleno != null) {
+            grphcs.fillRect(relleno.getX(), relleno.getY(), relleno.getWidth(), relleno.getHeight());
+        }
     }
 
     /**
@@ -102,6 +112,11 @@ public class Demo extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 
+        //Actualización de la hitbox del cursor
+        cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
+        cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+
+        //Actualización de la hitbox del personaje
         //Movimiento del jugador
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
@@ -125,46 +140,24 @@ public class Demo extends BasicGameState {
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
         if (gc.getInput().isMouseButtonDown(0)) {
-            click = "click";
+            for (Rectangle re : blocks) {
+                if (cursor_hitbox.intersects(re) && (dist_inter > (Math.sqrt((Math.pow(re.getX() - personaje_R.getX(), 2)) + (Math.pow(re.getY() - personaje_R.getY(), 2)))))) {
+                    click = "click";
+                    relleno = re;
+                }
+            }
         } else {
             click = "";
+            relleno = null;
         }
 
         //HITBOX
-        ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
-        Rectangle reNear = null;
-        float reDistance, newReDistance;
-        boolean hayColision;
-        do {
-            blocksColision.clear();
-            hayColision = false;
-            for (Rectangle re : blocks) {
-                if (personaje_R.intersects(re)) {
-                    hayColision = true;
-                    blocksColision.add(re);
-                    /*
-                    y -= i / 3.f;
-                    actualizaMuros(0, -(i / 3.f));
-                    click = "colisión";
-                     */
-                }
-            }
-            if (blocksColision.size() > 0) {
-                reNear = blocksColision.get(0);
-                reDistance = (float) Math.sqrt((Math.pow(reNear.getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(reNear.getCenterY() - personaje_R.getCenterY(), 2)));
-                for (int j = 1; j < blocksColision.size(); j++) {
-                    newReDistance = (float) Math.sqrt((Math.pow(blocksColision.get(j).getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(blocksColision.get(j).getCenterY() - personaje_R.getCenterY(), 2)));
-                    if (newReDistance < reDistance) {
-                        reDistance = newReDistance;
-                        reNear = blocksColision.get(j);
-                    }
-                }
-            }
-            if (hayColision) {
-                colision(reNear, i, gc);
+        for (Rectangle re : blocks) {
+            if (personaje_R.intersects(re)) {
+                colision(re, i, gc);
                 mejora_colision(i, gc);
             }
-        } while (false);
+        }
     }
 
     public void colision(Rectangle re, int i, GameContainer gc) {
