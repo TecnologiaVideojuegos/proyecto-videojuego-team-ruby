@@ -51,7 +51,7 @@ public class Prueba extends BasicGameState {
 
         //Rectangulo colision personaje
         personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60);
-        gc.setMouseCursor(cursor, gc.getInput().getMouseX(), gc.getInput().getMouseY());
+        //gc.setMouseCursor(cursor, gc.getInput().getMouseX(), gc.getInput().getMouseY());
     }
 
     /**

@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import personajes.Enemigo;
 
 public class Mapa {
 
@@ -13,7 +14,8 @@ public class Mapa {
 
     //Elementos del mapa
     private ArrayList<Hitbox> blocks;   //Elementos del mapa bloqueados al movimiento
-    private ArrayList<Hitbox> enemigos;
+    //private ArrayList<Hitbox> enemigos;
+    private ArrayList<Enemigo> enemigos;
     private ArrayList<Hitbox> npcs;
     private ArrayList<Hitbox> huerto;
     
@@ -54,11 +56,11 @@ public class Mapa {
         this.blocks = blocks;
     }
 
-    public ArrayList<Hitbox> getEnemigos() {
+    public ArrayList<Enemigo> getEnemigos() {
         return enemigos;
     }
 
-    public void setEnemigos(ArrayList<Hitbox> enemigos) {
+    public void setEnemigos(ArrayList<Enemigo> enemigos) {
         this.enemigos = enemigos;
     }
 
@@ -96,14 +98,17 @@ public class Mapa {
         }
     }
     
-    private void cargaEnemigos() {
+    private void cargaEnemigos() throws SlickException {
         int wallLayer = map.getLayerIndex("Enemigos");
         
         if(wallLayer != -1){    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        enemigos.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                        enemigos.add(new Enemigo(
+                                                "Boss", 
+                                                new Hitbox((float) i * 32, (float) j * 32, 32, 32), 
+                                                10));  //32 = ancho del patron
                     }
                 }
             }
@@ -152,8 +157,8 @@ public class Mapa {
         
         //Elementos enemigos
         if(!enemigos.isEmpty()){
-            enemigos.forEach((hitbox) -> {
-                hitbox.updatePos(pos_x, pos_y);
+            enemigos.forEach((enemigo) -> {
+                enemigo.getHitbox().updatePos(pos_x, pos_y);
             });
         }
         
@@ -195,9 +200,9 @@ public class Mapa {
             }
             
             //Elementos tipo enemigo
-            for (Hitbox hitbox : enemigos) {
+            for (Enemigo enemigo : enemigos) {
                 grphcs.setColor(Color.red);
-                grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
+                grphcs.drawRect(enemigo.getHitbox().getRectangulo().getX(), enemigo.getHitbox().getRectangulo().getY(), enemigo.getHitbox().getRectangulo().getWidth(), enemigo.getHitbox().getRectangulo().getHeight());
             }
             
             //Elementos tipo npc

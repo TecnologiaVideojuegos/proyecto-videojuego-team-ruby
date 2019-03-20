@@ -10,10 +10,10 @@ public class Enemigo extends Personaje {
 
     public Enemigo(String nombre, Hitbox hitbox, int nivel) throws SlickException {
         // TODO: modificar animación original por Animacion_dinamica cuando haya sprite
-        super(nombre, hitbox, new Animacion_estatica("./resources/img/enemigo.gif"), 100, 20);
+        super(nombre, hitbox, new Animacion_estatica("./resources/img/enemigo.png"), 100, 20);
 
         if (nombre.equals("Boss")) {
-            setAnimacion(new Animacion_estatica("./resources/img/enemigo.gif"));
+            setAnimacion(new Animacion_estatica("./resources/img/enemigo.png"));
         }
         
         this.nivel = nivel;

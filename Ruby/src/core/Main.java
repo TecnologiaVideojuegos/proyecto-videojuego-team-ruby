@@ -1,6 +1,7 @@
 package core;
 
 import estados.Demo;
+import estados.Prueba;
 //import estados.Prueba;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
