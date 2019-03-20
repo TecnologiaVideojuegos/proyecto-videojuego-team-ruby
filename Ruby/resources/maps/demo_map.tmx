@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="53">
  <tileset firstgid="1" source="Basic.tsx"/>
- <layer id="7" name="Capa de Patrones 1" width="70" height="50" visible="0">
+ <layer id="7" name="Capa de Patrones 1" width="70" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3WQQ6DIBBAUXpUEy/GTZsuGhMWYqtTy/AWb2F0AT8jujxKWQBIa23cvR6Af1XL5nXdnp+9s/Toc6N59/i2S1b15LzMQpeYLrWZvyyOdNm7V5vzaia9LjXhvJztAp/YO59mni9d5t23LrrAFbwLekZ2uHsdkfuL6jLy7ER2GVnmvUV28b/Wb6GLBgC/5FukCwAAY3sCnaIr8LA2AAA=
   </data>
@@ -18,7 +18,7 @@
  </layer>
  <layer id="9" name="Enemigos" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OAQ0AAAjAoPfPYVBjODdIQAEAAAD8N9cBAAAAAAAAAAAAWjHjKPywNgAA
+   H4sIAAAAAAAACu3UQREAMAgEsUNqvVVoZVCGRMG+NgEAAACY73YHAAA51V0AsIvvAgAAAAAAP3otPdvAsDYAAA==
   </data>
  </layer>
  <layer id="10" name="Huerto" width="70" height="50">

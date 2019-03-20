@@ -1,5 +1,6 @@
 package personajes;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -22,8 +23,8 @@ public class Animacion_estatica extends Animacion{
     }
     
     @Override
-    public void ActualizarPosicion(float pos_x, float pos_y) {
-        //TODO: Actualiza la posicion del objeto en el pantalla
+    public void renderAnimacion(GameContainer gc, float pos_x, float pos_y) {  
+        img.draw(pos_x, pos_y - img.getHeight()/2);
     }
 
 }

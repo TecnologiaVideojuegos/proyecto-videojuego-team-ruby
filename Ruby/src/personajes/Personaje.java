@@ -1,6 +1,7 @@
 package personajes;
 
 import elementos.Hitbox;
+import org.newdawn.slick.GameContainer;
 
 public abstract class Personaje {
 
@@ -63,4 +64,8 @@ public abstract class Personaje {
     /* TODO: Update animacion
              Render animacion
      */
+    
+    public void renderPersonaje(GameContainer gc){
+        animacion.renderAnimacion( gc, hitbox.getRectangulo().getX(),  hitbox.getRectangulo().getY());
+    }
 }

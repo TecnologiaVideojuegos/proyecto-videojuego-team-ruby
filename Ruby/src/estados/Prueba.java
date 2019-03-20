@@ -2,24 +2,24 @@ package estados;
 
 import elementos.Hitbox;
 import elementos.Mapa;
-import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import personajes.*;
 
 public class Prueba extends BasicGameState {
 
     private Mapa map;
-    private double x, y;
+    private float x, y;
 
     //PERSONAJE
+    private Jugador ruby;
     private Animation esqueleto;
     private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
 
@@ -28,7 +28,7 @@ public class Prueba extends BasicGameState {
     private Image cursor;
 
     //HITBOX
-    private boolean ver_hitbox = true;
+    private boolean ver_hitbox = false;
     private Rectangle personaje_R;
 
     public Prueba() {
@@ -41,17 +41,7 @@ public class Prueba extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
-        SpriteSheet sprite_esqueleto = new SpriteSheet("./resources/sprites/sprite_esqueleto.png", ancho_esqueleto, largo_esqueleto);
-        esqueleto = new Animation();
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 9; i++) {
-                esqueleto.addFrame(sprite_esqueleto.getSprite(i, j), 50);
-            }
-        }
-
-        //Rectangulo colision personaje
-        personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60);
-        //gc.setMouseCursor(cursor, gc.getInput().getMouseX(), gc.getInput().getMouseY());
+        ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60));
     }
 
     /**
@@ -65,7 +55,7 @@ public class Prueba extends BasicGameState {
         grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
-        esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
+        ruby.renderPersonaje(gc);
 
         //Cursor
         grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
@@ -77,26 +67,10 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-
-        //Movimiento del jugador
-        if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
-            y += i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(0, (i / 3.f));
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-            y -= i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(0, -(i / 3.f));
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            x += i / 3.f;  //i=tiempo de update
-            map.actualizarElementos((i / 3.f), 0);
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            x -= i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(-(i / 3.f), 0);
-        }
-
-        animaPersonaje(gc);
+        float mov[] = ruby.capturaMovimiento(gc, i);
+        x += mov[0];
+        y += mov[1];
+        map.actualizarElementos(mov[0], mov[1]);
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
@@ -107,7 +81,7 @@ public class Prueba extends BasicGameState {
         }
 
         //HITBOX
-        ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
+        /*ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
         Rectangle reNear = null;
         float reDistance, newReDistance;
         boolean hayColision;
@@ -117,13 +91,13 @@ public class Prueba extends BasicGameState {
             for (Hitbox re : map.getBlocks()) {
                 if (personaje_R.intersects(re.getRectangulo())) {
                     hayColision = true;
-                    blocksColision.add(re.getRectangulo());
-                    /*
+                    blocksColision.add(re.getRectangulo());*/
+ /*
                     y -= i / 3.f;
                     actualizaMuros(0, -(i / 3.f));
                     click = "colisión";
-                     */
-                }
+         */
+ /* }
             }
             if (blocksColision.size() > 0) {
                 reNear = blocksColision.get(0);
@@ -139,7 +113,7 @@ public class Prueba extends BasicGameState {
             if (hayColision) {
                 colision(reNear, i, gc);
             }
-        } while (false);
+        } while (false);*/
     }
 
     public void colision(Rectangle re, int i, GameContainer gc) {
@@ -171,47 +145,6 @@ public class Prueba extends BasicGameState {
         if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             x += i / 3.f;  //i=tiempo de update
             map.actualizarElementos((i / 3.f), 0);
-        }
-    }
-
-    public void animaPersonaje(GameContainer gc) {
-        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(9);
-            }
-        } else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            if ((26 < esqueleto.getFrame()) && (esqueleto.getFrame() < 35)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(27);
-            }
-        } else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
-            if (esqueleto.getFrame() < 8) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(0);
-            }
-        } else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-            if ((17 < esqueleto.getFrame()) && (esqueleto.getFrame() < 26)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(18);
-            }
-        }
-
-        if (!(gc.getInput().isKeyDown(Input.KEY_W)
-                || gc.getInput().isKeyDown(Input.KEY_A)
-                || gc.getInput().isKeyDown(Input.KEY_S)
-                || gc.getInput().isKeyDown(Input.KEY_D)
-                || gc.getInput().isKeyDown(Input.KEY_UP)
-                || gc.getInput().isKeyDown(Input.KEY_DOWN)
-                || gc.getInput().isKeyDown(Input.KEY_LEFT)
-                || gc.getInput().isKeyDown(Input.KEY_RIGHT))) {
-            esqueleto.stop();
-        } else {
-            esqueleto.start();
         }
     }
 
