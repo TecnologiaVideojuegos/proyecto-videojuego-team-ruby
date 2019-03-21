@@ -11,7 +11,7 @@ public class Jugador extends Personaje {
     private boolean combate;
 
     public Jugador(Hitbox hitbox) throws SlickException {
-        super("Ruby", hitbox, new Animacion_dinamica("./resources/sprites/sprite_esqueleto.png"), 100, 100);
+        super("Ruby", hitbox, new Animacion_dinamica("./resources/sprites/Ruby.png"), 100, 100);
     }
 
     public Jugador(String nombre, Hitbox hitbox, Animacion animacion, int vida, int dinero) {

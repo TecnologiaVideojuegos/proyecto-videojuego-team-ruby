@@ -21,8 +21,8 @@ public class Demo extends BasicGameState {
     private double x, y;
 
     //PERSONAJE
-    private Animation esqueleto;
-    private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
+    private Animation Ruby_w, Ruby_a, Ruby_s, Ruby_d;
+    private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32, lado_animacion = 0;
 
     //RATÓN
     private String coordenadas = "", click = "";
@@ -35,6 +35,9 @@ public class Demo extends BasicGameState {
     private boolean ver_hitbox = true;
     private Rectangle personaje_R;
     private Rectangle relleno = null;
+
+    //INTERACCIONES 
+    private Image bocadillo;
 
     public Demo() {
         blocks = new ArrayList<>();
@@ -49,16 +52,27 @@ public class Demo extends BasicGameState {
         //cursor_img = new Image("./resources/sprites/cursor.png");
 
         map = new TiledMap("./resources/maps/demo_map.tmx");
-        SpriteSheet sprite_esqueleto = new SpriteSheet("./resources/sprites/sprite_esqueleto.png", ancho_esqueleto, largo_esqueleto);
-        esqueleto = new Animation();
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 9; i++) {
-                esqueleto.addFrame(sprite_esqueleto.getSprite(i, j), 50);
-            }
-        }
+        SpriteSheet sprite_Ruby = new SpriteSheet("./resources/sprites/Ruby.png", ancho_Ruby, largo_Ruby);
+        Ruby_w = new Animation();
+        Ruby_a = new Animation();
+        Ruby_s = new Animation();
+        Ruby_d = new Animation();
+        Ruby_s.addFrame(sprite_Ruby.getSprite(0, 0), 200);
+        Ruby_s.addFrame(sprite_Ruby.getSprite(2, 0), 200);
+        Ruby_s.addFrame(sprite_Ruby.getSprite(1, 0), 200);
+        Ruby_a.addFrame(sprite_Ruby.getSprite(0, 1), 200);
+        Ruby_a.addFrame(sprite_Ruby.getSprite(2, 1), 200);
+        Ruby_a.addFrame(sprite_Ruby.getSprite(1, 1), 200);
+        Ruby_d.addFrame(sprite_Ruby.getSprite(0, 2), 200);
+        Ruby_d.addFrame(sprite_Ruby.getSprite(2, 2), 200);
+        Ruby_d.addFrame(sprite_Ruby.getSprite(1, 2), 200);
+        Ruby_w.addFrame(sprite_Ruby.getSprite(0, 3), 200);
+        Ruby_w.addFrame(sprite_Ruby.getSprite(2, 3), 200);
+        Ruby_w.addFrame(sprite_Ruby.getSprite(1, 3), 200);
+        
 
         //Rectangulo colision personaje
-        personaje_R = new Rectangle(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60);
+        personaje_R = new Rectangle((gc.getWidth() / 2 - (ancho_Ruby - 30))-5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32);
 
         //Carga de muros en memoria
         cargaMuros();
@@ -78,7 +92,22 @@ public class Demo extends BasicGameState {
         grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
-        esqueleto.draw(gc.getWidth() / 2 - ancho_esqueleto, gc.getHeight() / 2 - largo_esqueleto, ancho_esqueleto * size_esqueleto, largo_esqueleto * size_esqueleto);
+        switch (lado_animacion) {
+            case 0:
+                Ruby_w.draw(gc.getWidth() / 2 - ancho_Ruby, gc.getHeight() / 2 - largo_Ruby, ancho_Ruby * size_Ruby, largo_Ruby * size_Ruby);
+                break;
+            case 1:
+                Ruby_a.draw(gc.getWidth() / 2 - ancho_Ruby, gc.getHeight() / 2 - largo_Ruby, ancho_Ruby * size_Ruby, largo_Ruby * size_Ruby);
+                break;
+            case 2:
+                Ruby_s.draw(gc.getWidth() / 2 - ancho_Ruby, gc.getHeight() / 2 - largo_Ruby, ancho_Ruby * size_Ruby, largo_Ruby * size_Ruby);
+                break;
+            case 3:
+                Ruby_d.draw(gc.getWidth() / 2 - ancho_Ruby, gc.getHeight() / 2 - largo_Ruby, ancho_Ruby * size_Ruby, largo_Ruby * size_Ruby);
+                break;
+            default:
+                break;
+        }
 
         //Cursor
         //cursor_img.draw(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY(), cursor_img.getHeight(), cursor_img.getWidth());
@@ -153,11 +182,12 @@ public class Demo extends BasicGameState {
 
         //HITBOX
         for (Rectangle re : blocks) {
-            if (personaje_R.intersects(re)) {
+            while (personaje_R.intersects(re)) {
                 colision(re, i, gc);
-                mejora_colision(i, gc);
+                mejoraColision(i, gc);
             }
         }
+
     }
 
     public void colision(Rectangle re, int i, GameContainer gc) {
@@ -180,7 +210,7 @@ public class Demo extends BasicGameState {
         }
     }
 
-    public void mejora_colision(int i, GameContainer gc) {
+    public void mejoraColision(int i, GameContainer gc) {
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y += i / 3.f;  //i=tiempo de update
             actualizaMuros(0, (i / 3.f));
@@ -225,31 +255,29 @@ public class Demo extends BasicGameState {
 
     public void animaPersonaje(GameContainer gc) {
         if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            if ((8 < esqueleto.getFrame()) && (esqueleto.getFrame() < 17)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(9);
+            lado_animacion = 1;
+            if(Ruby_a.getFrame() == 2) {
+                Ruby_a.setCurrentFrame(0);
             }
         } else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            if ((26 < esqueleto.getFrame()) && (esqueleto.getFrame() < 35)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(27);
+            Ruby_d.start();
+            lado_animacion = 3;
+            if(Ruby_d.getFrame() == 2) {
+                Ruby_d.setCurrentFrame(0);
             }
         } else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
-            if (esqueleto.getFrame() < 8) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(0);
+            Ruby_w.start();
+            lado_animacion = 0;
+            if(Ruby_w.getFrame() == 2) {
+                Ruby_w.setCurrentFrame(0);
             }
         } else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-            if ((17 < esqueleto.getFrame()) && (esqueleto.getFrame() < 26)) {
-                esqueleto.start();
-            } else {
-                esqueleto.setCurrentFrame(18);
+            Ruby_s.start();
+            lado_animacion = 2;
+            if(Ruby_s.getFrame() == 2) {
+                Ruby_s.setCurrentFrame(0);
             }
         }
-
         if (!(gc.getInput().isKeyDown(Input.KEY_W)
                 || gc.getInput().isKeyDown(Input.KEY_A)
                 || gc.getInput().isKeyDown(Input.KEY_S)
@@ -258,9 +286,19 @@ public class Demo extends BasicGameState {
                 || gc.getInput().isKeyDown(Input.KEY_DOWN)
                 || gc.getInput().isKeyDown(Input.KEY_LEFT)
                 || gc.getInput().isKeyDown(Input.KEY_RIGHT))) {
-            esqueleto.stop();
+            Ruby_w.stop();
+            Ruby_w.setCurrentFrame(2);
+            Ruby_a.stop();
+            Ruby_a.setCurrentFrame(2);
+            Ruby_s.stop();
+            Ruby_s.setCurrentFrame(2);
+            Ruby_d.stop();
+            Ruby_d.setCurrentFrame(2);
         } else {
-            esqueleto.start();
+            Ruby_w.start();
+            Ruby_a.start();
+            Ruby_s.start();
+            Ruby_d.start();
         }
     }
 
