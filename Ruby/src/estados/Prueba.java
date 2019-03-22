@@ -28,7 +28,7 @@ public class Prueba extends BasicGameState {
     private Image cursor;
 
     //HITBOX
-    private boolean ver_hitbox = false;
+    private boolean ver_hitbox = true;
     private Rectangle personaje_R;
 
     public Prueba() {

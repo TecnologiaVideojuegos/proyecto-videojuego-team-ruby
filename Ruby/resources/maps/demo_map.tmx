@@ -13,7 +13,7 @@
  </layer>
  <layer id="8" name="NPCs" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OMQ0AAAgDsPnXgVAU7CYkrYImAAAA3VwHAAAAAAAAAAAAAHhjAUFhrtqwNgAA
+   H4sIAAAAAAAACu3UoREAIAwEwdAqtaXQKCSO4c1uBaeuCgAA4K7TAQAAAAAAH+yVLgDg8GSAdzwVAICEAScdLl2wNgAA
   </data>
  </layer>
  <layer id="9" name="Enemigos" width="70" height="50">
