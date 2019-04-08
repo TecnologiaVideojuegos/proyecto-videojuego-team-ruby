@@ -31,6 +31,8 @@ public class Prueba extends BasicGameState {
     private boolean ver_hitbox = true;
     private Rectangle personaje_R;
 
+    private StateBasedGame game;
+    
     public Prueba() {
     }
 
@@ -39,6 +41,7 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.game = sbg;
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60));
@@ -151,5 +154,12 @@ public class Prueba extends BasicGameState {
     @Override
     public int getID() {
         return 1;
+    }
+    
+    @Override
+    public void keyPressed(int key, char c) {
+        if(key == Input.KEY_F11){
+            game.enterState(0); //DEMO
+        }
     }
 }

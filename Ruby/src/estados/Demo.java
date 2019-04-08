@@ -38,7 +38,9 @@ public class Demo extends BasicGameState {
 
     //INTERACCIONES 
     private Image bocadillo;
-
+    
+    private StateBasedGame game;
+    
     public Demo() {
         blocks = new ArrayList<>();
     }
@@ -51,6 +53,8 @@ public class Demo extends BasicGameState {
         //gc.setMouseGrabbed(true);
         //cursor_img = new Image("./resources/sprites/cursor.png");
 
+        this.game = sbg;
+        
         map = new TiledMap("./resources/maps/demo_map.tmx");
         SpriteSheet sprite_Ruby = new SpriteSheet("./resources/sprites/Ruby.png", ancho_Ruby, largo_Ruby);
         Ruby_w = new Animation();
@@ -331,4 +335,11 @@ public class Demo extends BasicGameState {
         }
     }
 
+    
+    @Override
+    public void keyPressed(int key, char c) {
+        if(key == Input.KEY_F11){
+            game.enterState(1); //Prueba
+        }
+    }
 }
