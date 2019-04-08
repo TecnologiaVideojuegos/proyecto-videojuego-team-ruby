@@ -2,16 +2,15 @@ package estados;
 
 import elementos.Hitbox;
 import elementos.Mapa;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.*;
+import core.*;
 
 public class Prueba extends BasicGameState {
 
@@ -20,7 +19,6 @@ public class Prueba extends BasicGameState {
 
     //PERSONAJE
     private Jugador ruby;
-    private Animation esqueleto;
     private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
 
     //RATÓN
@@ -29,10 +27,9 @@ public class Prueba extends BasicGameState {
 
     //HITBOX
     private boolean ver_hitbox = true;
-    private Rectangle personaje_R;
 
     private StateBasedGame game;
-    
+
     public Prueba() {
     }
 
@@ -70,7 +67,7 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        float mov[] = ruby.capturaMovimiento(gc, i);
+        float mov[] = InputCapture.capturaMovimiento(gc, i);
         x += mov[0];
         y += mov[1];
         map.actualizarElementos(mov[0], mov[1]);
@@ -82,83 +79,16 @@ public class Prueba extends BasicGameState {
         } else {
             click = "";
         }
-
-        //HITBOX
-        /*ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
-        Rectangle reNear = null;
-        float reDistance, newReDistance;
-        boolean hayColision;
-        do {
-            blocksColision.clear();
-            hayColision = false;
-            for (Hitbox re : map.getBlocks()) {
-                if (personaje_R.intersects(re.getRectangulo())) {
-                    hayColision = true;
-                    blocksColision.add(re.getRectangulo());*/
- /*
-                    y -= i / 3.f;
-                    actualizaMuros(0, -(i / 3.f));
-                    click = "colisión";
-         */
- /* }
-            }
-            if (blocksColision.size() > 0) {
-                reNear = blocksColision.get(0);
-                reDistance = (float) Math.sqrt((Math.pow(reNear.getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(reNear.getCenterY() - personaje_R.getCenterY(), 2)));
-                for (int j = 1; j < blocksColision.size(); j++) {
-                    newReDistance = (float) Math.sqrt((Math.pow(blocksColision.get(j).getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(blocksColision.get(j).getCenterY() - personaje_R.getCenterY(), 2)));
-                    if (newReDistance < reDistance) {
-                        reDistance = newReDistance;
-                        reNear = blocksColision.get(j);
-                    }
-                }
-            }
-            if (hayColision) {
-                colision(reNear, i, gc);
-            }
-        } while (false);*/
-    }
-
-    public void colision(Rectangle re, int i, GameContainer gc) {
-        boolean isUp, isLeft;
-
-        if ((personaje_R.getCenterY() - re.getCenterY()) > 0) {
-            isUp = false;
-        } else {
-            isUp = true;
-        }
-        if ((personaje_R.getCenterX() - re.getCenterX()) > 0) {
-            isLeft = false;
-        } else {
-            isLeft = true;
-        }
-
-        if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
-            y -= i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(0, -(i / 3.f));
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
-            y += i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(0, (i / 3.f));
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            x -= i / 3.f;  //i=tiempo de update
-            map.actualizarElementos(-(i / 3.f), 0);
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            x += i / 3.f;  //i=tiempo de update
-            map.actualizarElementos((i / 3.f), 0);
-        }
     }
 
     @Override
     public int getID() {
         return 1;
     }
-    
+
     @Override
     public void keyPressed(int key, char c) {
-        if(key == Input.KEY_F11){
+        if (key == Input.KEY_F11) {
             game.enterState(0); //DEMO
         }
     }
