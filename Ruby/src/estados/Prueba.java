@@ -2,17 +2,16 @@ package estados;
 
 import elementos.Hitbox;
 import elementos.Mapa;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.*;
+import services.*;
 
 public class Prueba extends BasicGameState {
 
@@ -21,18 +20,15 @@ public class Prueba extends BasicGameState {
 
     //PERSONAJE
     private Jugador ruby;
-    private Animation esqueleto;
     private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
 
     //RATÓN
     private String coordenadas = "", click = "";
     private Image cursor;
-    private Mouse mouse;
     private Circle cursor_hitbox;
 
     //HITBOX
     private boolean ver_hitbox = true;
-    private Rectangle personaje_R;
 
     private StateBasedGame game;
 
@@ -48,7 +44,6 @@ public class Prueba extends BasicGameState {
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60));
-        mouse = new Mouse(ruby);
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
 
@@ -77,68 +72,27 @@ public class Prueba extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
-
-        float mov[] = ruby.capturaMovimiento(gc, i, map);
+        
+        //Captura movimiento Ruby
+        float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
         x += mov[0];
         y += mov[1];
+
+        //Actualización de elementos del mapa
         map.actualizarElementos(mov[0], mov[1]);
 
-        for (Hitbox hitbox : map.getBlocks()) {
-            while (ruby.getHitbox().getRectangulo().intersects(hitbox.getRectangulo())) {
-                mov = ruby.colision(map.getBlocks(), i, gc, map, ruby.getHitbox().getRectangulo());
-                x += mov[0];
-                y += mov[1];
-            }
-        }
-
-        if (gc.getInput().isMouseButtonDown(0)) {
-            Hitbox x = mouse.actualizarMouse(map.getHuerto(), cursor_hitbox);
-            if (x != null) {
-                click = "click";
-            } else {
-                click = "";
-            }
-        }else{
-            click = "";
-        }
+        //Colision con muros
+        mov = Colision_Service.colisionMuros(ruby, map, gc, i);
+        x += mov[0];
+        y += mov[1];
+        
+        //Detección de click sobre huerto
+        click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+        
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
-
-        //HITBOX
-        /*ArrayList<Rectangle> blocksColision = new ArrayList<Rectangle>();
-        Rectangle reNear = null;
-        float reDistance, newReDistance;
-        boolean hayColision;
-        do {
-            blocksColision.clear();
-            hayColision = false;
-            for (Hitbox re : map.getBlocks()) {
-                if (personaje_R.intersects(re.getRectangulo())) {
-                    hayColision = true;
-                    blocksColision.add(re.getRectangulo());*/
- /*
-                    y -= i / 3.f;
-                    actualizaMuros(0, -(i / 3.f));
-                    click = "colisión";
-         */
- /* }
-            }
-            if (blocksColision.size() > 0) {
-                reNear = blocksColision.get(0);
-                reDistance = (float) Math.sqrt((Math.pow(reNear.getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(reNear.getCenterY() - personaje_R.getCenterY(), 2)));
-                for (int j = 1; j < blocksColision.size(); j++) {
-                    newReDistance = (float) Math.sqrt((Math.pow(blocksColision.get(j).getCenterX() - personaje_R.getCenterX(), 2)) - (Math.pow(blocksColision.get(j).getCenterY() - personaje_R.getCenterY(), 2)));
-                    if (newReDistance < reDistance) {
-                        reDistance = newReDistance;
-                        reNear = blocksColision.get(j);
-                    }
-                }
-            }
-            if (hayColision) {
-                colision(reNear, i, gc);
-            }
-        } while (false);*/
+        
     }
 
     @Override

@@ -6,16 +6,14 @@ import org.newdawn.slick.GameContainer;
 public abstract class Personaje {
 
     private String nombre;
-    private Hitbox hitbox;
-    private Animacion animacion;
+    protected Hitbox hitbox;
     private int vida;
     private int dinero;
     //private String[][] inventario;
 
-    public Personaje(String nombre, Hitbox hitbox, Animacion animacion, int vida, int dinero) {
+    public Personaje(String nombre, Hitbox hitbox, int vida, int dinero) {
         this.nombre = nombre;
         this.hitbox = hitbox;
-        this.animacion = animacion;
         this.vida = vida;
         this.dinero = dinero;
     }
@@ -34,14 +32,6 @@ public abstract class Personaje {
 
     public void setHitbox(Hitbox hitbox) {
         this.hitbox = hitbox;
-    }
-
-    public Animacion getAnimacion() {
-        return animacion;
-    }
-
-    public void setAnimacion(Animacion animacion) {
-        this.animacion = animacion;
     }
 
     public int getVida() {
@@ -65,7 +55,5 @@ public abstract class Personaje {
              Render animacion
      */
     
-    public void renderPersonaje(GameContainer gc){
-        animacion.renderAnimacion( gc, hitbox.getRectangulo().getX(),  hitbox.getRectangulo().getY());
-    }
+    public abstract void renderPersonaje(GameContainer gc);
 }
