@@ -31,6 +31,8 @@ public class Prueba extends BasicGameState {
     private boolean ver_hitbox = true;
 
     private StateBasedGame game;
+    
+    private float mov[] = new float[2]; //Movimiento entre cada update
 
     public Prueba() {
     }
@@ -58,7 +60,7 @@ public class Prueba extends BasicGameState {
         grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
-        ruby.renderPersonaje(gc);
+        ruby.renderPersonaje(gc, mov[0], mov[1]);
         if (ver_hitbox) {
             grphcs.drawRect(ruby.getHitbox().getRectangulo().getX(), ruby.getHitbox().getRectangulo().getY(), ruby.getHitbox().getRectangulo().getWidth(), ruby.getHitbox().getRectangulo().getHeight());
         }
@@ -77,7 +79,7 @@ public class Prueba extends BasicGameState {
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
         //Captura movimiento Ruby
-        float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
+        mov = InputCapture_Service.capturaMovimiento(gc, i);
         x += mov[0];    // Agregamos movimiento sobre el ejeX
         y += mov[1];    // Agregamos movimiento sobre el ejeY
 
@@ -85,9 +87,9 @@ public class Prueba extends BasicGameState {
         map.actualizarElementos(mov[0], mov[1]);
 
         //Colision con muros
-        mov = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
-        x += mov[0];
-        y += mov[1];
+        float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
+        x += movColision[0];
+        y += movColision[1];
 
         //Detección de click sobre huerto
         click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);

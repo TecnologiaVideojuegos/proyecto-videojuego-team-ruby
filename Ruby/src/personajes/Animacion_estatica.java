@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Animacion_estatica extends Animacion{
+public class Animacion_estatica{
 
     private Image img;
 
@@ -22,8 +22,7 @@ public class Animacion_estatica extends Animacion{
         this.img = img;
     }
     
-    @Override
-    public void renderAnimacion(GameContainer gc, float pos_x, float pos_y) {  
+    public void renderAnimacion(float pos_x, float pos_y) {  
         img.draw(pos_x, pos_y - img.getHeight()/2);
     }
 

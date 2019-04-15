@@ -54,6 +54,5 @@ public abstract class Personaje {
     /* TODO: Update animacion
              Render animacion
      */
-    
-    public abstract void renderPersonaje(GameContainer gc);
+    public abstract void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY);
 }

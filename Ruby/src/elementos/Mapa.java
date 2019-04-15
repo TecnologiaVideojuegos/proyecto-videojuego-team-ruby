@@ -14,9 +14,8 @@ public class Mapa {
 
     //Elementos del mapa
     private ArrayList<Hitbox> blocks;   //Elementos del mapa bloqueados al movimiento
-    //private ArrayList<Hitbox> enemigos;
     private ArrayList<Enemigo> enemigos;
-    //private ArrayList<Hitbox> npcs;
+    private ArrayList<Boss> bosses;
     private ArrayList<Npc> npcs;
     private ArrayList<Hitbox> huerto;
 
@@ -31,10 +30,12 @@ public class Mapa {
         //Carga de elementos del mapa
         blocks = new ArrayList<>();
         enemigos = new ArrayList<>();
+        bosses = new ArrayList<>();
         npcs = new ArrayList<>();
         huerto = new ArrayList<>();
         cargaMuros();
         cargaEnemigos();
+        cargaBosses();
         cargaNPCs();
         cargaHuerto();
         /*TODO: cargaSaltosEstado */
@@ -105,6 +106,23 @@ public class Mapa {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
                         enemigos.add(new Enemigo(
+                                "Enemigo",
+                                new Hitbox((float) i * 32, (float) j * 32, 32, 32),
+                                10));  //32 = ancho del patron
+                    }
+                }
+            }
+        }
+    }
+    
+    private void cargaBosses() throws SlickException {
+        int wallLayer = map.getLayerIndex("Bosses");
+
+        if (wallLayer != -1) {    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        bosses.add(new Boss(
                                 "Boss",
                                 new Hitbox((float) i * 32, (float) j * 32, 32, 32),
                                 10));  //32 = ancho del patron
@@ -160,6 +178,13 @@ public class Mapa {
                 enemigo.getHitbox().updatePos(pos_x, pos_y);
             });
         }
+        
+        //Elementos bosses
+        if (!bosses.isEmpty()) {
+            bosses.forEach((boss) -> {
+                boss.getHitbox().updatePos(pos_x, pos_y);
+            });
+        }
 
         //Elementos npc
         if (!npcs.isEmpty()) {
@@ -201,16 +226,25 @@ public class Mapa {
 
         //Elementos tipo enemigo
         for (Enemigo enemigo : enemigos) {
-            enemigo.renderPersonaje(gc);
+            enemigo.renderPersonaje(gc,0,0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.red);
                 grphcs.drawRect(enemigo.getHitbox().getRectangulo().getX(), enemigo.getHitbox().getRectangulo().getY(), enemigo.getHitbox().getRectangulo().getWidth(), enemigo.getHitbox().getRectangulo().getHeight());
             }
         }
+        
+        //Elementos tipo boss
+        for (Boss boss : bosses) {
+            boss.renderPersonaje(gc,0,0);
+            if (ver_hitbox) {
+                grphcs.setColor(Color.red);
+                grphcs.drawRect(boss.getHitbox().getRectangulo().getX(), boss.getHitbox().getRectangulo().getY(), boss.getHitbox().getRectangulo().getWidth(), boss.getHitbox().getRectangulo().getHeight());
+            }
+        }
 
         //Elementos tipo npc
         for (Npc npc : npcs) {
-            npc.renderPersonaje(gc);
+            npc.renderPersonaje(gc,0,0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.green);
                 grphcs.drawRect(npc.getHitbox().getRectangulo().getX(), npc.getHitbox().getRectangulo().getY(), npc.getHitbox().getRectangulo().getWidth(), npc.getHitbox().getRectangulo().getHeight());

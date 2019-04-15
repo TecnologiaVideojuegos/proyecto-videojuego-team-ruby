@@ -19,16 +19,15 @@ public class Jugador extends Personaje {
         super(nombre, hitbox, vida, dinero);
         this.animacion = animacion;
     }
-    
+
     // TODO: implementar movimiento jugador
     // TODO: pelear
     // TODO: comprar
     // TODO: vender
     // TODO: plantar
     // TODO: recolectar
-
     @Override
-    public void renderPersonaje(GameContainer gc) {
-        animacion.renderAnimacion(gc, hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
+    public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
+        animacion.renderAnimacion(movEjeX, movEjeY, (gc.getWidth() / 2), (gc.getHeight() / 2)); 
     }
 }

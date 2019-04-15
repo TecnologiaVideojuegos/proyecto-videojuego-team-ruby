@@ -4,22 +4,22 @@ import elementos.Hitbox;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
-public class Enemigo extends Personaje {
+public class Boss extends Personaje {
 
     private int nivel;
     private boolean combate;
-    private Animacion_dinamica animacion;
-    private int decisionMovAnteX = 0, decisionMovAnteY = 0;
+    private Animacion_estatica animacion;
 
-    public Enemigo(String nombre, Hitbox hitbox, int nivel) throws SlickException {
+    public Boss(String nombre, Hitbox hitbox, int nivel) throws SlickException {
         // TODO: modificar animación original por Animacion_dinamica cuando haya sprite
         super(nombre, hitbox, 100, 20);
-        this.animacion = new Animacion_dinamica("./resources/sprites/Ruby.png"); //TODO pendiente de modificacion de la ruta
+        animacion = new Animacion_estatica("./resources/img/enemigo.png");
+
         this.nivel = nivel;
         this.combate = false;
     }
 
-    public Enemigo(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) {
+    public Boss(String nombre, Hitbox hitbox, Animacion_estatica animacion, int vida, int dinero, int nivel) {
         super(nombre, hitbox, vida, dinero);
         this.nivel = nivel;
         this.combate = false;
@@ -42,20 +42,8 @@ public class Enemigo extends Personaje {
         this.combate = combate;
     }
 
-    //Movimiento dinamico del enemigo
-    public void movimientoEnemigo(GameContainer gc, int i) {
-        switch ((int) (Math.random() * 3)) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
-    }
-
     @Override
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
-        animacion.renderAnimacion(movEjeX, movEjeY, hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
+        animacion.renderAnimacion(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
     }
 }

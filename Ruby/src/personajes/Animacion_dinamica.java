@@ -6,7 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class Animacion_dinamica extends Animacion {
+public class Animacion_dinamica {
 
     // TODO: fijar valores para todos los sprites
     private final int ANCHO = 32;   // Ancho de cada frame del sprite
@@ -18,7 +18,6 @@ public class Animacion_dinamica extends Animacion {
     private SpriteSheet sprite;
 
     public Animacion_dinamica(String dir) throws SlickException {
-        super();
 
         sprite = new SpriteSheet(dir, ANCHO, ALTO);
 
@@ -41,39 +40,32 @@ public class Animacion_dinamica extends Animacion {
 
     }
 
-    public void animaPersonaje(GameContainer gc) {
-        if (gc.getInput().isKeyDown(Input.KEY_A) || gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+    public void animaPersonaje(float movEjeX, float movEjeY) {
+        if (movEjeX > 0) {
             lado_animacion = 1;
             if (animacion_a.getFrame() == 2) {
                 animacion_a.setCurrentFrame(0);
             }
-        } else if (gc.getInput().isKeyDown(Input.KEY_D) || gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+        } else if (movEjeX < 0) {
             animacion_d.start();
             lado_animacion = 3;
             if (animacion_d.getFrame() == 2) {
                 animacion_d.setCurrentFrame(0);
             }
-        } else if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
+        } else if (movEjeY > 0) {
             animacion_w.start();
             lado_animacion = 0;
             if (animacion_w.getFrame() == 2) {
                 animacion_w.setCurrentFrame(0);
             }
-        } else if (gc.getInput().isKeyDown(Input.KEY_S) || gc.getInput().isKeyDown(Input.KEY_DOWN)) {
+        } else if (movEjeY < 0) {
             animacion_s.start();
             lado_animacion = 2;
             if (animacion_s.getFrame() == 2) {
                 animacion_s.setCurrentFrame(0);
             }
         }
-        if (!(gc.getInput().isKeyDown(Input.KEY_W)
-                || gc.getInput().isKeyDown(Input.KEY_A)
-                || gc.getInput().isKeyDown(Input.KEY_S)
-                || gc.getInput().isKeyDown(Input.KEY_D)
-                || gc.getInput().isKeyDown(Input.KEY_UP)
-                || gc.getInput().isKeyDown(Input.KEY_DOWN)
-                || gc.getInput().isKeyDown(Input.KEY_LEFT)
-                || gc.getInput().isKeyDown(Input.KEY_RIGHT))) {
+        if (movEjeX == 0 || movEjeY == 0) {
             animacion_w.stop();
             animacion_w.setCurrentFrame(2);
             animacion_a.stop();
@@ -90,22 +82,21 @@ public class Animacion_dinamica extends Animacion {
         }
     }
 
-    @Override
-    public void renderAnimacion(GameContainer gc, float pos_x, float pos_y) {
-        animaPersonaje(gc);
+    public void renderAnimacion(float movEjeX, float movEjeY, float posX, float posY) {
+        animaPersonaje(movEjeX, movEjeY);
         //Jugador
         switch (lado_animacion) {
             case 0:
-                animacion_w.draw(gc.getWidth() / 2 - ANCHO, gc.getHeight() / 2 - ALTO, ANCHO * size, ALTO * size);
+                animacion_w.draw(posX - ANCHO, posY - ALTO, ANCHO * size, ALTO * size);
                 break;
             case 1:
-                animacion_a.draw(gc.getWidth() / 2 - ANCHO, gc.getHeight() / 2 - ALTO, ANCHO * size, ALTO * size);
+                animacion_a.draw(posX - ANCHO, posY - ALTO, ANCHO * size, ALTO * size);
                 break;
             case 2:
-                animacion_s.draw(gc.getWidth() / 2 - ANCHO, gc.getHeight() / 2 - ALTO, ANCHO * size, ALTO * size);
+                animacion_s.draw(posX - ANCHO, posY - ALTO, ANCHO * size, ALTO * size);
                 break;
             case 3:
-                animacion_d.draw(gc.getWidth() / 2 - ANCHO, gc.getHeight() / 2 - ALTO, ANCHO * size, ALTO * size);
+                animacion_d.draw(posX - ANCHO, posY - ALTO, ANCHO * size, ALTO * size);
                 break;
             default:
                 break;
