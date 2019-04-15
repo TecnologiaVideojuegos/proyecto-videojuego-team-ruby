@@ -195,7 +195,6 @@ public class Demo extends BasicGameState {
     }
 
     public void colision(Rectangle re, int i, GameContainer gc) {
-
         if (gc.getInput().isKeyDown(Input.KEY_W) || gc.getInput().isKeyDown(Input.KEY_UP)) {
             y -= i / 3.f;  //i=tiempo de update
             actualizaMuros(0, -(i / 3.f));
