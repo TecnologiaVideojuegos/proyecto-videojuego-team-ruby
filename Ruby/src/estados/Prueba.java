@@ -20,7 +20,7 @@ public class Prueba extends BasicGameState {
 
     //PERSONAJE
     private Jugador ruby;
-    private int x_homer = 500, y_homer = 500, size_esqueleto = 2, ancho_esqueleto = 64, largo_esqueleto = 65;
+    private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
 
     //RATÓN
     private String coordenadas = "", click = "";
@@ -43,7 +43,7 @@ public class Prueba extends BasicGameState {
         this.game = sbg;
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
-        ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60));
+        ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
 
@@ -59,6 +59,9 @@ public class Prueba extends BasicGameState {
 
         //Jugador
         ruby.renderPersonaje(gc);
+        if (ver_hitbox) {
+            grphcs.drawRect(ruby.getHitbox().getRectangulo().getX(), ruby.getHitbox().getRectangulo().getY(), ruby.getHitbox().getRectangulo().getWidth(), ruby.getHitbox().getRectangulo().getHeight());
+        }
 
         //Cursor
         grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
@@ -72,27 +75,26 @@ public class Prueba extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
-        
+
         //Captura movimiento Ruby
         float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
-        x += mov[0];
-        y += mov[1];
+        x += mov[0];    // Agregamos movimiento sobre el ejeX
+        y += mov[1];    // Agregamos movimiento sobre el ejeY
 
         //Actualización de elementos del mapa
         map.actualizarElementos(mov[0], mov[1]);
 
         //Colision con muros
-        mov = Colision_Service.colisionMuros(ruby, map, gc, i);
+        mov = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
         x += mov[0];
         y += mov[1];
-        
+
         //Detección de click sobre huerto
         click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
-        
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
-        
+
     }
 
     @Override
