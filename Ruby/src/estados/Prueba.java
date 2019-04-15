@@ -1,6 +1,5 @@
 package estados;
 
-import services.InputCapture_Service;
 import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
@@ -9,10 +8,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.*;
+import services.*;
 
 public class Prueba extends BasicGameState {
 
@@ -26,7 +25,6 @@ public class Prueba extends BasicGameState {
     //RATÓN
     private String coordenadas = "", click = "";
     private Image cursor;
-    private Mouse mouse;
     private Circle cursor_hitbox;
 
     //HITBOX
@@ -46,7 +44,6 @@ public class Prueba extends BasicGameState {
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_esqueleto - 30), (gc.getHeight() / 2 - (largo_esqueleto - 25)) + 60, (ancho_esqueleto - 30) * size_esqueleto, ((largo_esqueleto - 15) * size_esqueleto) - 60));
-        mouse = new Mouse(ruby);
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
 
@@ -73,36 +70,25 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
-        //  TODO: Revisar
-        /*cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
+        cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
-
-        float mov[] = ruby.capturaMovimiento(gc, i, map);*/
-
-
+        
+        //Captura movimiento Ruby
+        float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
         x += mov[0];
         y += mov[1];
+
+        //Actualización de elementos del mapa
         map.actualizarElementos(mov[0], mov[1]);
 
-        for (Hitbox hitbox : map.getBlocks()) {
-            while (ruby.getHitbox().getRectangulo().intersects(hitbox.getRectangulo())) {
-                mov = ruby.colision(map.getBlocks(), i, gc, map, ruby.getHitbox().getRectangulo());
-                x += mov[0];
-                y += mov[1];
-            }
-        }
-
-        if (gc.getInput().isMouseButtonDown(0)) {
-            Hitbox x = mouse.actualizarMouse(map.getHuerto(), cursor_hitbox);
-            if (x != null) {
-                click = "click";
-            } else {
-                click = "";
-            }
-        }else{
-            click = "";
-        }
+        //Colision con muros
+        mov = Colision_Service.colisionMuros(ruby, map, gc, i);
+        x += mov[0];
+        y += mov[1];
+        
+        //Detección de click sobre huerto
+        click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+        
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
