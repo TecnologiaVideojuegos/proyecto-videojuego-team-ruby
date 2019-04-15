@@ -1,9 +1,9 @@
-package core;
+package services;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
-public class InputCapture {
+public class InputCapture_Service {
     
     public static float[] capturaMovimiento(GameContainer gc, int i) {
         float mov[] = new float[2];

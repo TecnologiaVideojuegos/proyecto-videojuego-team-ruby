@@ -1,5 +1,6 @@
 package estados;
 
+import services.InputCapture_Service;
 import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
@@ -10,7 +11,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.*;
-import core.*;
 
 public class Prueba extends BasicGameState {
 
@@ -67,7 +67,7 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        float mov[] = InputCapture.capturaMovimiento(gc, i);
+        float mov[] = InputCapture_Service.capturaMovimiento(gc, i);
         x += mov[0];
         y += mov[1];
         map.actualizarElementos(mov[0], mov[1]);
