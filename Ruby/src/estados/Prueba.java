@@ -91,6 +91,10 @@ public class Prueba extends BasicGameState {
         x += movColision[0];
         y += movColision[1];
 
+        
+        //Movimiento enemigos
+        map.movimientoEnemigos(i, gc);
+        
         //Detección de click sobre huerto
         click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
 
