@@ -1,15 +1,20 @@
 package core;
 
+import elementos.Hitbox;
 import estados.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import personajes.Jugador;
 
 public class Main extends StateBasedGame {
 
     private AppGameContainer contenedor;
-
+    private Jugador ruby;
+    private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
+    //TEST HITBOX
+    private boolean ver_hitbox = true;
     public Main(String string) throws SlickException {
         super(string);
         contenedor = new AppGameContainer(this);
@@ -22,8 +27,10 @@ public class Main extends StateBasedGame {
     //  Inicializa la lista de estados del juego
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
+        this.addState(new Prueba(ruby, ver_hitbox));
         this.addState(new Demo());
-        this.addState(new Prueba());
+        this.addState(new Prueba_Mazmorra(ruby, ver_hitbox));
     }
 
     public static void main(String[] args) {

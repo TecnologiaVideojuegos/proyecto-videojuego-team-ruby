@@ -18,14 +18,15 @@ public class Mapa {
     private ArrayList<Boss> bosses;
     private ArrayList<Npc> npcs;
     private ArrayList<Hitbox> huerto;
-
+    private ArrayList<Spawn> spawns;
+    
     //Constructor por defecto
     public Mapa() {
 
     }
 
     public Mapa(String ruta) throws SlickException {
-        this.map = new TiledMap(ruta);;
+        this.map = new TiledMap(ruta);
 
         //Carga de elementos del mapa
         blocks = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Mapa {
         bosses = new ArrayList<>();
         npcs = new ArrayList<>();
         huerto = new ArrayList<>();
+        spawns = new ArrayList<>();
         cargaMuros();
         cargaEnemigos();
         cargaBosses();
@@ -80,6 +82,24 @@ public class Mapa {
     public void setHuerto(ArrayList<Hitbox> huerto) {
         this.huerto = huerto;
     }
+
+    public ArrayList<Boss> getBosses() {
+        return bosses;
+    }
+
+    public void setBosses(ArrayList<Boss> bosses) {
+        this.bosses = bosses;
+    }
+
+    public ArrayList<Spawn> getSpawns() {
+        return spawns;
+    }
+
+    public void setSpawns(ArrayList<Spawn> spawns) {
+        this.spawns = spawns;
+    }
+    
+    
 
     //*****************************************************//
     //***              CARGA DE ELEMENTOS               ***//
@@ -199,6 +219,13 @@ public class Mapa {
                 hitbox.updatePos(pos_x, pos_y);
             });
         }
+        
+        //Elementos spawn
+        if (!spawns.isEmpty()) {
+            spawns.forEach((spawn) -> {
+                spawn.getHitbox().updatePos(pos_x, pos_y);
+            });
+        }
     }
     
     public void movimientoEnemigos(int i, GameContainer gc, Hitbox hitboxRuby){
@@ -274,12 +301,19 @@ public class Mapa {
                 grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
             }
             grphcs.setColor(Color.white);
+            
+            //Elementos tipo spawn
+            for(Spawn spawn: spawns){
+                grphcs.setColor(Color.pink);
+                grphcs.drawRect(spawn.getHitbox().getRectangulo().getX(), spawn.getHitbox().getRectangulo().getY(), spawn.getHitbox().getRectangulo().getWidth(), spawn.getHitbox().getRectangulo().getHeight());
+            }
+            grphcs.setColor(Color.white);
         }
     }
     
     
     //*****************************************************//
-    //***              GET POSICION SPAWNS              ***//
+    //***                    SPAWNS                     ***//
     //*****************************************************//
     public float[] getPosicionSpawn(String spawn){
         int wallLayer = map.getLayerIndex(spawn);
@@ -296,5 +330,19 @@ public class Mapa {
         }
         
         return posSpawn;
+    }
+    
+    public void agregarSpawn(String spawn){
+        int wallLayer = map.getLayerIndex(spawn);
+
+        if (wallLayer != -1) {    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        spawns.add(new Spawn(new Hitbox((float) (i * 32), (float) (j * 32), 32, 32),spawn));  //32 = ancho del patron
+                    }
+                }
+            }
+        }
     }
 }

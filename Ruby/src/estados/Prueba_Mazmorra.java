@@ -5,22 +5,22 @@ import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import personajes.*;
-import services.*;
+import personajes.Jugador;
+import services.Colision_Service;
+import services.InputCapture_Service;
 
-public class Prueba extends BasicGameState {
+public class Prueba_Mazmorra extends BasicGameState {
 
     private Mapa map;
     private float x, y;
 
     //PERSONAJE
     private Jugador ruby;
+    private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
 
     //RATÓN
     private String coordenadas = "", click = "";
@@ -36,39 +36,26 @@ public class Prueba extends BasicGameState {
 
     private float gcWidth, gcHeight;
 
-    public Prueba(Jugador ruby, boolean ver_hitbox) {
+    public Prueba_Mazmorra(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
     }
 
-    /**
-     * Inicializa
-     */
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
         cursor = new Image("./resources/sprites/cursor.png");
-        map = new Mapa("./resources/maps/demo_map.tmx");
-        map.agregarSpawn("SpawnSur");
+        map = new Mapa("./resources/maps/demo_map2.tmx");
+        map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
-
-        //Posicionar a Ruby en un spawn inicial
-        float posSapawnRuby[] = map.getPosicionSpawn("SpawnRuby");
-        x = -(posSapawnRuby[0]) + (gc.getWidth() / 2);
-        y = -(posSapawnRuby[1]) + (gc.getHeight() / 2) + 32;
-        map.actualizarElementos(x, y);
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
 
-    /**
-     * Dibuja
-     */
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics grphcs) throws SlickException {
-
         map.renderMap(gc, x, y, grphcs, ver_hitbox);
         grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
         grphcs.drawString(coordenadas, 35, 35);
@@ -81,12 +68,8 @@ public class Prueba extends BasicGameState {
 
         //Cursor
         grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
-
     }
 
-    /**
-     * Actualiza
-     */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
@@ -115,15 +98,15 @@ public class Prueba extends BasicGameState {
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
         //Comprobacion de salto de escenario
-        Prueba_Mazmorra p = (Prueba_Mazmorra) game.getState(2);
+        Prueba p = (Prueba) game.getState(0);
         switch (Colision_Service.saltoMapa(ruby, map)) {
-            case "SpawnSur":
-                p.posicinarEnSpawnARuby("SpawnNorte", 0, -100);
-                game.enterState(2);
+            case "SpawnNorte":
+                p.posicinarEnSpawnARuby("SpawnSur", 0, 100);
+                game.enterState(0);
                 break;
             case "SpawnEste":
                 p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                game.enterState(2);
+                game.enterState(0);
                 break;
             default:
         }
@@ -131,22 +114,15 @@ public class Prueba extends BasicGameState {
 
     @Override
     public int getID() {
-        return 0;
-    }
-
-    @Override
-    public void keyPressed(int key, char c) {
-        if (key == Input.KEY_F11) {
-            game.enterState(1); //DEMO
-        }
+        return 2;
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/demo_map.tmx");
-        map.agregarSpawn("SpawnSur");
+        map = new Mapa("./resources/maps/demo_map2.tmx");
+        map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
     }

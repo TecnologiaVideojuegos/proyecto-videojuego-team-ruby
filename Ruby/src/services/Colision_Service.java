@@ -2,6 +2,7 @@ package services;
 
 import elementos.Hitbox;
 import elementos.Mapa;
+import elementos.Spawn;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Rectangle;
@@ -90,6 +91,17 @@ public class Colision_Service {
         mov[1] = y;
 
         return mov;
+    }
+    
+    public static String saltoMapa(Personaje personaje, Mapa map){
+        String nombreSpawn = "";
+        
+        for(Spawn spawn: map.getSpawns()){
+            if(personaje.getHitbox().getRectangulo().intersects(spawn.getHitbox().getRectangulo())){
+                nombreSpawn = spawn.getNombre();
+            }
+        }
+        return nombreSpawn;
     }
 
 }
