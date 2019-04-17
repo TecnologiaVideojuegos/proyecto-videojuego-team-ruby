@@ -65,7 +65,7 @@ public class Animacion_dinamica {
                 animacion_s.setCurrentFrame(0);
             }
         }
-        if (movEjeX == 0 || movEjeY == 0) {
+        if (!(movEjeX != 0 || movEjeY != 0)) {
             animacion_w.stop();
             animacion_w.setCurrentFrame(2);
             animacion_a.stop();
