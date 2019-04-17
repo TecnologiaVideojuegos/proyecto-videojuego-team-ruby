@@ -201,11 +201,11 @@ public class Mapa {
         }
     }
     
-    public void movimientoEnemigos(int i, GameContainer gc){
+    public void movimientoEnemigos(int i, GameContainer gc, Hitbox hitboxRuby){
         //Elementos enemigos
         if (!enemigos.isEmpty()) {
             enemigos.forEach((enemigo) -> {
-                enemigo.movimientoEnemigo(i, this, gc);
+                enemigo.movimientoEnemigo(i, this, gc, hitboxRuby);
             });
         }
     }

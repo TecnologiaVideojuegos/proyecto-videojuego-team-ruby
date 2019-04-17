@@ -93,7 +93,7 @@ public class Prueba extends BasicGameState {
 
         
         //Movimiento enemigos
-        map.movimientoEnemigos(i, gc);
+        map.movimientoEnemigos(i, gc, ruby.getHitbox());
         
         //Detección de click sobre huerto
         click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
