@@ -276,4 +276,25 @@ public class Mapa {
             grphcs.setColor(Color.white);
         }
     }
+    
+    
+    //*****************************************************//
+    //***              GET POSICION SPAWNS              ***//
+    //*****************************************************//
+    public float[] getPosicionSpawn(String spawn){
+        int wallLayer = map.getLayerIndex(spawn);
+        float posSpawn[] = new float[2]; 
+        if (wallLayer != -1) {    //Si encuentra la capa
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        posSpawn[0] = (float) i*32;
+                        posSpawn[1] = (float) j*32;
+                    }
+                }
+            }
+        }
+        
+        return posSpawn;
+    }
 }

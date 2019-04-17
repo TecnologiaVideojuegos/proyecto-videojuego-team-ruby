@@ -46,7 +46,7 @@ public class Enemigo extends Personaje {
     //Movimiento dinamico del enemigo
     public void movimientoEnemigo(int i, Mapa map, GameContainer gc, Hitbox hitboxRuby) {
 
-        int distanciaAgro = 300; //Ditancia para coger AGRO
+        int distanciaAgro = 300;        //Ditancia para coger AGRO
         float reductorVelocidad = 6.f;  // Reductor de la velocidad de movimiento mayor con AGRO
 
         //Comprobamos distacia hasta Ruby (AGRO)
@@ -79,7 +79,7 @@ public class Enemigo extends Personaje {
             //Movimiento vertical
             switch ((int) (Math.random() * 100)) {
                 case 0:
-                    movY = 0;   //Para
+                    movY = 0;                         //Para
                     break;
                 case 1:
                     movY = (i / reductorVelocidad);   //Movimiento hacia abajo
@@ -87,15 +87,14 @@ public class Enemigo extends Personaje {
                 case 2:
                     movY = -(i / reductorVelocidad);  //Movimiento hacia arriba
                     break;
-                default:
-                    //Movimiento no varia, se mantiene el anterior
-                    break;
+                default:   
+                    break;                            //Movimiento no varia, se mantiene el anterior
             }
 
             //Movimiento lateral
             switch ((int) (Math.random() * 100)) {
                 case 0:
-                    movX = 0;   //Para
+                    movX = 0;                         //Para
                     break;
                 case 1:
                     movX = (i / reductorVelocidad);   //Movimiento hacia derecha
@@ -103,9 +102,8 @@ public class Enemigo extends Personaje {
                 case 2:
                     movX = -(i / reductorVelocidad);  //Movimiento hacia izq
                     break;
-                default:
-                    //Movimiento no varia, se mantiene el anterior
-                    break;
+                default:                               
+                    break;                            //Movimiento no varia, se mantiene el anterior
             }
         }
 

@@ -45,6 +45,13 @@ public class Prueba extends BasicGameState {
         this.game = sbg;
         cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map.tmx");
+        
+        //Posicionar a Ruby en un spawn inicial
+        float posSapawnRuby[] = map.getPosicionSpawn("SpawnRuby");
+        x = -(posSapawnRuby[0]) + (gc.getWidth() / 2);
+        y = -(posSapawnRuby[1]) + (gc.getHeight()/ 2)+32;
+        map.actualizarElementos(x, y);
+        
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
     }
