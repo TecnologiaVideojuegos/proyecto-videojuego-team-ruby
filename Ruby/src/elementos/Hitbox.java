@@ -32,7 +32,7 @@ public class Hitbox {
     }
 
     /**
-     * Actualizacion de posicion de la rectangulo
+     * Actualizacion de posicion del rectangulo
      *
      * @param pos_x -> cordenada x en pantalla
      * @param pos_y -> cordenada y en pantalla

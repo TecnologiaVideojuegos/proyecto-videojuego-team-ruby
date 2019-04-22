@@ -84,7 +84,7 @@ public class Prueba_Mazmorra extends BasicGameState {
         map.actualizarElementos(mov[0], mov[1]);
 
         //Colision con muros
-        float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
+        float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1], 0);
         x += movColision[0];
         y += movColision[1];
 

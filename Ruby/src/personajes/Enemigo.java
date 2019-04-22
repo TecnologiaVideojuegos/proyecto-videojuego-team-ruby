@@ -4,6 +4,7 @@ import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import services.Colision_Service;
 
 public class Enemigo extends Personaje {
 
@@ -45,7 +46,7 @@ public class Enemigo extends Personaje {
 
     //Movimiento dinamico del enemigo
     public void movimientoEnemigo(int i, Mapa map, GameContainer gc, Hitbox hitboxRuby) {
-
+        float colision[];
         int distanciaAgro = 300;        //Ditancia para coger AGRO
         float reductorVelocidad = 6.f;  // Reductor de la velocidad de movimiento mayor con AGRO
 
@@ -106,8 +107,12 @@ public class Enemigo extends Personaje {
                     break;                            //Movimiento no varia, se mantiene el anterior
             }
         }
-
+        System.out.println("updatePos1");
         hitbox.updatePos(movX, movY);
+        
+        colision = Colision_Service.colisionMuros(this, map, gc, i, movX, movY, reductorVelocidad);
+        
+        hitbox.updatePos(colision[0], colision[1]);
 
         /*float movColision[] = Colision_Service.colisionMuros(this, map, gc, i, movX, movY);
         
