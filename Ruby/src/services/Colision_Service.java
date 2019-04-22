@@ -29,7 +29,6 @@ public class Colision_Service {
     public static float[] colisionMuros(Personaje personaje, Mapa map, GameContainer gc, int i, float movEjeX, float movEjeY, float reductorVelocidad) {
         float mov[] = new float[2];
         float x = 0, y = 0;
-        System.out.println("Colisión muros");
         for (Hitbox hitbox : map.getBlocks()) {
             while (personaje.getHitbox().getRectangulo().intersects(hitbox.getRectangulo())) {
                 mov = colision(map.getBlocks(), i, gc, map, personaje.getHitbox(), movEjeX, movEjeY, reductorVelocidad);

@@ -107,12 +107,10 @@ public class Enemigo extends Personaje {
                     break;                            //Movimiento no varia, se mantiene el anterior
             }
         }
-        System.out.println("updatePos1");
+        
         hitbox.updatePos(movX, movY);
         
         colision = Colision_Service.colisionMuros(this, map, gc, i, movX, movY, reductorVelocidad);
-        
-        hitbox.updatePos(colision[0], colision[1]);
 
         /*float movColision[] = Colision_Service.colisionMuros(this, map, gc, i, movX, movY);
         
