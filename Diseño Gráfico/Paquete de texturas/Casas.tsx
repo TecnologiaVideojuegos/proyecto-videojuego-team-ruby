@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <tileset version="1.2" tiledversion="1.2.3" name="Casas" tilewidth="32" tileheight="32" tilecount="576" columns="24">
- <image source="RPGMaker/Utilizados/Casas.png" width="768" height="768"/>
+ <image source="Casas.png" width="768" height="768"/>
  <terraintypes>
   <terrain name="01" tile="567"/>
   <terrain name="02" tile="568"/>

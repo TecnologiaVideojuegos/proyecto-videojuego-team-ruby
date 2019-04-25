@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <tileset version="1.2" tiledversion="1.2.3" name="Detalles" tilewidth="32" tileheight="32" tilecount="256" columns="16">
- <image source="RPGMaker/Utilizados/Detalles.png" width="512" height="512"/>
+ <image source="Detalles.png" width="512" height="512"/>
  <terraintypes>
   <terrain name="Madera" tile="194"/>
   <terrain name="Cartel" tile="146"/>

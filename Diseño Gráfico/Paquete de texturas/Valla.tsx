@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <tileset version="1.2" tiledversion="1.2.3" name="Valla" tilewidth="32" tileheight="32" tilecount="96" columns="12">
- <image source="RPGMaker/Utilizados/Valla.png" width="384" height="256"/>
+ <image source="Valla.png" width="384" height="256"/>
  <terraintypes>
   <terrain name="01" tile="90"/>
   <terrain name="02" tile="78"/>

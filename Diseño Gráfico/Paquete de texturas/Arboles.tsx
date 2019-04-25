@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <tileset version="1.2" tiledversion="1.2.3" name="Arboles" tilewidth="32" tileheight="32" tilecount="256" columns="16">
- <image source="RPGMaker/Utilizados/Arboles.png" width="512" height="512"/>
+ <image source="Arboles.png" width="512" height="512"/>
  <terraintypes>
   <terrain name="A01" tile="240"/>
   <terrain name="A02" tile="241"/>
