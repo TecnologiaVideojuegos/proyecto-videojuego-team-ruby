@@ -18,7 +18,7 @@ public class Main extends StateBasedGame {
     public Main(String string) throws SlickException {
         super(string);
         contenedor = new AppGameContainer(this);
-        contenedor.setDisplayMode(1920, 1080, true);
+        contenedor.setDisplayMode(1280, 720, true);
         contenedor.setVSync(true);
         //contenedor.setShowFPS(true);
         contenedor.start();
