@@ -1,6 +1,5 @@
 package estados;
 
-import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,7 +8,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.*;
 import services.*;
@@ -36,6 +34,8 @@ public class Prueba extends BasicGameState {
 
     private float gcWidth, gcHeight;
 
+    private boolean hablando = false;
+    
     public Prueba(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
@@ -79,6 +79,10 @@ public class Prueba extends BasicGameState {
             grphcs.drawRect(ruby.getHitbox().getRectangulo().getX(), ruby.getHitbox().getRectangulo().getY(), ruby.getHitbox().getRectangulo().getWidth(), ruby.getHitbox().getRectangulo().getHeight());
         }
 
+        if(hablando){
+            Dialog_Service.mostrarBocadillo(grphcs, "El perro", "Pipo", "muere");
+        }
+        
         //Cursor
         grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
 
@@ -110,6 +114,11 @@ public class Prueba extends BasicGameState {
 
         //Detección de click sobre huerto
         click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+        
+        //Detección de click sobre npcs
+        if(InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null){
+            hablando = true;
+        }
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";

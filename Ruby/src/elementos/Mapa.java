@@ -99,6 +99,14 @@ public class Mapa {
         this.spawns = spawns;
     }
     
+    public ArrayList<Hitbox> getHitboxNpc(){
+        ArrayList<Hitbox> hitboxNpcs = new ArrayList<>();
+        for(Npc npc : npcs){
+            hitboxNpcs.add(npc.getHitbox());
+        }
+        return hitboxNpcs;
+    }
+    
     
 
     //*****************************************************//

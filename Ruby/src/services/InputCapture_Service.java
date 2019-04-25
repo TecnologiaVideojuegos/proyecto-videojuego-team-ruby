@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
+import personajes.Npc;
 import personajes.Personaje;
 
 public class InputCapture_Service {
@@ -47,6 +48,19 @@ public class InputCapture_Service {
         }
         
         return click;
+    }
+    
+    public static Npc clickNpc(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia){
+        Hitbox x;
+        int i = 0;
+        if (gc.getInput().isMouseButtonDown(0)) {
+            x = actualizarMouse(map.getHitboxNpc(), cursor_hitbox, personajeReferencia);
+            if(x != null){
+                return map.getNpcs().get(i);
+            }
+            i++;
+        }
+        return null;
     }
     
     public static Hitbox actualizarMouse(ArrayList<Hitbox> hitbox, Circle cursor_hitbox, Personaje personajeReferencia){
