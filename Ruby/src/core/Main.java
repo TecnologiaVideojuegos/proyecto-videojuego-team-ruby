@@ -2,6 +2,8 @@ package core;
 
 import elementos.Hitbox;
 import estados.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -17,8 +19,10 @@ public class Main extends StateBasedGame {
     private boolean ver_hitbox = true;
     public Main(String string) throws SlickException {
         super(string);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(screenSize.getHeight()+"-"+screenSize.getWidth());
         contenedor = new AppGameContainer(this);
-        contenedor.setDisplayMode(1280, 720, true);
+        contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), true);
         contenedor.setVSync(true);
         //contenedor.setShowFPS(true);
         contenedor.start();
