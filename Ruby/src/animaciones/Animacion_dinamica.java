@@ -1,4 +1,4 @@
-package personajes;
+package animaciones;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;

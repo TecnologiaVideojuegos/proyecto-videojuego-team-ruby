@@ -46,7 +46,6 @@ public class Prueba_Mazmorra extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        cursor = new Image("./resources/sprites/cursor.png");
         map = new Mapa("./resources/maps/demo_map2.tmx");
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
@@ -66,8 +65,6 @@ public class Prueba_Mazmorra extends BasicGameState {
             grphcs.drawRect(ruby.getHitbox().getRectangulo().getX(), ruby.getHitbox().getRectangulo().getY(), ruby.getHitbox().getRectangulo().getWidth(), ruby.getHitbox().getRectangulo().getHeight());
         }
 
-        //Cursor
-        grphcs.drawImage(cursor, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
     }
 
     @Override
@@ -90,9 +87,6 @@ public class Prueba_Mazmorra extends BasicGameState {
 
         //Movimiento enemigos
         map.movimientoEnemigos(i, gc, ruby.getHitbox());
-
-        //Detección de click sobre huerto
-        click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
 
         //MOVIMENTO DEL RATÓN
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";

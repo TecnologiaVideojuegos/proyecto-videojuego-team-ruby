@@ -38,7 +38,7 @@ public class Prueba extends BasicGameState {
 
     public Prueba(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
-        this.ver_hitbox = false;
+        this.ver_hitbox = true;
     }
 
     /**
@@ -110,7 +110,7 @@ public class Prueba extends BasicGameState {
             map.movimientoEnemigos(i, gc, ruby.getHitbox());
 
             //Detección de click sobre huerto
-            click = InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+            InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
 
             //Detección de click sobre npcs
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {

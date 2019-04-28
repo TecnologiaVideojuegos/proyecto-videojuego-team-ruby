@@ -3,8 +3,10 @@ package services;
 import elementos.Hitbox;
 import elementos.Mapa;
 import java.util.ArrayList;
+import objetos.Planta;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import personajes.Npc;
 import personajes.Personaje;
@@ -34,20 +36,22 @@ public class InputCapture_Service {
         return mov;
     }
     
-    public static String clickHuerto(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia){
-        String click;
+    public static void clickHuerto(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia) throws SlickException{
+        boolean hay = false;
         if (gc.getInput().isMouseButtonDown(0)) {
-            Hitbox x = actualizarMouse(map.getHuerto(), cursor_hitbox, personajeReferencia);
-            if (x != null) {
-                click = "click";
-            } else {
-                click = "";
+            Hitbox hitbox = actualizarMouse(map.getHuerto(), cursor_hitbox, personajeReferencia);
+            if (hitbox != null) {
+                for(Planta planta : map.getPlantas()){
+                    if(planta.getPos_x() == hitbox.getRectangulo().getCenterX() && planta.getPos_y() == hitbox.getRectangulo().getCenterY()){
+                        hay = true;
+                        break;
+                    }
+                }
+                if(!hay){
+                    map.anadirPlanta_fuego(hitbox.getRectangulo().getMinX(), hitbox.getRectangulo().getMinY());
+                }
             }
-        }else{
-            click = "";
         }
-        
-        return click;
     }
     
     public static Npc clickNpc(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia){

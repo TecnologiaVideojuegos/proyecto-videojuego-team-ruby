@@ -1,5 +1,6 @@
 package personajes;
 
+import animaciones.Animacion_estatica;
 import elementos.Hitbox;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;

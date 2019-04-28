@@ -1,5 +1,6 @@
 package personajes;
 
+import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;

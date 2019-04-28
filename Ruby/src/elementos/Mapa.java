@@ -1,6 +1,8 @@
 package elementos;
 
 import java.util.ArrayList;
+import objetos.Planta;
+import objetos.Planta_fuego;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,10 +21,10 @@ public class Mapa {
     private ArrayList<Npc> npcs;
     private ArrayList<Hitbox> huerto;
     private ArrayList<Spawn> spawns;
-    
+    private ArrayList<Planta> plantas;
+
     //Constructor por defecto
     public Mapa() {
-
     }
 
     public Mapa(String ruta) throws SlickException {
@@ -35,6 +37,7 @@ public class Mapa {
         npcs = new ArrayList<>();
         huerto = new ArrayList<>();
         spawns = new ArrayList<>();
+        plantas = new ArrayList<>();
         cargaMuros();
         cargaEnemigos();
         cargaBosses();
@@ -98,16 +101,24 @@ public class Mapa {
     public void setSpawns(ArrayList<Spawn> spawns) {
         this.spawns = spawns;
     }
-    
-    public ArrayList<Hitbox> getHitboxNpc(){
+
+    public ArrayList<Hitbox> getHitboxNpc() {
         ArrayList<Hitbox> hitboxNpcs = new ArrayList<>();
-        for(Npc npc : npcs){
+        for (Npc npc : npcs) {
             hitboxNpcs.add(npc.getHitbox());
         }
         return hitboxNpcs;
     }
-    
-    
+
+    public ArrayList<Planta> getPlantas() {
+        return plantas;
+    }
+
+    public void anadirPlanta_fuego(float pos_x, float pos_y) throws SlickException {
+        Planta planta = new Planta_fuego();
+        planta.setCoordenadas(pos_x, pos_y);
+        plantas.add(planta);
+    }
 
     //*****************************************************//
     //***              CARGA DE ELEMENTOS               ***//
@@ -142,7 +153,7 @@ public class Mapa {
             }
         }
     }
-    
+
     private void cargaBosses() throws SlickException {
         int wallLayer = map.getLayerIndex("Bosses");
 
@@ -192,6 +203,12 @@ public class Mapa {
     //***               UPDATE ELEMENTOS                ***//
     //*****************************************************//
     public void actualizarElementos(float pos_x, float pos_y) {
+        //Plantas
+        if (!plantas.isEmpty()) {
+            plantas.forEach((planta) -> {
+                planta.setCoordenadas(planta.getPos_x() + pos_x, planta.getPos_y() + pos_y);
+            });
+        }
 
         //Elementos muro
         if (!blocks.isEmpty()) {
@@ -206,7 +223,7 @@ public class Mapa {
                 enemigo.getHitbox().updatePos(pos_x, pos_y);
             });
         }
-        
+
         //Elementos bosses
         if (!bosses.isEmpty()) {
             bosses.forEach((boss) -> {
@@ -227,7 +244,7 @@ public class Mapa {
                 hitbox.updatePos(pos_x, pos_y);
             });
         }
-        
+
         //Elementos spawn
         if (!spawns.isEmpty()) {
             spawns.forEach((spawn) -> {
@@ -235,8 +252,8 @@ public class Mapa {
             });
         }
     }
-    
-    public void movimientoEnemigos(int i, GameContainer gc, Hitbox hitboxRuby){
+
+    public void movimientoEnemigos(int i, GameContainer gc, Hitbox hitboxRuby) {
         //Elementos enemigos
         if (!enemigos.isEmpty()) {
             enemigos.forEach((enemigo) -> {
@@ -254,6 +271,11 @@ public class Mapa {
         //Dibujo de los elementos de colision
         boolean amarillo = true;
 
+        //Elementos tipo Planta
+        for (Planta planta : plantas) {
+            planta.render();
+        }
+
         //Elementos tipo muro
         if (ver_hitbox) {
             for (Hitbox hitbox : blocks) {
@@ -270,16 +292,16 @@ public class Mapa {
 
         //Elementos tipo enemigo
         for (Enemigo enemigo : enemigos) {
-            enemigo.renderPersonaje(gc,0,0);
+            enemigo.renderPersonaje(gc, 0, 0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.red);
                 grphcs.drawRect(enemigo.getHitbox().getRectangulo().getX(), enemigo.getHitbox().getRectangulo().getY(), enemigo.getHitbox().getRectangulo().getWidth(), enemigo.getHitbox().getRectangulo().getHeight());
             }
         }
-        
+
         //Elementos tipo boss
         for (Boss boss : bosses) {
-            boss.renderPersonaje(gc,0,0);
+            boss.renderPersonaje(gc, 0, 0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.red);
                 grphcs.drawRect(boss.getHitbox().getRectangulo().getX(), boss.getHitbox().getRectangulo().getY(), boss.getHitbox().getRectangulo().getWidth(), boss.getHitbox().getRectangulo().getHeight());
@@ -288,7 +310,7 @@ public class Mapa {
 
         //Elementos tipo npc
         for (Npc npc : npcs) {
-            npc.renderPersonaje(gc,0,0);
+            npc.renderPersonaje(gc, 0, 0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.green);
                 grphcs.drawRect(npc.getHitbox().getRectangulo().getX(), npc.getHitbox().getRectangulo().getY(), npc.getHitbox().getRectangulo().getWidth(), npc.getHitbox().getRectangulo().getHeight());
@@ -309,45 +331,44 @@ public class Mapa {
                 grphcs.drawRect(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY(), hitbox.getRectangulo().getWidth(), hitbox.getRectangulo().getHeight());
             }
             grphcs.setColor(Color.white);
-            
+
             //Elementos tipo spawn
-            for(Spawn spawn: spawns){
+            for (Spawn spawn : spawns) {
                 grphcs.setColor(Color.pink);
                 grphcs.drawRect(spawn.getHitbox().getRectangulo().getX(), spawn.getHitbox().getRectangulo().getY(), spawn.getHitbox().getRectangulo().getWidth(), spawn.getHitbox().getRectangulo().getHeight());
             }
             grphcs.setColor(Color.white);
         }
     }
-    
-    
+
     //*****************************************************//
     //***                    SPAWNS                     ***//
     //*****************************************************//
-    public float[] getPosicionSpawn(String spawn){
+    public float[] getPosicionSpawn(String spawn) {
         int wallLayer = map.getLayerIndex(spawn);
-        float posSpawn[] = new float[2]; 
+        float posSpawn[] = new float[2];
         if (wallLayer != -1) {    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        posSpawn[0] = (float) i*32;
-                        posSpawn[1] = (float) j*32;
+                        posSpawn[0] = (float) i * 32;
+                        posSpawn[1] = (float) j * 32;
                     }
                 }
             }
         }
-        
+
         return posSpawn;
     }
-    
-    public void agregarSpawn(String spawn){
+
+    public void agregarSpawn(String spawn) {
         int wallLayer = map.getLayerIndex(spawn);
 
         if (wallLayer != -1) {    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        spawns.add(new Spawn(new Hitbox((float) (i * 32), (float) (j * 32), 32, 32),spawn));  //32 = ancho del patron
+                        spawns.add(new Spawn(new Hitbox((float) (i * 32), (float) (j * 32), 32, 32), spawn));  //32 = ancho del patron
                     }
                 }
             }
