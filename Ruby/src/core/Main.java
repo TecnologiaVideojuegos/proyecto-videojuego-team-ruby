@@ -22,8 +22,8 @@ public class Main extends StateBasedGame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.println(screenSize.getHeight()+"-"+screenSize.getWidth());
         contenedor = new AppGameContainer(this);
-        contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), true);
         //contenedor.setDisplayMode(1280, 720, false);
+        contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), true);
         contenedor.setVSync(true);
         //contenedor.setShowFPS(true);
         contenedor.start();
