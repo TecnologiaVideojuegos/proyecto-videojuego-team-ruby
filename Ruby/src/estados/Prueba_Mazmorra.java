@@ -92,15 +92,15 @@ public class Prueba_Mazmorra extends BasicGameState {
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
         //Comprobacion de salto de escenario
-        Prueba p = (Prueba) game.getState(0);
+        Prueba p = (Prueba) game.getState(1);
         switch (Colision_Service.saltoMapa(ruby, map)) {
             case "SpawnNorte":
                 p.posicinarEnSpawnARuby("SpawnSur", 0, 100);
-                game.enterState(0);
+                game.enterState(1);
                 break;
             case "SpawnEste":
                 p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                game.enterState(0);
+                game.enterState(1);
                 break;
             default:
         }
@@ -108,7 +108,7 @@ public class Prueba_Mazmorra extends BasicGameState {
 
     @Override
     public int getID() {
-        return 2;
+        return 3;
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
