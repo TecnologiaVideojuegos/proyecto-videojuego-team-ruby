@@ -22,8 +22,8 @@ public class Main extends StateBasedGame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.println(screenSize.getHeight()+"-"+screenSize.getWidth());
         contenedor = new AppGameContainer(this);
-        //contenedor.setDisplayMode(1280, 720, false);
-        contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), true);
+        contenedor.setDisplayMode(1280, 720, true);
+        //contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), false);
         contenedor.setVSync(true);
         //contenedor.setShowFPS(true);
         contenedor.start();
@@ -33,6 +33,7 @@ public class Main extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
+        this.addState(new Menu(ruby));
         this.addState(new Prueba(ruby, ver_hitbox));
         this.addState(new Demo());
         this.addState(new Prueba_Mazmorra(ruby, ver_hitbox));

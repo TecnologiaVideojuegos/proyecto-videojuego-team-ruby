@@ -307,7 +307,7 @@ public class Demo extends BasicGameState {
 
     @Override
     public int getID() {
-        return 1;
+        return 2;
     }
 
     public void cargaMuros() {
@@ -338,7 +338,7 @@ public class Demo extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if(key == Input.KEY_F11){
-            game.enterState(0); //Prueba
+            game.enterState(1); //Prueba
         }
     }
 }
