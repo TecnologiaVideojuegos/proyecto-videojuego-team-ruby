@@ -150,6 +150,11 @@ public class Prueba extends BasicGameState {
         if (key == Input.KEY_F11) {
             game.enterState(2); //DEMO
         }
+        
+        if (key == Input.KEY_ESCAPE) {
+            game.enterState(0); //MENU
+        }
+        
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {

@@ -5,6 +5,7 @@ import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
@@ -111,6 +112,18 @@ public class Prueba_Mazmorra extends BasicGameState {
         return 3;
     }
 
+    @Override
+    public void keyPressed(int key, char c) {
+        if (key == Input.KEY_F11) {
+            game.enterState(2); //DEMO
+        }
+        
+        if (key == Input.KEY_ESCAPE) {
+            game.enterState(0); //MENU
+        }
+        
+    }
+    
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
