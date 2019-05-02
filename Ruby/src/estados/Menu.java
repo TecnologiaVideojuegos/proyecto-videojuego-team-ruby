@@ -146,7 +146,7 @@ public class Menu extends BasicGameState {
         if (cursor_hitbox.intersects(salir)) {
             pulsado_salir = true;
             if (gc.getInput().isMouseButtonDown(0)){
-                System.exit(1);
+                System.exit(0);
             }
         } else {
             pulsado_salir = false;
