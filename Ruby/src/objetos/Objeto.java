@@ -1,5 +1,7 @@
 package objetos;
 
+import org.newdawn.slick.Image;
+
 public abstract class Objeto {
     private int cantidad;
     
@@ -32,4 +34,8 @@ public abstract class Objeto {
     }
     
     public abstract String getNombre();
+    
+    public abstract String tipoObjeto();
+    
+    public abstract Image getIcono();
 }

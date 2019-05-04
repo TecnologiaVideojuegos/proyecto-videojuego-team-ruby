@@ -1,8 +1,8 @@
 package elementos;
 
 import java.util.ArrayList;
-import objetos.Planta;
-import objetos.Planta_fuego;
+import objetos.plantas.Planta;
+import objetos.plantas.Planta_fuego;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

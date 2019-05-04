@@ -3,7 +3,7 @@ package services;
 import elementos.Hitbox;
 import elementos.Mapa;
 import java.util.ArrayList;
-import objetos.Planta;
+import objetos.plantas.Planta;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;

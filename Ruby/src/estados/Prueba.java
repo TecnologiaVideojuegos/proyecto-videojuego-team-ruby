@@ -35,6 +35,7 @@ public class Prueba extends BasicGameState {
     private float gcWidth, gcHeight;
 
     private boolean hablando = false;
+    private boolean inventario = false;
 
     public Prueba(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
@@ -82,6 +83,10 @@ public class Prueba extends BasicGameState {
             Dialog_Service.mostrarBocadillo(gc, grphcs, "Pipo recibe una patada", "Hostia.. Perro", "Pasan los meses....", "Pipo muere", true, false);
         }
 
+        if (inventario) {
+            Inventario_Service.mostrarInventario(grphcs, ruby);
+        }
+
     }
 
     /**
@@ -89,7 +94,7 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-        if(!hablando) {
+        if ((!hablando) && (!inventario)) {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
@@ -133,8 +138,8 @@ public class Prueba extends BasicGameState {
                     break;
                 default:
             }
-        }else{
-            if(gc.getInput().isMousePressed(0)){
+        } else {
+            if (gc.getInput().isMousePressed(0)) {
                 hablando = false;
             }
         }
@@ -150,12 +155,21 @@ public class Prueba extends BasicGameState {
         if (key == Input.KEY_F11) {
             game.enterState(2); //DEMO
         }
-        
+
         if (key == Input.KEY_ESCAPE) {
             ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
         }
-        
+
+        if (!hablando) {
+            if (key == Input.KEY_E) {
+                if (!inventario) {
+                    inventario = true;
+                } else {
+                    inventario = false;
+                }
+            }
+        }
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {

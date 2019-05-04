@@ -1,12 +1,16 @@
-package objetos;
+package objetos.plantas;
 
+import objetos.plantas.Planta;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Planta_fuego extends Planta{
     private String nombre = "Planta de fuego";
+    private Image icono;
     
     public Planta_fuego() throws SlickException{
-        super("./resources/sprites/Planta_fuego.png");
+        super("./resources/objetos/plantas/Planta_fuego.png");
+        icono = new Image("./resources/objetos/plantas/Icono_planta_fuego.png");
     }
 
     @Override
@@ -18,5 +22,10 @@ public class Planta_fuego extends Planta{
     @Override
     public String getNombre() {
         return nombre;
+    }
+    
+    @Override
+    public Image getIcono(){
+        return icono;
     }
 }

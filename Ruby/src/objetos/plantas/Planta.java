@@ -1,6 +1,8 @@
-package objetos;
+package objetos.plantas;
 
 import animaciones.Animacion_planta;
+import objetos.Objeto;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public abstract class Planta extends Objeto {
@@ -20,7 +22,7 @@ public abstract class Planta extends Objeto {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
     }
-
+    
     public boolean isCrecida() {
         if (!crecida) {
             crecida = animacion.getFrame() == 1;
@@ -52,4 +54,12 @@ public abstract class Planta extends Objeto {
     
     @Override
     public abstract String getNombre();
+    
+    @Override
+    public String tipoObjeto(){
+        return "Planta";
+    }
+    
+    @Override
+    public abstract Image getIcono();
 }
