@@ -17,10 +17,11 @@ public class Main extends StateBasedGame {
     private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
     //TEST HITBOX
     private boolean ver_hitbox = true;
+
     public Main(String string) throws SlickException {
         super(string);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(screenSize.getHeight()+"-"+screenSize.getWidth());
+        System.out.println(screenSize.getHeight() + "-" + screenSize.getWidth());
         contenedor = new AppGameContainer(this);
         contenedor.setDisplayMode(1280, 720, true);
         //contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), false);
@@ -37,6 +38,7 @@ public class Main extends StateBasedGame {
         this.addState(new Prueba(ruby, ver_hitbox));
         this.addState(new Demo());
         this.addState(new Prueba_Mazmorra(ruby, ver_hitbox));
+        this.addState(new Combate(ruby));
     }
 
     public static void main(String[] args) {
