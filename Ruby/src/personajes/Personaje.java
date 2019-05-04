@@ -1,9 +1,10 @@
 package personajes;
 
 import elementos.Hitbox;
+import java.io.Serializable;
 import org.newdawn.slick.GameContainer;
 
-public abstract class Personaje {
+public abstract class Personaje implements Serializable {
 
     private String nombre;
     protected Hitbox hitbox;

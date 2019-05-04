@@ -152,6 +152,7 @@ public class Prueba extends BasicGameState {
         }
         
         if (key == Input.KEY_ESCAPE) {
+            ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
         }
         
