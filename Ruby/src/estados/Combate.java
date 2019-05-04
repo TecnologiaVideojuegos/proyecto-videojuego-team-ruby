@@ -12,10 +12,12 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.Jugador;
+import personajes.Personaje;
 
 public class Combate extends BasicGameState {
 
     private Jugador ruby;
+    private Personaje combatiente;
     private Image imgRuby, imgEnemy, imgBoss, iconoFAgua, iconoPFuego, iconoPRayo, iconoPocionVida, iconoPocionDanio;
     private int p_Widht, p_Height;
     private Circle cursor_hitbox;
@@ -76,25 +78,32 @@ public class Combate extends BasicGameState {
         grphcs.setFont(new TrueTypeFont(font, true));
         //Enemigo Texto
         grphcs.drawString("HP", 750, 15);
-        grphcs.drawString("Boss", 980, 120);    //Tipo de enemigo   //TODO: completar para tipo enemigo
+        if (combatiente.getNombre().equals("Boss")) { //Comprovamos si es Boss o enemigo simple
+            grphcs.drawString("Boss", 980, 120);
+        } else {
+            grphcs.drawString("Enemigo", 980, 120);
+        }
         //Ruby Texto
         grphcs.drawString("HP", 40, 140);
         grphcs.drawString("Ruby", 230, 250);
 
-        int eVida = 70;     //TODO: eliminar variable sustituir por detección de vida del personaje
         //Enemigo cuadro Vida
         grphcs.setColor(new Color(0x61BE6D));
-        grphcs.fillRect(750, 60, eVida * 5, 30);
+        grphcs.fillRect(750, 60, combatiente.getVida() * 5, 30);
         grphcs.setColor(new Color(0xFF7272));
-        grphcs.fillRect(750 + (eVida * 5), 60, (100 - eVida) * 5, 30);
+        grphcs.fillRect(750 + (combatiente.getVida() * 5), 60, (100 - combatiente.getVida()) * 5, 30);
         //Ruby cuadro Vida
         grphcs.setColor(new Color(0x61BE6D));
-        grphcs.fillRect(40, 190, eVida * 5, 30);
+        grphcs.fillRect(40, 190, ruby.getVida() * 5, 30);
         grphcs.setColor(new Color(0xFF7272));
-        grphcs.fillRect(40 + (eVida * 5), 190, (100 - eVida) * 5, 30);
+        grphcs.fillRect(40 + (ruby.getVida() * 5), 190, (100 - ruby.getVida()) * 5, 30);
 
-        //Enemigo imagen    //TODO: seleccion de imagen por tipo de enemigo
-        imgBoss.draw(1080, 120, 170, 170);
+        //Enemigo imagen
+        if (combatiente.getNombre().equals("Boss")) { //Comprovamos si es Boss o enemigo simple
+            imgBoss.draw(1080, 120, 170, 170);
+        } else {
+            imgEnemy.draw(1080, 120, 170, 170);
+        }
         //Ruby imagen
         imgRuby.draw(40, 250, 170, 170);
 
@@ -214,7 +223,7 @@ public class Combate extends BasicGameState {
             grphcs.drawString("x10", 693, 568); //TODO: cambiar por detección de inventario
 
         } else if (pulsadoHuir) {
-            System.out.println("Huir");
+
         }
 
     }
@@ -223,6 +232,23 @@ public class Combate extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+
+        if (combatiente.getVida() <= 0) {
+            String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
+            if (nombreClaseAnterior.equals("estados.Prueba")) {
+                ((Prueba) game.getState(estadoAnterior)).combateGanado(true);
+            } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
+                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+            }
+            game.enterState(estadoAnterior);
+        } else if (ruby.getVida() <= 0) {
+            String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
+            if (nombreClaseAnterior.equals("estados.Prueba")) {
+                ((Prueba) game.getState(estadoAnterior)).combateGanado(false);
+            } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
+                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+            }
+        }
 
         //MENU OPCIONES
         if (cursor_hitbox.intersects(btnAtaques)) {
@@ -252,6 +278,15 @@ public class Combate extends BasicGameState {
                 pulsadoAtaques = false;
                 pulsadoPociones = false;
                 pulsadoHuir = true;
+
+                String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
+                if (nombreClaseAnterior.equals("estados.Prueba")) {
+                    ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
+                    //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
+                } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
+                    //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+                }
+                game.enterState(estadoAnterior);
             }
         } else {
             sobreHuir = false;
@@ -308,10 +343,22 @@ public class Combate extends BasicGameState {
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////
+        //Pruebas
+        combatiente.setVida(combatiente.getVida() - 1);
+        ///////////////////////////////////////////////////////////////////////
     }
 
     @Override
     public int getID() {
         return 4;
+    }
+
+    public void setEstadoAnterior(int i) {
+        this.estadoAnterior = i;
+    }
+
+    public void setCombatiente(Personaje combatiente) {
+        this.combatiente = combatiente;
     }
 }

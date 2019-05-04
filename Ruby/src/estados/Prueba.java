@@ -37,6 +37,9 @@ public class Prueba extends BasicGameState {
     private boolean hablando = false;
     private boolean inventario = false;
 
+    //Combate
+    private Personaje combatiente = null;
+
     public Prueba(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
         this.ver_hitbox = true;
@@ -97,6 +100,14 @@ public class Prueba extends BasicGameState {
         if ((!hablando) && (!inventario)) {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+
+            if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
+                Combate combate = (Combate) game.getState(4);
+                combate.setEstadoAnterior(getID());
+                combate.setCombatiente(combatiente);
+                game.enterState(4); //COMBATE
+                game.getCurrentState().leave(gc, game);
+            }
 
             //Captura movimiento Ruby
             mov = InputCapture_Service.capturaMovimiento(gc, i);
@@ -180,5 +191,35 @@ public class Prueba extends BasicGameState {
         map.agregarSpawn("SpawnSur");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
+    }
+
+    public void combateGanado(boolean ganado) {
+        if (ganado) {
+            if (map.getEnemigos().contains(combatiente)) {
+                map.getEnemigos().remove(combatiente);
+            } else {
+                map.getBosses().remove(combatiente);
+            }
+        } else {
+            System.out.println("Combate perdido");
+        }
+        combatiente = null;
+    }
+
+    public void huidoDeCombate() {
+        for (Enemigo e : map.getEnemigos()) {
+            e.pararMovimiento();
+            e.setCombate(true);
+        }
+
+        if (combatiente.getClass().getName().equals("personajes.Boss")) {
+            int vectorX = (int) (ruby.getHitbox().getRectangulo().getCenterX() - combatiente.getHitbox().getRectangulo().getCenterX());
+            int vectorY = (int) (ruby.getHitbox().getRectangulo().getCenterY() - combatiente.getHitbox().getRectangulo().getCenterY());
+
+            map.actualizarElementos(vectorX * (-1) * 2, vectorY * (-1) * 2);
+            x += vectorX * (-1) * 2;    // Agregamos movimiento sobre el ejeX
+            y += vectorY * (-1) * 2;    // Agregamos movimiento sobre el ejeY
+        }
+        combatiente = null;
     }
 }

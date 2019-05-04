@@ -9,6 +9,22 @@ import org.newdawn.slick.geom.Rectangle;
 import personajes.*;
 
 public class Colision_Service {
+    
+    public static Personaje colisionCombate(Personaje personaje, Mapa map, GameContainer gc){
+        Personaje combatiente = null;
+        for(Enemigo enemigo: map.getEnemigos()){
+            if(personaje.getHitbox().getRectangulo().intersects(enemigo.getHitbox().getRectangulo()) && !enemigo.getCombate()){
+                combatiente = enemigo;
+            }
+        }
+        for(Boss boss: map.getBosses()){
+            if(personaje.getHitbox().getRectangulo().intersects(boss.getHitbox().getRectangulo())){
+                combatiente = boss;
+            }
+        }
+        
+        return combatiente;
+    }
 
     public static float[] colisionMuros(Personaje personaje, Mapa map, GameContainer gc, int i, float movEjeX, float movEjeY) {
         float mov[] = new float[2];
