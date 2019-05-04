@@ -79,7 +79,7 @@ public class Prueba extends BasicGameState {
         }
 
         if (hablando) {
-            Dialog_Service.mostrarBocadillo(gc, grphcs, "Pipo recibe una patada", "Hostia.. Perro", "Pasan los meses....", "Pipo muere...");
+            Dialog_Service.mostrarBocadillo(gc, grphcs, "Pipo recibe una patada", "Hostia.. Perro", "Pasan los meses....", "Pipo muere", true, false);
         }
 
     }
