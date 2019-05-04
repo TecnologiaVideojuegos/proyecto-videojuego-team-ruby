@@ -148,7 +148,7 @@ public class Prueba extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_F11) {
-            game.enterState(2); //DEMO
+            game.enterState(4); //DEMO
         }
         
         if (key == Input.KEY_ESCAPE) {
