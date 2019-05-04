@@ -1,6 +1,8 @@
 package estados;
 
 import java.awt.Font;
+import objetos.Objeto;
+import objetos.plantas.Planta_fuego;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,6 +37,9 @@ public class Combate extends BasicGameState {
     private StateBasedGame game;
     private int estadoAnterior = 0;
     private Font font;
+
+    private boolean actualizar = true;
+    private int numFAgua = 0, numFFuego = 0, numFRayo = 0, numPVida = 0, numPDanio = 0;
 
     public Combate(Jugador ruby) throws SlickException {
         this.ruby = ruby;
@@ -186,11 +191,11 @@ public class Combate extends BasicGameState {
             font = new Font("Verdana", Font.PLAIN, 30);
             grphcs.setFont(new TrueTypeFont(font, true));
             grphcs.drawString("Agua", 125, 568);
-            grphcs.drawString("x10", 218, 568); //TODO: cambiar por detección de inventario
+            grphcs.drawString("x" + numFAgua, 218, 568);
             grphcs.drawString("Fuego", 423, 568);
-            grphcs.drawString("x10", 517, 568); //TODO: cambiar por detección de inventario
+            grphcs.drawString("x" + numFFuego, 517, 568);
             grphcs.drawString("Rayo", 700, 568);
-            grphcs.drawString("x10", 794, 568); //TODO: cambiar por detección de inventario
+            grphcs.drawString("x" + numFRayo, 794, 568);
 
         } else if (pulsadoPociones) {
 
@@ -218,9 +223,9 @@ public class Combate extends BasicGameState {
             font = new Font("Verdana", Font.PLAIN, 30);
             grphcs.setFont(new TrueTypeFont(font, true));
             grphcs.drawString("Vida", 224, 568);
-            grphcs.drawString("x10", 318, 568); //TODO: cambiar por detección de inventario
+            grphcs.drawString("x" + numPVida, 318, 568);
             grphcs.drawString("Daño", 599, 568);
-            grphcs.drawString("x10", 693, 568); //TODO: cambiar por detección de inventario
+            grphcs.drawString("x" + numPDanio, 693, 568);
 
         } else if (pulsadoHuir) {
 
@@ -233,6 +238,13 @@ public class Combate extends BasicGameState {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
+        //Comprobamos si se necesita actualización de valores
+        if (actualizar) {
+            cargarValoresInventario();
+            actualizar = false;
+        }
+
+        //Comprovamos finalización de combate
         if (combatiente.getVida() <= 0) {
             String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
             if (nombreClaseAnterior.equals("estados.Prueba")) {
@@ -298,6 +310,7 @@ public class Combate extends BasicGameState {
                 sobreAgua = true;
                 if (gc.getInput().isMousePressed(0)) {
                     System.out.println("Ataque agua");
+                    actualizar = true;
                 }
             } else {
                 sobreAgua = false;
@@ -307,6 +320,8 @@ public class Combate extends BasicGameState {
                 sobreFuego = true;
                 if (gc.getInput().isMousePressed(0)) {
                     System.out.println("Ataque fuego");
+                    ruby.getInventario().getPlantas().add(new Planta_fuego());  //TODO: eliminar, es una prueba
+                    actualizar = true;
                 }
             } else {
                 sobreFuego = false;
@@ -316,6 +331,7 @@ public class Combate extends BasicGameState {
                 sobreRayo = true;
                 if (gc.getInput().isMousePressed(0)) {
                     System.out.println("Ataque rayo");
+                    actualizar = true;
                 }
             } else {
                 sobreRayo = false;
@@ -328,6 +344,7 @@ public class Combate extends BasicGameState {
                 sobrePocionVida = true;
                 if (gc.getInput().isMousePressed(0)) {
                     System.out.println("Poción vida");
+                    actualizar = true;
                 }
             } else {
                 sobrePocionVida = false;
@@ -337,6 +354,7 @@ public class Combate extends BasicGameState {
                 sobrePocionDanio = true;
                 if (gc.getInput().isMousePressed(0)) {
                     System.out.println("Poción daño");
+                    actualizar = true;
                 }
             } else {
                 sobrePocionDanio = false;
@@ -360,5 +378,34 @@ public class Combate extends BasicGameState {
 
     public void setCombatiente(Personaje combatiente) {
         this.combatiente = combatiente;
+        pulsadoAtaques = true;
+        pulsadoPociones = false;
+        pulsadoHuir = false;
+    }
+
+    private void cargarValoresInventario() {
+        numFAgua = 0;
+        numFFuego = 0;
+        numFRayo = 0;
+        numPVida = 0;
+        numPDanio = 0;
+
+        for (Objeto obj : ruby.getInventario().getPlantas()) {
+            if (obj.getNombre().equals("Planta de agua")) {
+                numFAgua++;
+            } else if (obj.getNombre().equals("Planta de fuego")) {
+                numFFuego++;
+            } else if (obj.getNombre().equals("Planta de rayo")) {
+                numFRayo++;
+            }
+        }
+
+        for (Objeto obj : ruby.getInventario().getPociones()) {
+            if (obj.getNombre().equals("Pocion vida")) {
+                numPVida++;
+            } else if (obj.getNombre().equals("Pocion danio")) {
+                numPDanio++;
+            }
+        }
     }
 }
