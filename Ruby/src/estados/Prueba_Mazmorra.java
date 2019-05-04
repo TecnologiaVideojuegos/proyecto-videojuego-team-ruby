@@ -105,6 +105,12 @@ public class Prueba_Mazmorra extends BasicGameState {
                 break;
             default:
         }
+        
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        //TEST guardado
+        ruby.setDinero(ruby.getDinero()+1);
+        /////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override
@@ -119,6 +125,7 @@ public class Prueba_Mazmorra extends BasicGameState {
         }
         
         if (key == Input.KEY_ESCAPE) {
+           ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
         }
         
