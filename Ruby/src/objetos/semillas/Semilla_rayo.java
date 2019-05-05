@@ -3,13 +3,13 @@ package objetos.semillas;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Semilla_fuego extends Semilla{
-    private String nombre = "Semilla de fuego";
+public class Semilla_rayo extends Semilla{
+    private String nombre = "Semilla de rayo";
     private Image icono;
     
-    public Semilla_fuego() throws SlickException{
+    public Semilla_rayo() throws SlickException{
         super();
-        icono = new Image("./resources/objetos/semillas/Icono_semilla_fuego.png");
+        icono = new Image("./resources/objetos/semillas/Icono_semilla_rayo.png");
     }
     
     @Override

@@ -3,8 +3,14 @@ package personajes;
 import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import objetos.Inventario;
+import objetos.plantas.Planta_agua;
 import objetos.plantas.Planta_fuego;
+import objetos.plantas.Planta_rayo;
+import objetos.pociones.Pocion_ataque;
+import objetos.pociones.Pocion_vida;
+import objetos.semillas.Semilla_agua;
 import objetos.semillas.Semilla_fuego;
+import objetos.semillas.Semilla_rayo;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -20,6 +26,12 @@ public class Jugador extends Personaje {
         this.animacion = new Animacion_dinamica("./resources/sprites/Ruby.png");
         inventario.anadirObjeto(new Planta_fuego(), 2);
         inventario.anadirObjeto(new Semilla_fuego(), 1);
+        inventario.anadirObjeto(new Planta_agua(), 4);
+        inventario.anadirObjeto(new Semilla_agua(), 9);
+        inventario.anadirObjeto(new Planta_rayo(), 2);
+        inventario.anadirObjeto(new Semilla_rayo(), 2);
+        inventario.anadirObjeto(new Pocion_vida(), 2);
+        inventario.anadirObjeto(new Pocion_ataque(), 3);
     }
 
     public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {

@@ -1,11 +1,14 @@
 package objetos;
 
 import java.util.ArrayList;
+import objetos.plantas.Planta;
+import objetos.pociones.Pocion;
+import objetos.semillas.Semilla;
 
 public class Inventario {
-    private ArrayList<Objeto> plantas;
-    private ArrayList<Objeto> semillas;
-    private ArrayList<Objeto> pociones;
+    private ArrayList<Planta> plantas;
+    private ArrayList<Semilla> semillas;
+    private ArrayList<Pocion> pociones;
 
     public Inventario() {
         plantas = new ArrayList<>();
@@ -19,7 +22,7 @@ public class Inventario {
         int j = 0;
 
         if (objeto.tipoObjeto().equals("Planta")) {
-            for (Objeto objeto_inventario : plantas) {
+            for (Planta objeto_inventario : plantas) {
                 if (objeto_inventario.equals(objeto)) {
                     anadir = false;
                     objeto_temp = objeto_inventario;
@@ -29,14 +32,14 @@ public class Inventario {
             }
             if (!anadir) {
                 objeto_temp.aumentarCantidad(i);
-                plantas.set(j, objeto_temp);
+                plantas.set(j, (Planta) objeto_temp);
             } else {
                 objeto_temp = objeto;
                 objeto_temp.setCantidad(i);
-                plantas.add(objeto_temp);
+                plantas.add((Planta) objeto_temp);
             }
         } else if (objeto.tipoObjeto().endsWith("Semilla")) {
-            for (Objeto objeto_inventario : semillas) {
+            for (Semilla objeto_inventario : semillas) {
                 if (objeto_inventario.equals(objeto)) {
                     anadir = false;
                     objeto_temp = objeto_inventario;
@@ -46,14 +49,14 @@ public class Inventario {
             }
             if (!anadir) {
                 objeto_temp.aumentarCantidad(i);
-                semillas.set(j, objeto_temp);
+                semillas.set(j, (Semilla) objeto_temp);
             } else {
                 objeto_temp = objeto;
                 objeto_temp.setCantidad(i);
-                semillas.add(objeto_temp);
+                semillas.add((Semilla) objeto_temp);
             }
         } else if (objeto.tipoObjeto().equals("Pocion")) {
-            for (Objeto objeto_inventario : pociones) {
+            for (Pocion objeto_inventario : pociones) {
                 if (objeto_inventario.equals(objeto)) {
                     anadir = false;
                     objeto_temp = objeto_inventario;
@@ -63,11 +66,11 @@ public class Inventario {
             }
             if (!anadir) {
                 objeto_temp.aumentarCantidad(i);
-                pociones.set(j, objeto_temp);
+                pociones.set(j, (Pocion) objeto_temp);
             } else {
                 objeto_temp = objeto;
                 objeto_temp.setCantidad(i);
-                pociones.add(objeto_temp);
+                pociones.add((Pocion) objeto_temp);
             }
         } else {
             System.out.println("Error al añadir un objeto al inventario");
@@ -120,7 +123,7 @@ public class Inventario {
             if (esta) {
                 objeto_temp = plantas.get(j);
                 objeto_temp.reducirCantidad(1);
-                plantas.set(j, objeto_temp);
+                plantas.set(j, (Planta) objeto_temp);
             }
         } else if (objeto.tipoObjeto().equals("Semilla")) {
             for (Objeto objeto_inventario : semillas) {
@@ -133,7 +136,7 @@ public class Inventario {
             if (esta) {
                 objeto_temp = semillas.get(j);
                 objeto_temp.reducirCantidad(1);
-                semillas.set(j, objeto_temp);
+                semillas.set(j, (Semilla) objeto_temp);
             }
         } else if (objeto.tipoObjeto().equals("Pocion")) {
             for (Objeto objeto_inventario : pociones) {
@@ -146,7 +149,7 @@ public class Inventario {
             if (esta) {
                 objeto_temp = pociones.get(j);
                 objeto_temp.reducirCantidad(1);
-                pociones.set(j, objeto_temp);
+                pociones.set(j, (Pocion) objeto_temp);
             }
         } else {
             System.out.println("Error al eliminar un objeto del inventario");
@@ -175,15 +178,15 @@ public class Inventario {
     }
      */
     
-    public ArrayList<Objeto> getPlantas(){
+    public ArrayList<Planta> getPlantas(){
         return plantas;
     }
     
-    public ArrayList<Objeto> getSemillas(){
+    public ArrayList<Semilla> getSemillas(){
         return semillas;
     }
     
-    public ArrayList<Objeto> getPociones(){
+    public ArrayList<Pocion> getPociones(){
         return pociones;
     }
 }
