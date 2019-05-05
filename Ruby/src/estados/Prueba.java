@@ -168,10 +168,9 @@ public class Prueba extends BasicGameState {
                     break;
                 default:
             }
-        } else {
-            if (gc.getInput().isMousePressed(0)) {
-                hablando = false;
-            }
+        }
+        if(hablando && click){
+            hablando = false;
         }
     }
 
