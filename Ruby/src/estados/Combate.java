@@ -229,7 +229,7 @@ public class Combate extends BasicGameState {
             grphcs.setFont(new TrueTypeFont(font, true));
             grphcs.drawString("Vida", 224, 568);
             grphcs.drawString("x" + numPVida, 318, 568);
-            grphcs.drawString("Daño", 599, 568);
+            grphcs.drawString("Ataque", 583, 568);
             grphcs.drawString("x" + numPDanio, 693, 568);
 
         } else if (pulsadoHuir) {
@@ -403,7 +403,7 @@ public class Combate extends BasicGameState {
         for (Objeto obj : ruby.getInventario().getPociones()) {
             if (obj.getNombre().equals("Pocion vida")) {
                 numPVida = obj.getCantidad();
-            } else if (obj.getNombre().equals("Pocion danio")) {
+            } else if (obj.getNombre().equals("Pocion ataque")) {
                 numPDanio = obj.getCantidad();
             }
         }
