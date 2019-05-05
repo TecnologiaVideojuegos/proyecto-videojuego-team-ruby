@@ -232,8 +232,8 @@ public class Combate extends BasicGameState {
                 grphcs.drawString("Selecciona poción:", 15, 470);
                 grphcs.drawString("Vida", 224, 568);
                 grphcs.drawString("x" + numPVida, 318, 568);
-                grphcs.drawString("Daño", 599, 568);
-                grphcs.drawString("x" + numPDanio, 693, 568);
+                grphcs.drawString("Ataque", 583, 568);
+                grphcs.drawString("x" + numPDanio, 693, 568);;
 
             } else if (pulsadoHuir) {
 
@@ -250,15 +250,9 @@ public class Combate extends BasicGameState {
             font = new Font("Verdana", Font.PLAIN, 35);
             grphcs.setFont(new TrueTypeFont(font, true));
             grphcs.drawString("Continuar", 992, 564);
-            
+
             font = new Font("Verdana", Font.PLAIN, 30);
             grphcs.setFont(new TrueTypeFont(font, true));
-            grphcs.drawString("Vida", 224, 568);
-            grphcs.drawString("x" + numPVida, 318, 568);
-            grphcs.drawString("Ataque", 583, 568);
-            grphcs.drawString("x" + numPDanio, 693, 568);
-
-        } else if (pulsadoHuir) {
 
             if (turnoRuby) {    //Turno ruby
                 if (ataque) {   //Accion ataque
@@ -350,7 +344,7 @@ public class Combate extends BasicGameState {
                 if (gc.getInput().isMousePressed(0)) {
                     turnoRuby = true;
                     entrarTurnoCombate();
-                    if ((int) (Math.random() * 4) == 0) {
+                    if ((int) (Math.random() * 3) == 0) {
                         huir = true;
                     } else {
                         huir = false;
