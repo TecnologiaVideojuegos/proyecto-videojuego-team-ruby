@@ -124,6 +124,9 @@ public class Inventario {
                 objeto_temp = plantas.get(j);
                 objeto_temp.reducirCantidad(1);
                 plantas.set(j, (Planta) objeto_temp);
+                if(objeto_temp.getCantidad()==0){
+                    plantas.remove(j);
+                }
             }
         } else if (objeto.tipoObjeto().equals("Semilla")) {
             for (Objeto objeto_inventario : semillas) {
@@ -137,6 +140,9 @@ public class Inventario {
                 objeto_temp = semillas.get(j);
                 objeto_temp.reducirCantidad(1);
                 semillas.set(j, (Semilla) objeto_temp);
+                if(objeto_temp.getCantidad()==0){
+                    semillas.remove(j);
+                }
             }
         } else if (objeto.tipoObjeto().equals("Pocion")) {
             for (Objeto objeto_inventario : pociones) {
@@ -150,6 +156,9 @@ public class Inventario {
                 objeto_temp = pociones.get(j);
                 objeto_temp.reducirCantidad(1);
                 pociones.set(j, (Pocion) objeto_temp);
+                if(objeto_temp.getCantidad()==0){
+                    pociones.remove(j);
+                }
             }
         } else {
             System.out.println("Error al eliminar un objeto del inventario");

@@ -24,14 +24,15 @@ public class Jugador extends Personaje {
     public Jugador(Hitbox hitbox) throws SlickException {
         super("Ruby", hitbox, 100, 100);
         this.animacion = new Animacion_dinamica("./resources/sprites/Ruby.png");
-        inventario.anadirObjeto(new Planta_fuego(), 2);
+        inventario.anadirObjeto(new Planta_fuego(), 1);
         inventario.anadirObjeto(new Semilla_fuego(), 1);
-        inventario.anadirObjeto(new Planta_agua(), 4);
-        inventario.anadirObjeto(new Semilla_agua(), 9);
-        inventario.anadirObjeto(new Planta_rayo(), 2);
-        inventario.anadirObjeto(new Semilla_rayo(), 2);
-        inventario.anadirObjeto(new Pocion_vida(), 2);
-        inventario.anadirObjeto(new Pocion_ataque(), 3);
+        inventario.anadirObjeto(new Planta_agua(), 1);
+        inventario.anadirObjeto(new Semilla_agua(), 1);
+        inventario.anadirObjeto(new Planta_rayo(), 1);
+        inventario.anadirObjeto(new Semilla_rayo(), 1);
+        inventario.anadirObjeto(new Pocion_vida(), 1);
+        inventario.anadirObjeto(new Pocion_ataque(), 1);
+        inventario.eliminarObjeto(new Planta_fuego());
     }
 
     public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {
