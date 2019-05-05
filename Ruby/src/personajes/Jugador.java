@@ -3,6 +3,7 @@ package personajes;
 import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import objetos.Inventario;
+import objetos.plantas.Planta;
 import objetos.plantas.Planta_agua;
 import objetos.plantas.Planta_fuego;
 import objetos.plantas.Planta_rayo;
@@ -15,9 +16,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Jugador extends Personaje {
-
+    
     private int nivel;
-    private boolean combate;
+    private boolean multiplicadorDanio;
+    private int contadorTurnos;
     private Animacion_dinamica animacion;
     private Inventario inventario = new Inventario();
 
@@ -34,6 +36,8 @@ public class Jugador extends Personaje {
         inventario.anadirObjeto(new Pocion_ataque(), 1);
         inventario.eliminarObjeto(new Semilla_rayo());
         inventario.anadirObjeto(new Planta_agua(), 2);
+        this.nivel = 1;
+        this.multiplicadorDanio = false;
     }
 
     public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {
@@ -41,15 +45,50 @@ public class Jugador extends Personaje {
         this.animacion = animacion;
     }
 
-    // TODO: implementar movimiento jugador
-    // TODO: pelear
+    public boolean ataque(Personaje enemigo, Planta planta) {
+        boolean exito = false;
+        int numRandom = (int) (Math.random() * 10);
+        int danio = 0;
+        
+        inventario.eliminarObjeto(planta);
+        
+        if (numRandom != 0) {
+            if (numRandom == 2) {                   //Critico
+                danio = 10 * 2; //TODO: sustituir por el daño de la planta
+            }else{
+                danio = 10; 
+            }
+            
+            if(multiplicadorDanio){
+                danio*=2;
+                contadorTurnos--;
+                if(contadorTurnos == 0){
+                    multiplicadorDanio = false;
+                }
+            }
+            
+            enemigo.setVida(enemigo.getVida() - danio);
+            exito = true;
+        }
+        return exito;
+    }
+    
+    public void tomarPocionDanio(){
+        contadorTurnos = 3;
+        multiplicadorDanio = true;
+    }
+
+    public void tomarPocionVida(){
+        super.setVida(super.getVida()+30);
+    }
+    
     // TODO: comprar
     // TODO: vender
     // TODO: plantar
     // TODO: recolectar
     @Override
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
-        animacion.renderAnimacion(movEjeX, movEjeY, (gc.getWidth() / 2), (gc.getHeight() / 2)); 
+        animacion.renderAnimacion(movEjeX, movEjeY, (gc.getWidth() / 2), (gc.getHeight() / 2));
     }
 
     public Inventario getInventario() {

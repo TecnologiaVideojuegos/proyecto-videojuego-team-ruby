@@ -40,7 +40,13 @@ public abstract class Personaje implements Serializable {
     }
 
     public void setVida(int vida) {
-        this.vida = vida;
+        if(vida<0){
+            this.vida = 0;
+        }else if(vida>100){
+            this.vida = 100;
+        }else{
+            this.vida = vida;
+        }
     }
 
     public int getDinero() {

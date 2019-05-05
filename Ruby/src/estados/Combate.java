@@ -2,7 +2,9 @@ package estados;
 
 import java.awt.Font;
 import objetos.Objeto;
+import objetos.plantas.Planta_agua;
 import objetos.plantas.Planta_fuego;
+import objetos.plantas.Planta_rayo;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,14 +27,17 @@ public class Combate extends BasicGameState {
     private Circle cursor_hitbox;
     //Menu opciones
     private Rectangle btnAtaques, btnPociones, btnHuir;
-    private Boolean sobreAtaques = false, sobrePociones = false, sobreHuir = false;
-    private Boolean pulsadoAtaques = true, pulsadoPociones = false, pulsadoHuir = false;
+    private boolean sobreAtaques = false, sobrePociones = false, sobreHuir = false;
+    private boolean pulsadoAtaques = true, pulsadoPociones = false, pulsadoHuir = false;
     //Submenu ataques
     private Rectangle btnAgua, btnFuego, btnRayo;
-    private Boolean sobreAgua = false, sobreFuego = false, sobreRayo = false;
+    private boolean sobreAgua = false, sobreFuego = false, sobreRayo = false;
     //Submenu pociones
     private Rectangle btnPocionVida, btnPocionDanio;
-    private Boolean sobrePocionVida = false, sobrePocionDanio = false;
+    private boolean sobrePocionVida = false, sobrePocionDanio = false;
+
+    //Acciones del combate
+    private boolean turnoRuby = false, ataque = false, acierto = false, pocionVida = false, huir = false;
 
     private StateBasedGame game;
     private int estadoAnterior = 0;
@@ -306,31 +311,30 @@ public class Combate extends BasicGameState {
 
         //MENU ATAQUES
         if (pulsadoAtaques) {
-            if (cursor_hitbox.intersects(btnAgua)) {
+            if (numFAgua > 0 &&cursor_hitbox.intersects(btnAgua) ) {
                 sobreAgua = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println("Ataque agua");
+                    System.out.println(ruby.ataque(combatiente, new Planta_agua()));
                     actualizar = true;
                 }
             } else {
                 sobreAgua = false;
             }
 
-            if (cursor_hitbox.intersects(btnFuego)) {
+            if ( numFFuego > 0&&cursor_hitbox.intersects(btnFuego) ) {
                 sobreFuego = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println("Ataque fuego");
-                    ruby.getInventario().getPlantas().add(new Planta_fuego());  //TODO: eliminar, es una prueba
+                    System.out.println(ruby.ataque(combatiente, new Planta_fuego()));
                     actualizar = true;
                 }
             } else {
                 sobreFuego = false;
             }
 
-            if (cursor_hitbox.intersects(btnRayo)) {
+            if (numFRayo > 0&&cursor_hitbox.intersects(btnRayo)) {
                 sobreRayo = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println("Ataque rayo");
+                    System.out.println(ruby.ataque(combatiente, new Planta_rayo()));
                     actualizar = true;
                 }
             } else {
@@ -340,31 +344,26 @@ public class Combate extends BasicGameState {
 
         //MENU POCIONES
         if (pulsadoPociones) {
-            if (cursor_hitbox.intersects(btnPocionVida)) {
+            if (numPVida > 0&&cursor_hitbox.intersects(btnPocionVida)) {
                 sobrePocionVida = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println("Poción vida");
+                    ruby.tomarPocionVida();
                     actualizar = true;
                 }
             } else {
                 sobrePocionVida = false;
             }
 
-            if (cursor_hitbox.intersects(btnPocionDanio)) {
+            if (numPDanio > 0&&cursor_hitbox.intersects(btnPocionDanio) ) {
                 sobrePocionDanio = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println("Poción daño");
+                    ruby.tomarPocionDanio();
                     actualizar = true;
                 }
             } else {
                 sobrePocionDanio = false;
             }
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        //Pruebas
-        combatiente.setVida(combatiente.getVida() - 1);
-        ///////////////////////////////////////////////////////////////////////
     }
 
     @Override
@@ -392,19 +391,20 @@ public class Combate extends BasicGameState {
 
         for (Objeto obj : ruby.getInventario().getPlantas()) {
             if (obj.getNombre().equals("Planta de agua")) {
-                numFAgua++;
+                System.out.println("Cantidad de plantas de agua" + obj.getCantidad());
+                numFAgua = obj.getCantidad();
             } else if (obj.getNombre().equals("Planta de fuego")) {
-                numFFuego++;
+                numFFuego = obj.getCantidad();
             } else if (obj.getNombre().equals("Planta de rayo")) {
-                numFRayo++;
+                numFRayo = obj.getCantidad();
             }
         }
 
         for (Objeto obj : ruby.getInventario().getPociones()) {
             if (obj.getNombre().equals("Pocion vida")) {
-                numPVida++;
+                numPVida = obj.getCantidad();
             } else if (obj.getNombre().equals("Pocion danio")) {
-                numPDanio++;
+                numPDanio = obj.getCantidad();
             }
         }
     }
