@@ -15,6 +15,8 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import personajes.Boss;
+import personajes.Enemigo;
 import personajes.Jugador;
 import personajes.Personaje;
 
@@ -37,7 +39,7 @@ public class Combate extends BasicGameState {
     private boolean sobrePocionVida = false, sobrePocionDanio = false;
 
     //Acciones del combate
-    private boolean turnoRuby = false, ataque = false, acierto = false, pocionVida = false, huir = false;
+    private boolean turnoRuby = false, ataque = false, acierto = false, tomaPocion = false, huir = false;
 
     private StateBasedGame game;
     private int estadoAnterior = 0;
@@ -45,6 +47,8 @@ public class Combate extends BasicGameState {
 
     private boolean actualizar = true;
     private int numFAgua = 0, numFFuego = 0, numFRayo = 0, numPVida = 0, numPDanio = 0;
+    private boolean sobreContinuar = false;
+    private Rectangle btnContinuar;
 
     public Combate(Jugador ruby) throws SlickException {
         this.ruby = ruby;
@@ -74,6 +78,8 @@ public class Combate extends BasicGameState {
         btnRayo = new Rectangle(626, 560, 230, 50);
         btnPocionVida = new Rectangle(150, 560, 230, 50);
         btnPocionDanio = new Rectangle(525, 560, 230, 50);
+        btnPocionDanio = new Rectangle(525, 560, 230, 50);
+        btnContinuar = new Rectangle(964, 560, 270, 50);
     }
 
     @Override
@@ -123,123 +129,165 @@ public class Combate extends BasicGameState {
         grphcs.fillRect(0, 450, p_Widht, 5);
         grphcs.fillRect(900, 450, 5, 270);
 
-        //MENU OPCIONES
-        grphcs.setColor(new Color(0xFFAEAE));   //Bordes
-        if (pulsadoAtaques) {
-            grphcs.fillRect(952, 476, 274, 54);
-        } else if (pulsadoPociones) {
-            grphcs.fillRect(952, 558, 274, 54);
-        } else if (pulsadoHuir) {
-            grphcs.fillRect(952, 640, 274, 54);
-        }
+        if (pulsadoAtaques || pulsadoPociones || pulsadoHuir) {
+            //MENU OPCIONES
+            grphcs.setColor(new Color(0xFFAEAE));   //Bordes
+            if (pulsadoAtaques) {
+                grphcs.fillRect(952, 476, 274, 54);
+            } else if (pulsadoPociones) {
+                grphcs.fillRect(952, 558, 274, 54);
+            } else if (pulsadoHuir) {
+                grphcs.fillRect(952, 640, 274, 54);
+            }
 
-        if (sobreAtaques) {       //btn ataque
-            grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
-        } else {
-            grphcs.setColor(new Color(0xF0F0F0));
-        }
-        grphcs.fillRect(954, 478, 270, 50);
-
-        if (sobrePociones) {       //btn pociones
-            grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
-        } else {
-            grphcs.setColor(new Color(0xF0F0F0));
-        }
-        grphcs.fillRect(954, 560, 270, 50);
-
-        if (sobreHuir) {       //btn huir
-            grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
-        } else {
-            grphcs.setColor(new Color(0xF0F0F0));
-        }
-        grphcs.fillRect(954, 642, 270, 50);
-
-        grphcs.setColor(Color.black);               //Texto
-        font = new Font("Verdana", Font.PLAIN, 35);
-        grphcs.setFont(new TrueTypeFont(font, true));
-        grphcs.drawString("ATAQUES", 1007, 482);
-        grphcs.drawString("POCIONES", 1003, 566);
-        grphcs.drawString("HUIDA", 1031, 646);
-
-        //SUBMENUS
-        if (pulsadoAtaques) {//MENU ATAQUES
-
-            if (sobreAgua) {       //btn ataque
+            if (sobreAtaques) {       //btn ataque
                 grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
             } else {
                 grphcs.setColor(new Color(0xF0F0F0));
             }
-            grphcs.fillRect(50, 560, 230, 50);
+            grphcs.fillRect(954, 478, 270, 50);
 
-            if (sobreFuego) {       //btn pociones
+            if (sobrePociones) {       //btn pociones
                 grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
             } else {
                 grphcs.setColor(new Color(0xF0F0F0));
             }
-            grphcs.fillRect(350, 560, 230, 50);
+            grphcs.fillRect(954, 560, 270, 50);
 
-            if (sobreRayo) {       //btn huir
+            if (sobreHuir) {       //btn huir
                 grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
             } else {
                 grphcs.setColor(new Color(0xF0F0F0));
             }
-            grphcs.fillRect(626, 560, 230, 50);
-
-            iconoFAgua.draw(60, 565, 40, 40);
-            iconoPFuego.draw(359, 565, 40, 40);
-            iconoPRayo.draw(636, 565, 40, 40);
+            grphcs.fillRect(954, 642, 270, 50);
 
             grphcs.setColor(Color.black);               //Texto
             font = new Font("Verdana", Font.PLAIN, 35);
             grphcs.setFont(new TrueTypeFont(font, true));
-            grphcs.drawString("Selecciona ataque:", 15, 470);
-            font = new Font("Verdana", Font.PLAIN, 30);
-            grphcs.setFont(new TrueTypeFont(font, true));
-            grphcs.drawString("Agua", 125, 568);
-            grphcs.drawString("x" + numFAgua, 218, 568);
-            grphcs.drawString("Fuego", 423, 568);
-            grphcs.drawString("x" + numFFuego, 517, 568);
-            grphcs.drawString("Rayo", 700, 568);
-            grphcs.drawString("x" + numFRayo, 794, 568);
+            grphcs.drawString("ATAQUES", 1007, 482);
+            grphcs.drawString("POCIONES", 1003, 566);
+            grphcs.drawString("HUIDA", 1031, 646);
 
-        } else if (pulsadoPociones) {
+            //SUBMENUS
+            if (pulsadoAtaques) {//MENU ATAQUES
 
-            if (sobrePocionVida) {       //btn ataque
+                if (sobreAgua) {       //btn ataque
+                    grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
+                } else {
+                    grphcs.setColor(new Color(0xF0F0F0));
+                }
+                grphcs.fillRect(50, 560, 230, 50);
+
+                if (sobreFuego) {       //btn pociones
+                    grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
+                } else {
+                    grphcs.setColor(new Color(0xF0F0F0));
+                }
+                grphcs.fillRect(350, 560, 230, 50);
+
+                if (sobreRayo) {       //btn huir
+                    grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
+                } else {
+                    grphcs.setColor(new Color(0xF0F0F0));
+                }
+                grphcs.fillRect(626, 560, 230, 50);
+
+                iconoFAgua.draw(60, 565, 40, 40);
+                iconoPFuego.draw(359, 565, 40, 40);
+                iconoPRayo.draw(636, 565, 40, 40);
+
+                grphcs.setColor(Color.black);               //Texto
+                font = new Font("Verdana", Font.PLAIN, 30);
+                grphcs.setFont(new TrueTypeFont(font, true));
+                grphcs.drawString("Selecciona ataque:", 15, 470);
+                grphcs.drawString("Agua", 125, 568);
+                grphcs.drawString("x" + numFAgua, 218, 568);
+                grphcs.drawString("Fuego", 423, 568);
+                grphcs.drawString("x" + numFFuego, 517, 568);
+                grphcs.drawString("Rayo", 700, 568);
+                grphcs.drawString("x" + numFRayo, 794, 568);
+
+            } else if (pulsadoPociones) {
+
+                if (sobrePocionVida) {       //btn ataque
+                    grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
+                } else {
+                    grphcs.setColor(new Color(0xF0F0F0));
+                }
+                grphcs.fillRect(150, 560, 230, 50);
+
+                if (sobrePocionDanio) {       //btn pociones
+                    grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
+                } else {
+                    grphcs.setColor(new Color(0xF0F0F0));
+                }
+                grphcs.fillRect(525, 560, 230, 50);
+
+                iconoPocionVida.draw(160, 565, 40, 40);
+                iconoPocionDanio.draw(535, 565, 40, 40);
+
+                grphcs.setColor(Color.black);               //Texto
+                font = new Font("Verdana", Font.PLAIN, 30);
+                grphcs.setFont(new TrueTypeFont(font, true));
+                grphcs.drawString("Selecciona poción:", 15, 470);
+                grphcs.drawString("Vida", 224, 568);
+                grphcs.drawString("x" + numPVida, 318, 568);
+                grphcs.drawString("Daño", 599, 568);
+                grphcs.drawString("x" + numPDanio, 693, 568);
+
+            } else if (pulsadoHuir) {
+
+            }
+        } else {
+            if (sobreContinuar) {       //btn continuar
                 grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
             } else {
                 grphcs.setColor(new Color(0xF0F0F0));
             }
-            grphcs.fillRect(150, 560, 230, 50);
-
-            if (sobrePocionDanio) {       //btn pociones
-                grphcs.setColor(new Color(0xFFF1F1)); //Color sobre boton
-            } else {
-                grphcs.setColor(new Color(0xF0F0F0));
-            }
-            grphcs.fillRect(525, 560, 230, 50);
-
-            iconoPocionVida.draw(160, 565, 40, 40);
-            iconoPocionDanio.draw(535, 565, 40, 40);
+            grphcs.fillRect(964, 560, 270, 50);
 
             grphcs.setColor(Color.black);               //Texto
             font = new Font("Verdana", Font.PLAIN, 35);
             grphcs.setFont(new TrueTypeFont(font, true));
-            grphcs.drawString("Selecciona poción:", 15, 470);
+            grphcs.drawString("Continuar", 992, 564);
+            
             font = new Font("Verdana", Font.PLAIN, 30);
             grphcs.setFont(new TrueTypeFont(font, true));
-            grphcs.drawString("Vida", 224, 568);
-            grphcs.drawString("x" + numPVida, 318, 568);
-            grphcs.drawString("Daño", 599, 568);
-            grphcs.drawString("x" + numPDanio, 693, 568);
 
-        } else if (pulsadoHuir) {
-
+            if (turnoRuby) {    //Turno ruby
+                if (ataque) {   //Accion ataque
+                    if (acierto) {
+                        grphcs.drawString("Tu ataque es eficaz y daña al enemigo", 128, 564);
+                    } else {
+                        grphcs.drawString("El enemigo esquiva tu ataque", 207, 564);
+                    }
+                } else if (tomaPocion) {    //Accion toma de pocion
+                    grphcs.drawString("La poción surge efecto", 257, 564);
+                } else {
+                    if (huir) {   //Accion huir
+                        grphcs.drawString("¡Huyes con éxito!", 332, 564);
+                    } else {
+                        grphcs.drawString("Tu enemigo no te deja escapar", 201, 564);
+                    }
+                }
+            } else {  //Tunrno enemigo
+                if (ataque) {   //Accion ataque
+                    if (acierto) {
+                        grphcs.drawString("El enemigo te ataca, sufres daños", 171, 564);
+                    } else {
+                        grphcs.drawString("El enemigo te ataca, pero falla", 198, 564);
+                    }
+                } else if (tomaPocion) {    //Accion toma de pocion
+                    grphcs.drawString("El enemigo realiza un conjuro para recupera vida", 22, 564);
+                }
+            }
         }
 
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame game,
+            int i) throws SlickException {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
@@ -267,103 +315,167 @@ public class Combate extends BasicGameState {
             }
         }
 
-        //MENU OPCIONES
-        if (cursor_hitbox.intersects(btnAtaques)) {
-            sobreAtaques = true;
-            if (gc.getInput().isMousePressed(0)) {
-                pulsadoAtaques = true;
-                pulsadoPociones = false;
-                pulsadoHuir = false;
-            }
-        } else {
-            sobreAtaques = false;
-        }
-        if (cursor_hitbox.intersects(btnPociones)) {
-            sobrePociones = true;
-            if (gc.getInput().isMousePressed(0)) {
-                pulsadoAtaques = false;
-                pulsadoPociones = true;
-                pulsadoHuir = false;
-            }
-        } else {
-            sobrePociones = false;
-        }
+        if (pulsadoAtaques || pulsadoPociones || pulsadoHuir) {     //ENTRE COMBATES
 
-        if (cursor_hitbox.intersects(btnHuir)) {
-            sobreHuir = true;
-            if (gc.getInput().isMousePressed(0)) {
-                pulsadoAtaques = false;
-                pulsadoPociones = false;
-                pulsadoHuir = true;
-
-                String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
-                if (nombreClaseAnterior.equals("estados.Prueba")) {
-                    ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
-                    //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
-                } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
-                    //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
-                }
-                game.enterState(estadoAnterior);
-            }
-        } else {
-            sobreHuir = false;
-        }
-
-        //MENU ATAQUES
-        if (pulsadoAtaques) {
-            if (numFAgua > 0 &&cursor_hitbox.intersects(btnAgua) ) {
-                sobreAgua = true;
+            //MENU OPCIONES
+            if (cursor_hitbox.intersects(btnAtaques)) {
+                sobreAtaques = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println(ruby.ataque(combatiente, new Planta_agua()));
-                    actualizar = true;
+                    pulsadoAtaques = true;
+                    pulsadoPociones = false;
+                    pulsadoHuir = false;
                 }
             } else {
-                sobreAgua = false;
+                sobreAtaques = false;
             }
-
-            if ( numFFuego > 0&&cursor_hitbox.intersects(btnFuego) ) {
-                sobreFuego = true;
+            if (cursor_hitbox.intersects(btnPociones)) {
+                sobrePociones = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println(ruby.ataque(combatiente, new Planta_fuego()));
-                    actualizar = true;
+                    pulsadoAtaques = false;
+                    pulsadoPociones = true;
+                    pulsadoHuir = false;
                 }
             } else {
-                sobreFuego = false;
+                sobrePociones = false;
             }
 
-            if (numFRayo > 0&&cursor_hitbox.intersects(btnRayo)) {
-                sobreRayo = true;
+            if (cursor_hitbox.intersects(btnHuir)) {
+                sobreHuir = true;
                 if (gc.getInput().isMousePressed(0)) {
-                    System.out.println(ruby.ataque(combatiente, new Planta_rayo()));
-                    actualizar = true;
+                    turnoRuby = true;
+                    entrarTurnoCombate();
+                    if ((int) (Math.random() * 4) == 0) {
+                        huir = true;
+                    } else {
+                        huir = false;
+                    }
+
                 }
             } else {
-                sobreRayo = false;
+                sobreHuir = false;
+            }
+
+            //MENU ATAQUES
+            if (pulsadoAtaques) {
+                if (numFAgua > 0 && cursor_hitbox.intersects(btnAgua)) {
+                    sobreAgua = true;
+                    if (gc.getInput().isMousePressed(0)) {
+                        acierto = ruby.ataque(combatiente, new Planta_agua());
+                        turnoRuby = true;
+                        ataque = true;
+                        entrarTurnoCombate();
+                        actualizar = true;
+                    }
+                } else {
+                    sobreAgua = false;
+                }
+
+                if (numFFuego > 0 && cursor_hitbox.intersects(btnFuego)) {
+                    sobreFuego = true;
+                    if (gc.getInput().isMousePressed(0)) {
+                        acierto = ruby.ataque(combatiente, new Planta_fuego());
+                        turnoRuby = true;
+                        ataque = true;
+                        entrarTurnoCombate();
+                        actualizar = true;
+                    }
+                } else {
+                    sobreFuego = false;
+                }
+
+                if (numFRayo > 0 && cursor_hitbox.intersects(btnRayo)) {
+                    sobreRayo = true;
+                    if (gc.getInput().isMousePressed(0)) {
+                        acierto = ruby.ataque(combatiente, new Planta_rayo());
+                        turnoRuby = true;
+                        ataque = true;
+                        entrarTurnoCombate();
+                        actualizar = true;
+                    }
+                } else {
+                    sobreRayo = false;
+                }
+            }
+
+            //MENU POCIONES
+            if (pulsadoPociones) {
+                if (numPVida > 0 && cursor_hitbox.intersects(btnPocionVida)) {
+                    sobrePocionVida = true;
+                    if (gc.getInput().isMousePressed(0)) {
+                        ruby.tomarPocionVida();
+                        turnoRuby = true;
+                        tomaPocion = true;
+                        actualizar = true;
+                    }
+                } else {
+                    sobrePocionVida = false;
+                }
+
+                if (numPDanio > 0 && cursor_hitbox.intersects(btnPocionDanio)) {
+                    sobrePocionDanio = true;
+                    if (gc.getInput().isMousePressed(0)) {
+                        ruby.tomarPocionDanio();
+                        turnoRuby = true;
+                        tomaPocion = true;
+                        actualizar = true;
+                    }
+                } else {
+                    sobrePocionDanio = false;
+                }
+            }
+        } else {                                                          //EN TURNO COMBATE
+            if (cursor_hitbox.intersects(btnContinuar)) {
+                sobreContinuar = true;
+                if (gc.getInput().isMousePressed(0)) {
+                    if (turnoRuby) {    //En el turno de ruby
+                        if (huir) {
+                            String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
+                            if (nombreClaseAnterior.equals("estados.Prueba")) {
+                                ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
+                                //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
+                            } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
+                                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+                            }
+                            game.enterState(estadoAnterior);
+                        } else {
+                            //Para el resto de casos el siguiente en realizar acción es el enemigo
+                            turnoRuby = false;
+                            ataque = false;
+                            acierto = false;
+                            tomaPocion = false;
+
+                            if (combatiente.getNombre().equals("Boss")) {
+                                Boss b = (Boss) combatiente;
+                                if ((int) (Math.random() * 10) == 0) {
+                                    tomaPocion = true;
+                                    b.tomarPocionVida();
+                                } else {
+                                    ataque = true;
+                                    acierto = b.ataque(ruby);
+                                }
+
+                            } else {
+                                ataque = true;
+                                Enemigo e = (Enemigo) combatiente;
+                                acierto = e.ataque(ruby);
+                            }
+
+                        }
+                    } else {              //En el turno del enemigo
+                        turnoRuby = false;
+                        ataque = false;
+                        acierto = false;
+                        tomaPocion = false;
+                        huir = false;
+                        salirTurnoCombate();
+                    }
+
+                }
+            } else {
+                sobreContinuar = false;
             }
         }
 
-        //MENU POCIONES
-        if (pulsadoPociones) {
-            if (numPVida > 0&&cursor_hitbox.intersects(btnPocionVida)) {
-                sobrePocionVida = true;
-                if (gc.getInput().isMousePressed(0)) {
-                    ruby.tomarPocionVida();
-                    actualizar = true;
-                }
-            } else {
-                sobrePocionVida = false;
-            }
-
-            if (numPDanio > 0&&cursor_hitbox.intersects(btnPocionDanio) ) {
-                sobrePocionDanio = true;
-                if (gc.getInput().isMousePressed(0)) {
-                    ruby.tomarPocionDanio();
-                    actualizar = true;
-                }
-            } else {
-                sobrePocionDanio = false;
-            }
-        }
     }
 
     @Override
@@ -391,7 +503,6 @@ public class Combate extends BasicGameState {
 
         for (Objeto obj : ruby.getInventario().getPlantas()) {
             if (obj.getNombre().equals("Planta de agua")) {
-                System.out.println("Cantidad de plantas de agua" + obj.getCantidad());
                 numFAgua = obj.getCantidad();
             } else if (obj.getNombre().equals("Planta de fuego")) {
                 numFFuego = obj.getCantidad();
@@ -407,5 +518,17 @@ public class Combate extends BasicGameState {
                 numPDanio = obj.getCantidad();
             }
         }
+    }
+
+    private void entrarTurnoCombate() {
+        pulsadoAtaques = false;
+        pulsadoPociones = false;
+        pulsadoHuir = false;
+    }
+
+    private void salirTurnoCombate() {
+        pulsadoAtaques = true;
+        pulsadoPociones = false;
+        pulsadoHuir = false;
     }
 }

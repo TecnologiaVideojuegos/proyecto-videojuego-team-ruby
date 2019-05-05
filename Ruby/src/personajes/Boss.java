@@ -47,4 +47,26 @@ public class Boss extends Personaje {
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
         animacion.renderAnimacion(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
     }
+
+    public boolean ataque(Personaje enemigo) {
+        boolean exito = false;
+        int numRandom = (int) (Math.random() * 8);
+        int danio = 0;
+
+        if (numRandom != 0) {
+            if (numRandom == 2) {                   //Critico
+                danio = 10 * 2; //TODO: sustituir por el daño de la planta
+            } else {
+                danio = 10;
+            }
+
+            enemigo.setVida(enemigo.getVida() - danio);
+            exito = true;
+        }
+        return exito;
+    }
+
+    public void tomarPocionVida() {
+        super.setVida(super.getVida() + 20);
+    }
 }

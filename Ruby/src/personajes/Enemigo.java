@@ -3,6 +3,7 @@ package personajes;
 import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import elementos.Mapa;
+import objetos.plantas.Planta;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import services.Colision_Service;
@@ -72,6 +73,24 @@ public class Enemigo extends Personaje {
     public void pararMovimiento() {
         movX = 0;
         movY = 0;
+    }
+
+    public boolean ataque(Personaje enemigo) {
+        boolean exito = false;
+        int numRandom = (int) (Math.random() * 8);
+        int danio = 0;
+
+        if (numRandom != 0 || numRandom != 1) {
+            if (numRandom == 2) {                   //Critico
+                danio = 7 * 2; //TODO: sustituir por el daño de la planta
+            } else {
+                danio = 7;
+            }
+
+            enemigo.setVida(enemigo.getVida() - danio);
+            exito = true;
+        }
+        return exito;
     }
 
     //Movimiento dinamico del enemigo
