@@ -76,30 +76,6 @@ public class Inventario {
             System.out.println("Error al añadir un objeto al inventario");
         }
     }
-
-    /*
-    public void anadirObjeto(Objeto objeto, int i){
-        boolean anadir = true;
-        Objeto objeto_temp = null;
-        int j = 0;
-        for(Objeto objeto_inventario: inventario){
-            if(objeto_inventario.equals(objeto)){
-                anadir=false;
-                objeto_temp=objeto_inventario;
-                break;
-            }
-            j++;
-        }
-        if(anadir){
-            objeto_temp.aumentarCantidad(i);
-            inventario.set(j, objeto_temp);
-        }else{
-            objeto_temp = objeto;
-            objeto_temp.setCantidad(i);
-            inventario.add(objeto_temp);
-        }
-    }
-     */
     
     /**
      * Elimina uno de cantidad del objeto introducido
@@ -165,27 +141,6 @@ public class Inventario {
         }
         return esta;
     }
-
-    /*
-    public boolean eliminarObjeto(Objeto objeto) {
-        boolean esta = false;
-        Objeto objeto_temp = null;
-        int j = 0;
-        for (Objeto objeto_ineventario : inventario) {
-            if (objeto_ineventario.equals(objeto)) {
-                esta = true;
-                break;
-            }
-            j++;
-        }
-        if (esta) {
-            objeto_temp = inventario.get(j);
-            objeto_temp.reducirCantidad(1);
-            inventario.set(j, objeto_temp);
-        }
-        return esta;
-    }
-     */
     
     public ArrayList<Planta> getPlantas(){
         return plantas;
@@ -197,5 +152,34 @@ public class Inventario {
     
     public ArrayList<Pocion> getPociones(){
         return pociones;
+    }
+    
+    public int getCantidad(Objeto objeto){
+        int cantidad = 0;
+        if(objeto.tipoObjeto().equals("Planta")){
+            for(Planta planta: plantas){
+                if(objeto.equals(planta)){
+                    cantidad = planta.getCantidad();
+                    break;
+                }
+            }
+        }else if(objeto.tipoObjeto().equals("Semilla")){
+            for(Semilla semilla: semillas){
+                if(objeto.equals(semilla)){
+                    cantidad = semilla.getCantidad();
+                    break;
+                }
+            }
+        }else if(objeto.tipoObjeto().equals("Pocion")){
+            for(Pocion pocion: pociones){
+                if(objeto.equals(pocion)){
+                    cantidad = pocion.getCantidad();
+                    break;
+                }
+            }
+        }else{
+            System.out.println("Error al obtener la cantidad de un objeto");
+        }
+        return cantidad;
     }
 }

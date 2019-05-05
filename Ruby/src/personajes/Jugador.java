@@ -32,7 +32,8 @@ public class Jugador extends Personaje {
         inventario.anadirObjeto(new Semilla_rayo(), 1);
         inventario.anadirObjeto(new Pocion_vida(), 1);
         inventario.anadirObjeto(new Pocion_ataque(), 1);
-        inventario.eliminarObjeto(new Planta_fuego());
+        inventario.eliminarObjeto(new Semilla_rayo());
+        inventario.anadirObjeto(new Planta_agua(), 2);
     }
 
     public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {

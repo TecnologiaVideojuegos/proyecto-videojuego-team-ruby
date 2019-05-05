@@ -1,5 +1,6 @@
 package estados;
 
+import elementos.Hitbox;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,7 +22,7 @@ public class Prueba extends BasicGameState {
     private Jugador ruby;
 
     //RATÓN
-    private String coordenadas = "", click = "";
+    private String coordenadas = "";
     private Image cursor;
     private Circle cursor_hitbox;
 
@@ -36,6 +37,10 @@ public class Prueba extends BasicGameState {
 
     private boolean hablando = false;
     private boolean inventario = false;
+    private boolean plantando = false;
+    private boolean click = false;
+    
+    private Plantar_Service plantar;
 
     //Combate
     private Personaje combatiente = null;
@@ -73,7 +78,6 @@ public class Prueba extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame game, Graphics grphcs) throws SlickException {
 
         map.renderMap(gc, x, y, grphcs, ver_hitbox);
-        grphcs.drawString(click, gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
         grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
@@ -89,6 +93,12 @@ public class Prueba extends BasicGameState {
         if (inventario) {
             Inventario_Service.mostrarInventario(grphcs, ruby);
         }
+        
+        if(plantando){
+            if(plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null){
+                plantando = false;
+            }
+        }
 
     }
 
@@ -97,7 +107,8 @@ public class Prueba extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-        if ((!hablando) && (!inventario)) {
+        click = gc.getInput().isMousePressed(0);
+        if ((!hablando) && (!inventario) && (!plantando)) {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
@@ -127,6 +138,14 @@ public class Prueba extends BasicGameState {
 
             //Detección de click sobre huerto
             InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+            if(gc.getInput().isMouseButtonDown(0)){
+                for(Hitbox hitbox_terreno: map.getHuerto()){
+                    if(hitbox_terreno.getRectangulo().intersects(cursor_hitbox)){
+                        plantando = true;
+                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(),gc.getInput().getAbsoluteMouseY());
+                    }
+                }
+            }
 
             //Detección de click sobre npcs
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
@@ -172,7 +191,7 @@ public class Prueba extends BasicGameState {
             game.enterState(0); //MENU
         }
 
-        if (!hablando) {
+        if (!hablando && !plantando) {
             if (key == Input.KEY_E) {
                 if (!inventario) {
                     inventario = true;
