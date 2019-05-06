@@ -2,6 +2,7 @@ package elementos;
 
 import java.util.ArrayList;
 import objetos.plantas.Planta;
+import objetos.plantas.Planta_agua;
 import objetos.plantas.Planta_fuego;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -115,7 +116,7 @@ public class Mapa {
     }
 
     public void anadirPlanta_fuego(float pos_x, float pos_y) throws SlickException {
-        Planta planta = new Planta_fuego();
+        Planta planta = new Planta_agua();
         planta.setCoordenadas(pos_x, pos_y);
         plantas.add(planta);
     }
