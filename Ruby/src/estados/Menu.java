@@ -28,9 +28,11 @@ public class Menu extends BasicGameState {
     private boolean pulsado_nuevaPartidaContinuar = false, pulsado_cargarGuardarPartida = false, pulsado_salir = false;
     private StateBasedGame game;
     private int estadoAnterior = 0;
+    private boolean ver_hitbox = true;
 
-    public Menu(Jugador ruby) throws SlickException {
+    public Menu(Jugador ruby, boolean ver_hitbox) throws SlickException {
         this.ruby = ruby;
+        this.ver_hitbox = ver_hitbox;
     }
 
     @Override
@@ -198,6 +200,8 @@ public class Menu extends BasicGameState {
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_ESCAPE && estadoAnterior > 0) {
             game.enterState(estadoAnterior);
+        }else if (key == Input.KEY_F11) {
+            game.enterState(3);
         }
     }
 

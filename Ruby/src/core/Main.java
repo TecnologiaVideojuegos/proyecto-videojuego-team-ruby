@@ -34,11 +34,13 @@ public class Main extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
-        this.addState(new Menu(ruby));
-        this.addState(new Prueba(ruby, ver_hitbox));
-        this.addState(new Demo());
-        this.addState(new Prueba_Mazmorra(ruby, ver_hitbox));
-        this.addState(new Combate(ruby));
+        this.addState(new Menu(ruby, ver_hitbox));              //0
+        this.addState(new Casa(ruby, ver_hitbox));              //1
+        this.addState(new Combate(ruby));                       //2
+        this.addState(new Prueba(ruby, ver_hitbox));            //3
+        this.addState(new Prueba_Mazmorra(ruby, ver_hitbox));   //4
+        this.addState(new Demo());                              //5
+        
     }
 
     public static void main(String[] args) {

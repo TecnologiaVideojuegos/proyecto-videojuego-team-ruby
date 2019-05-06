@@ -307,7 +307,7 @@ public class Demo extends BasicGameState {
 
     @Override
     public int getID() {
-        return 2;
+        return 5;
     }
 
     public void cargaMuros() {

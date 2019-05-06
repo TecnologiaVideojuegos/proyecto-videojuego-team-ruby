@@ -40,17 +40,12 @@
  </layer>
  <layer id="10" name="SpawnEste" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3NMQEAAAwCIO1f2hbbAwVIAIBL9QMADwZEihCWABAAAA==
+   H4sIAAAAAAAACu3OMQEAAAwCINe/9GJ4CAlIAIAl1w4AABUPFiG6dwAQAAA=
   </data>
  </layer>
  <layer id="11" name="SpawnRuby" width="32" height="32">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3OIQEAAAgDsNO/NBEuEJgtwRIA6OY7AADAyQIAhi9mABAAAA==
-  </data>
- </layer>
- <layer id="5" name="Plantas" width="32" height="32">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgGD7AiJ2BwRiITdgx5e7QwX4noL3OQOyCxX56gCCgvcFAHAK1nx5+HgW0BRbcqJjeIIsbFdMbJHCjYnqDqVyoeBSMglEwCkbBKCAHJAHbZslAnDJAbcQioL3FQFyCZj8t3YVsdhMQNwNxC9SeP0D8F4+7qAHwmc3DyMDAy4jpLmLCg9gwQzcbGcgA7ZZlxDQP3c3Y7KJ2mCGbh+5mbHbh8xc5AF8cUNsuYgAt0yQxgB5+BgDLfyiEABAAAA==
   </data>
  </layer>
  <layer id="3" name="Arboles" width="32" height="32">

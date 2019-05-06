@@ -93,15 +93,15 @@ public class Prueba_Mazmorra extends BasicGameState {
         coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
         //Comprobacion de salto de escenario
-        Prueba p = (Prueba) game.getState(1);
+        Prueba p = (Prueba) game.getState(3);
         switch (Colision_Service.saltoMapa(ruby, map)) {
             case "SpawnNorte":
                 p.posicinarEnSpawnARuby("SpawnSur", 0, 100);
-                game.enterState(1);
+                game.enterState(3);
                 break;
             case "SpawnEste":
                 p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                game.enterState(1);
+                game.enterState(3);
                 break;
             default:
         }
@@ -115,13 +115,13 @@ public class Prueba_Mazmorra extends BasicGameState {
 
     @Override
     public int getID() {
-        return 3;
+        return 4;
     }
 
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_F11) {
-            game.enterState(2); //DEMO
+            game.enterState(5); //DEMO
         }
         
         if (key == Input.KEY_ESCAPE) {

@@ -480,7 +480,7 @@ public class Combate extends BasicGameState {
 
     @Override
     public int getID() {
-        return 4;
+        return 2;
     }
 
     public void setEstadoAnterior(int i) {

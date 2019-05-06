@@ -10,10 +10,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import personajes.*;
-import services.*;
+import personajes.Jugador;
+import personajes.Personaje;
+import services.Colision_Service;
+import services.Dialog_Service;
+import services.InputCapture_Service;
+import services.Inventario_Service;
+import services.Plantar_Service;
 
-public class Prueba extends BasicGameState {
+public class Casa extends BasicGameState {
 
     private Mapa map;
     private float x, y;
@@ -39,13 +44,13 @@ public class Prueba extends BasicGameState {
     private boolean inventario = false;
     private boolean plantando = false;
     private boolean click = false;
-    
+
     private Plantar_Service plantar;
 
     //Combate
     private Personaje combatiente = null;
 
-    public Prueba(Jugador ruby, boolean ver_hitbox) {
+    public Casa(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
     }
@@ -58,8 +63,7 @@ public class Prueba extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/demo_map.tmx");
-        map.agregarSpawn("SpawnSur");
+        map = new Mapa("./resources/maps/Casa.tmx");
         map.agregarSpawn("SpawnEste");
 
         //Posicionar a Ruby en un spawn inicial
@@ -93,9 +97,9 @@ public class Prueba extends BasicGameState {
         if (inventario) {
             Inventario_Service.mostrarInventario(grphcs, ruby);
         }
-        
-        if(plantando){
-            if(plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null){
+
+        if (plantando) {
+            if (plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null) {
                 plantando = false;
             }
         }
@@ -112,14 +116,6 @@ public class Prueba extends BasicGameState {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
-            if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                Combate combate = (Combate) game.getState(4);
-                combate.setEstadoAnterior(getID());
-                combate.setCombatiente(combatiente);
-                game.enterState(2); //COMBATE
-                game.getCurrentState().leave(gc, game);
-            }
-
             //Captura movimiento Ruby
             mov = InputCapture_Service.capturaMovimiento(gc, i);
             x += mov[0];    // Agregamos movimiento sobre el ejeX
@@ -133,16 +129,13 @@ public class Prueba extends BasicGameState {
             x += movColision[0];
             y += movColision[1];
 
-            //Movimiento enemigos
-            map.movimientoEnemigos(i, gc, ruby.getHitbox());
-
             //Detección de click sobre huerto
             InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
-            if(gc.getInput().isMouseButtonDown(0)){
-                for(Hitbox hitbox_terreno: map.getHuerto()){
-                    if(hitbox_terreno.getRectangulo().intersects(cursor_hitbox)){
+            if (gc.getInput().isMouseButtonDown(0)) {
+                for (Hitbox hitbox_terreno : map.getHuerto()) {
+                    if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
                         plantando = true;
-                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(),gc.getInput().getAbsoluteMouseY());
+                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
                     }
                 }
             }
@@ -169,25 +162,24 @@ public class Prueba extends BasicGameState {
                 default:
             }
         }
-        if(hablando && click){
+        if (hablando && click) {
             hablando = false;
         }
     }
 
     @Override
     public int getID() {
-        return 3;
+        return 1;
     }
 
     @Override
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_F11) {
-            game.enterState(5); //DEMO
-        }
 
         if (key == Input.KEY_ESCAPE) {
             ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
+        }else if( key == Input.KEY_F12){
+            ver_hitbox=!ver_hitbox;
         }
 
         if (!hablando && !plantando) {
@@ -205,39 +197,9 @@ public class Prueba extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/demo_map.tmx");
-        map.agregarSpawn("SpawnSur");
+        map = new Mapa("./resources/maps/Casa.tmx");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
     }
 
-    public void combateGanado(boolean ganado) {
-        if (ganado) {
-            if (map.getEnemigos().contains(combatiente)) {
-                map.getEnemigos().remove(combatiente);
-            } else {
-                map.getBosses().remove(combatiente);
-            }
-        } else {
-            System.out.println("Combate perdido");
-        }
-        combatiente = null;
-    }
-
-    public void huidoDeCombate() {
-        for (Enemigo e : map.getEnemigos()) {
-            e.pararMovimiento();
-            e.setCombate(true);
-        }
-
-        if (combatiente.getClass().getName().equals("personajes.Boss")) {
-            int vectorX = (int) (ruby.getHitbox().getRectangulo().getCenterX() - combatiente.getHitbox().getRectangulo().getCenterX());
-            int vectorY = (int) (ruby.getHitbox().getRectangulo().getCenterY() - combatiente.getHitbox().getRectangulo().getCenterY());
-
-            map.actualizarElementos(vectorX * (-1) * 2, vectorY * (-1) * 2);
-            x += vectorX * (-1) * 2;    // Agregamos movimiento sobre el ejeX
-            y += vectorY * (-1) * 2;    // Agregamos movimiento sobre el ejeY
-        }
-        combatiente = null;
-    }
 }
