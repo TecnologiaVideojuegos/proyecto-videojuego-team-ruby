@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1">
+ <tileset firstgid="1" source="Suelo.tsx"/>
+ <tileset firstgid="193" source="Arboles.tsx"/>
+ <tileset firstgid="449" source="Casas.tsx"/>
+ <tileset firstgid="1025" source="Valla.tsx"/>
+ <tileset firstgid="1121" source="Detalles.tsx"/>
+ <tileset firstgid="1377" source="Tierra.tsx"/>
+ <tileset firstgid="1569" source="Ruby.tsx"/>
+ <tileset firstgid="1581" source="Bosque.tsx"/>
+ <tileset firstgid="1837" source="Árboles 2.tsx"/>
+ <tileset firstgid="2093" source="Plantas 2.tsx"/>
+ <tileset firstgid="2349" source="Más árboles.tsx"/>
+ <tileset firstgid="2605" source="Planta fuego.tsx"/>
+ <tileset firstgid="2861" source="Cultivo.tsx"/>
+ <layer id="1" name="Suelo" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2XwQ2AIAwAgcRBXI0ROgIbupEfTGotWGJpefi4xAf02goEcgghOwLO/p81iAyj4yXztOL1xkuRxDq2Oxre3//0J0N/qlz+RNCs8c2N8fZnQ38rj9l+msNKfgt3bx1YelfwFwd/ZPxWXkxG/uLs9+gB3feze9A6bwvByw/oW/Of7JXevY/mw71JZrhx/dij8SYCoZ/LARRygME4dB1SvvZDioVLsh+s6j0BgzAJMQAQAAA=
+  </data>
+ </layer>
+ <layer id="7" name="Suelo con flores" width="32" height="32" locked="1">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu1XS1LDMAx1GEqcfeEGsOVzAxguAIscgGY4QMgJ2i5Y8luwgQWwhaMAw4l4mlpjjZGbliFNoLwZjeNE8pOlOJGM+X0YWmNGkLFtluct0+9fgfcachPhl77N6+uH41zpxXUesNYj5ElZM/SN5udCbxfXe7aeg3EH3Xth/x6JScw3mp860VDnwzPsXpzt6gz+dgFhzOZF4WwPv7mGjBmD4jwt1vvQP3A2VcPnSsMROI9b4F12dOVMvdZ8V/46upKHZcR/7NvFSWrMAFKk7fCX4D2DVAvgD981+tcPwTuCjBe8/9z6f33fTqTps9DDd34t82NYG18gBpdpczX+Ojg3Mj9yrRzyyTq6+EEfNsG5lflR8sq6netozguhEHMtTtuJMTuJ15Xou33wvioncp9aT1FifptMOGRdyDWutCe93Hpd9pHXoXuyPyB9OY/lXOu3uMYN+41pvVlek8eYbeizhtJ+1SXIPMi+oAxGzTYGueZAyZd8Vikxk/gEGQDUUQAQAAA=
+  </data>
+ </layer>
+ <layer id="2" name="Walls" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2VzS4DURTHp9F0KoiVFZ4BicRaPAA7CzuaiJ3gAXwtygtQLCzLRnxX1xLx2b5BfbNjJ4Lwv5k7cXrcueaatrOok/wyk3tvz2/mzLm9lvUf1R5NcW8q5ReRi1lWPvZznMdIjXeuUcylI/4RjsNa57cFuC+JvxNzXVHLGpCI+0nkn9L4k5o5HsL/SXxPuH8GCfnePdHi9Qsyd0rjWDX0N9rOfbei1ty/IXNv4roFtsEO2AV7YB9k/uhXBfcfydzHuJ6AU3AGzsEFyIG8od/99qroZf6CzH2F6zW4AbfgDtyDB/Dow59ErefAfFzv5/Eic78avKMqFuFNgSX5zcUzmDxH0EjDuwbWWc9V6hky8B6AbEh+rwjTX03vTvdfGH66/9y9F9b+c719Af9TTEK4BFnpH8QZMAQSmrOg1G76vmPwjoOJMvup172+gXcwA/es7Yy7Yx9lclN/Hc7AetAQ+Z5TjZXSLaINudtBM2gBrcRFx0zroeol7jbtN1oPVf/QoL3ktda033g9vBAxbRf3kirommWwYtD3fnvDb41/W9fBzmhai34yx/PQGuscQfb+MPHzPLTGOgddFyR0eXRzX5t6j+AAEAAA
+  </data>
+ </layer>
+ <layer id="8" name="Huerto" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3NoQ0AAAjAMAz/38RnaDyChDaZXgRwVeXM/9cfAAA2NcQaS/4AEAAA
+  </data>
+ </layer>
+ <layer id="9" name="NPCs" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMQ0AAAgDsCX414M9HPBw8LQKmgDcdX0PAACAzQAmxs5KABAAAA==
+  </data>
+ </layer>
+ <layer id="10" name="SpawnEste" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3NMQEAAAwCIO1f2hbbAwVIAIBL9QMADwZEihCWABAAAA==
+  </data>
+ </layer>
+ <layer id="11" name="SpawnRuby" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OIQEAAAgDsNO/NBEuEJgtwRIA6OY7AADAyQIAhi9mABAAAA==
+  </data>
+ </layer>
+ <layer id="5" name="Plantas" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGD7AiJ2BwRiITdgx5e7QwX4noL3OQOyCxX56gCCgvcFAHAK1nx5+HgW0BRbcqJjeIIsbFdMbJHCjYnqDqVyoeBSMglEwCkbBKCAHJAHbZslAnDJAbcQioL3FQFyCZj8t3YVsdhMQNwNxC9SeP0D8F4+7qAHwmc3DyMDAy4jpLmLCg9gwQzcbGcgA7ZZlxDQP3c3Y7KJ2mCGbh+5mbHbh8xc5AF8cUNsuYgAt0yQxgB5+BgDLfyiEABAAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Arboles" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2WWy4EQRSGq0mmp+MyLo+M6w6wAqwAiXck3l2fJOK6AqwAK8AKsAKswv2RMb4JE0f1pUobXRL+5EvPdJ86X6qqZ7qVCucoUOoYToKIizXIIn2XYFn0l85TOIPzCP+9r9QDPPpmzzU1N3ALd6J+k75bsC36S+cFXMJVEPZ5eaXqoD4f7RygbhCGoAQvUK6MFfU79N2FvXd/Mf/ZKaP7Wjm2QXuMfxjXCIxCEzXNUIAWUb+P4wAOLfZX9/Vy7IP+GP8Y3nGY8N/m1QXd0BNTb4rJ95/vpZxz6y9Y/I5dZdLxPTf7B+75n37WmJL0rMkicf/7WcXl2lfiYu1Xcmq1+tnl2v+GPEMpY+eT8DZ6vKd42fobvA9vJxQz8Ms5d2TorUbO2UVs5yzXyTa2Y+Lq5Pk065Q0xqa3PJ/m3kgaY9NbP/+VPdBr9e+2vZPWSR8zxTvjNMz44VrT/qXZA33MHN55WPDDtab9s92DpGtreNdhowbvzq+1gHg3ABAAAA==
+  </data>
+ </layer>
+ <layer id="4" name="Casa" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3NyQ1BARRG4ZfQCG3QhKEIw0YJZkowU4KZEsyUYKYEM0diYSESi/sSyT3Jl9zV/Q1D+zWbxTDsX0jnYsMNB5yv+51Z+x54Td738d+PAIIfhIT3w/yPIIoY4kggiRTSwvsZ/meRQx4FFFFCGRXh/Sr/a6ijgSZaaKODrvB+j/99DDDECGNMMMVMeH/O/wWWWGGNDbbYYS+8f+D/ESecccEVN9yf21bZfU3TNE3TNO2/ewArtBc2ABAAAA==
+  </data>
+ </layer>
+</map>
