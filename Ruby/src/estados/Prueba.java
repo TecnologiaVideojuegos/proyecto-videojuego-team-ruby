@@ -113,7 +113,7 @@ public class Prueba extends BasicGameState {
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
             if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                Combate combate = (Combate) game.getState(4);
+                Combate combate = (Combate) game.getState(2);
                 combate.setEstadoAnterior(getID());
                 combate.setCombatiente(combatiente);
                 game.enterState(2); //COMBATE
