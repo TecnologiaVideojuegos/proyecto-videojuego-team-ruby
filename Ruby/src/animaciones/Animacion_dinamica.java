@@ -5,7 +5,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class Animacion_dinamica implements Serializable{
+public class Animacion_dinamica{
 
     // TODO: fijar valores para todos los sprites
     private final int ANCHO = 32;   // Ancho de cada frame del sprite

@@ -106,12 +106,7 @@ public class Menu extends BasicGameState {
             grphcs.setColor(new Color(0x685762));
         }
         grphcs.fillRect(p_Widht / 5 * 4 - 20, p_Height / 6 * 5 - 27, 150, 100);            //Rectangulo interior Salir
-
-        /*grphcs.setColor(Color.yellow);
-        grphcs.drawRect(nuevaPartida_Continuar.getX(), nuevaPartida_Continuar.getY(), nuevaPartida_Continuar.getWidth(), nuevaPartida_Continuar.getHeight());
-        grphcs.drawRect(cargar_guardarPartida.getX(), cargar_guardarPartida.getY(), cargar_guardarPartida.getWidth(), cargar_guardarPartida.getHeight());
-        grphcs.drawRect(salir.getX(), salir.getY(), salir.getWidth(), salir.getHeight());*/
-
+        
         grphcs.setColor(new Color(0xF0544F));
         font = new Font("Verdana", Font.BOLD, 40);
         grphcs.setFont(new TrueTypeFont(font, true));
@@ -156,9 +151,7 @@ public class Menu extends BasicGameState {
             if (inicio) { //Cargar partida
                 if (gc.getInput().isMousePressed(0)) {
                     try {
-                        Object[] objetosCargados = GuardarPartidaIO_Service.cargarPartida();
-                        ruby = (Jugador) objetosCargados[0];
-                        //huerto = (Huerto) objetosCargados[1];
+                        GuardarPartidaIO_Service.cargarPartida(ruby);
                         inicio = false;
                         game.enterState(1);
                     } catch (IOException ex) {
@@ -172,7 +165,7 @@ public class Menu extends BasicGameState {
                     try {
                         GuardarPartidaIO_Service.guardarPartida(ruby/*, huerto*/);
                         inicio = false;
-                        game.enterState(1);
+                        game.enterState(estadoAnterior);
                     } catch (IOException ex) {
                         System.out.println("ErrorIO al guardar la partida: " + ex.getMessage());
                     }

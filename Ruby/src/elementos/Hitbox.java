@@ -1,9 +1,8 @@
 package elementos;
 
-import java.io.Serializable;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Hitbox implements Serializable{
+public class Hitbox{
 
     private Rectangle rectangulo;
 

@@ -45,6 +45,14 @@ public class Jugador extends Personaje {
         this.animacion = animacion;
     }
 
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+    
     public boolean ataque(Personaje enemigo, Planta planta) {
         boolean exito = false;
         int numRandom = (int) (Math.random() * 10);
