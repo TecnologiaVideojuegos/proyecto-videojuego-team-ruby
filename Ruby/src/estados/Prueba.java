@@ -39,7 +39,7 @@ public class Prueba extends BasicGameState {
     private boolean inventario = false;
     private boolean plantando = false;
     private boolean click = false;
-    
+
     private Plantar_Service plantar;
 
     //Combate
@@ -93,9 +93,9 @@ public class Prueba extends BasicGameState {
         if (inventario) {
             Inventario_Service.mostrarInventario(grphcs, ruby);
         }
-        
-        if(plantando){
-            if(plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null){
+
+        if (plantando) {
+            if (plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null) {
                 plantando = false;
             }
         }
@@ -113,7 +113,7 @@ public class Prueba extends BasicGameState {
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
             if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                Combate combate = (Combate) game.getState(4);
+                Combate combate = (Combate) game.getState(2);
                 combate.setEstadoAnterior(getID());
                 combate.setCombatiente(combatiente);
                 game.enterState(2); //COMBATE
@@ -138,11 +138,11 @@ public class Prueba extends BasicGameState {
 
             //Detección de click sobre huerto
             InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
-            if(gc.getInput().isMouseButtonDown(0)){
-                for(Hitbox hitbox_terreno: map.getHuerto()){
-                    if(hitbox_terreno.getRectangulo().intersects(cursor_hitbox)){
+            if (gc.getInput().isMouseButtonDown(0)) {
+                for (Hitbox hitbox_terreno : map.getHuerto()) {
+                    if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
                         plantando = true;
-                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(),gc.getInput().getAbsoluteMouseY());
+                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
                     }
                 }
             }
@@ -169,7 +169,7 @@ public class Prueba extends BasicGameState {
                 default:
             }
         }
-        if(hablando && click){
+        if (hablando && click) {
             hablando = false;
         }
     }

@@ -10,7 +10,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import personajes.Enemigo;
 import personajes.Jugador;
+import personajes.Personaje;
 import services.Colision_Service;
 import services.InputCapture_Service;
 
@@ -36,6 +38,9 @@ public class Prueba_Mazmorra extends BasicGameState {
     private float mov[] = new float[2]; //Movimiento entre cada update
 
     private float gcWidth, gcHeight;
+    
+    //Combate
+    private Personaje combatiente = null;
 
     public Prueba_Mazmorra(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
@@ -73,6 +78,14 @@ public class Prueba_Mazmorra extends BasicGameState {
         cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
         cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
+        if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
+            Combate combate = (Combate) game.getState(2);
+            combate.setEstadoAnterior(getID());
+            combate.setCombatiente(combatiente);
+            game.enterState(2); //COMBATE
+            game.getCurrentState().leave(gc, game);
+        }
+
         //Captura movimiento Ruby
         mov = InputCapture_Service.capturaMovimiento(gc, i);
         x += mov[0];    // Agregamos movimiento sobre el ejeX
@@ -105,11 +118,10 @@ public class Prueba_Mazmorra extends BasicGameState {
                 break;
             default:
         }
-        
-        
+
         //////////////////////////////////////////////////////////////////////////////////////////////////
         //TEST guardado
-        ruby.setDinero(ruby.getDinero()+1);
+        ruby.setDinero(ruby.getDinero() + 1);
         /////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -123,14 +135,14 @@ public class Prueba_Mazmorra extends BasicGameState {
         if (key == Input.KEY_F11) {
             game.enterState(5); //DEMO
         }
-        
+
         if (key == Input.KEY_ESCAPE) {
-           ((Menu) game.getState(0)).setEstadoAnterior(getID());
+            ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
         }
-        
+
     }
-    
+
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
@@ -139,5 +151,35 @@ public class Prueba_Mazmorra extends BasicGameState {
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
+    }
+
+    public void combateGanado(boolean ganado) {
+        if (ganado) {
+            if (map.getEnemigos().contains(combatiente)) {
+                map.getEnemigos().remove(combatiente);
+            } else {
+                map.getBosses().remove(combatiente);
+            }
+        } else {
+            System.out.println("Combate perdido");
+        }
+        combatiente = null;
+    }
+
+    public void huidoDeCombate() {
+        for (Enemigo e : map.getEnemigos()) {
+            e.pararMovimiento();
+            e.setCombate(true);
+        }
+
+        if (combatiente.getClass().getName().equals("personajes.Boss")) {
+            int vectorX = (int) (ruby.getHitbox().getRectangulo().getCenterX() - combatiente.getHitbox().getRectangulo().getCenterX());
+            int vectorY = (int) (ruby.getHitbox().getRectangulo().getCenterY() - combatiente.getHitbox().getRectangulo().getCenterY());
+
+            map.actualizarElementos(vectorX * (-1) * 2, vectorY * (-1) * 2);
+            x += vectorX * (-1) * 2;    // Agregamos movimiento sobre el ejeX
+            y += vectorY * (-1) * 2;    // Agregamos movimiento sobre el ejeY
+        }
+        combatiente = null;
     }
 }

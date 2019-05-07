@@ -36,11 +36,6 @@
    H4sIAAAAAAAACu3UoREAIAwEwdAqtaXQKCSO4c1uBaeuCgAA4K7TAQAAAAAAH+yVLgDg8GSAdzwVAICEAScdLl2wNgAA
   </data>
  </layer>
- <layer id="9" name="Enemigos" width="70" height="50">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3UQREAMAgEsUNqvVVoZVCGRMG+NgEAAACY73YHAAA51V0AsIvvAgAAAAAAP3otPdvAsDYAAA==
-  </data>
- </layer>
  <layer id="10" name="Huerto" width="70" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3QQQkAMAwEwVBt9a+pBg7SdzIDa2CrAAAAAABmuKdvI18yXzJfMl8AAAAAAAAA/jysaEHLsDYAAA==

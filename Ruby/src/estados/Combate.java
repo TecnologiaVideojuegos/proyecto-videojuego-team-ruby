@@ -303,7 +303,7 @@ public class Combate extends BasicGameState {
             if (nombreClaseAnterior.equals("estados.Prueba")) {
                 ((Prueba) game.getState(estadoAnterior)).combateGanado(true);
             } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
-                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+                ((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
             }
             game.enterState(estadoAnterior);
         } else if (ruby.getVida() <= 0) {
@@ -311,7 +311,7 @@ public class Combate extends BasicGameState {
             if (nombreClaseAnterior.equals("estados.Prueba")) {
                 ((Prueba) game.getState(estadoAnterior)).combateGanado(false);
             } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
-                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+                ((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
             }
         }
 
@@ -434,7 +434,8 @@ public class Combate extends BasicGameState {
                                 ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
                                 //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
                             } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
-                                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(true);
+                                ((Prueba_Mazmorra) game.getState(estadoAnterior)).huidoDeCombate();
+                                //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(false);
                             }
                             game.enterState(estadoAnterior);
                         } else {
