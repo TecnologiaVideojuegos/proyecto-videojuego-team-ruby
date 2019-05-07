@@ -38,7 +38,7 @@ public class Prueba_Mazmorra extends BasicGameState {
     private float mov[] = new float[2]; //Movimiento entre cada update
 
     private float gcWidth, gcHeight;
-    
+
     //Combate
     private Personaje combatiente = null;
 
@@ -75,54 +75,56 @@ public class Prueba_Mazmorra extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-        cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
-        cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+        if (ruby.getVida() > 0) {
+            cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
+            cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
-        if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-            Combate combate = (Combate) game.getState(2);
-            combate.setEstadoAnterior(getID());
-            combate.setCombatiente(combatiente);
-            game.enterState(2); //COMBATE
-            game.getCurrentState().leave(gc, game);
+            if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
+                Combate combate = (Combate) game.getState(2);
+                combate.setEstadoAnterior(getID());
+                combate.setCombatiente(combatiente);
+                game.enterState(2); //COMBATE
+                game.getCurrentState().leave(gc, game);
+            }
+
+            //Captura movimiento Ruby
+            mov = InputCapture_Service.capturaMovimiento(gc, i);
+            x += mov[0];    // Agregamos movimiento sobre el ejeX
+            y += mov[1];    // Agregamos movimiento sobre el ejeY
+
+            //Actualización de elementos del mapa
+            map.actualizarElementos(mov[0], mov[1]);
+
+            //Colision con muros
+            float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
+            x += movColision[0];
+            y += movColision[1];
+
+            //Movimiento enemigos
+            map.movimientoEnemigos(i, gc, ruby.getHitbox());
+
+            //MOVIMENTO DEL RATÓN
+            coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
+
+            //Comprobacion de salto de escenario
+            Prueba p = (Prueba) game.getState(3);
+            switch (Colision_Service.saltoMapa(ruby, map)) {
+                case "SpawnNorte":
+                    p.posicinarEnSpawnARuby("SpawnSur", 0, 100);
+                    game.enterState(3);
+                    break;
+                case "SpawnEste":
+                    p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
+                    game.enterState(3);
+                    break;
+                default:
+            }
+        } else {  //Ruby a muerto en combate
+            ((Casa) game.getState(1)).init(gc, game);
+            ruby.setVida(100);
+            ruby.setDinero(ruby.getDinero() - 50);
+            game.enterState(1);
         }
-
-        //Captura movimiento Ruby
-        mov = InputCapture_Service.capturaMovimiento(gc, i);
-        x += mov[0];    // Agregamos movimiento sobre el ejeX
-        y += mov[1];    // Agregamos movimiento sobre el ejeY
-
-        //Actualización de elementos del mapa
-        map.actualizarElementos(mov[0], mov[1]);
-
-        //Colision con muros
-        float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
-        x += movColision[0];
-        y += movColision[1];
-
-        //Movimiento enemigos
-        map.movimientoEnemigos(i, gc, ruby.getHitbox());
-
-        //MOVIMENTO DEL RATÓN
-        coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
-
-        //Comprobacion de salto de escenario
-        Prueba p = (Prueba) game.getState(3);
-        switch (Colision_Service.saltoMapa(ruby, map)) {
-            case "SpawnNorte":
-                p.posicinarEnSpawnARuby("SpawnSur", 0, 100);
-                game.enterState(3);
-                break;
-            case "SpawnEste":
-                p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                game.enterState(3);
-                break;
-            default:
-        }
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-        //TEST guardado
-        ruby.setDinero(ruby.getDinero() + 1);
-        /////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override
@@ -160,8 +162,7 @@ public class Prueba_Mazmorra extends BasicGameState {
             } else {
                 map.getBosses().remove(combatiente);
             }
-        } else {
-            System.out.println("Combate perdido");
+            ruby.setDinero(ruby.getDinero() + combatiente.getDinero());
         }
         combatiente = null;
     }

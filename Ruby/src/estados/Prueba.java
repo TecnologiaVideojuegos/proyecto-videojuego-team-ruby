@@ -30,6 +30,7 @@ public class Prueba extends BasicGameState {
     private boolean ver_hitbox;
 
     private StateBasedGame game;
+    private GameContainer gc;
 
     private float mov[] = new float[2]; //Movimiento entre cada update
 
@@ -56,6 +57,7 @@ public class Prueba extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         this.game = game;
+        this.gc = gc;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
         map = new Mapa("./resources/maps/demo_map.tmx");
@@ -108,69 +110,76 @@ public class Prueba extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         click = gc.getInput().isMousePressed(0);
-        if ((!hablando) && (!inventario) && (!plantando)) {
-            cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
-            cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+        if (ruby.getVida() > 0) {
+            if ((!hablando) && (!inventario) && (!plantando)) {
+                cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
+                cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
-            if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                Combate combate = (Combate) game.getState(2);
-                combate.setEstadoAnterior(getID());
-                combate.setCombatiente(combatiente);
-                game.enterState(2); //COMBATE
-                game.getCurrentState().leave(gc, game);
-            }
+                if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
+                    Combate combate = (Combate) game.getState(2);
+                    combate.setEstadoAnterior(getID());
+                    combate.setCombatiente(combatiente);
+                    game.enterState(2); //COMBATE
+                    game.getCurrentState().leave(gc, game);
+                }
 
-            //Captura movimiento Ruby
-            mov = InputCapture_Service.capturaMovimiento(gc, i);
-            x += mov[0];    // Agregamos movimiento sobre el ejeX
-            y += mov[1];    // Agregamos movimiento sobre el ejeY
+                //Captura movimiento Ruby
+                mov = InputCapture_Service.capturaMovimiento(gc, i);
+                x += mov[0];    // Agregamos movimiento sobre el ejeX
+                y += mov[1];    // Agregamos movimiento sobre el ejeY
 
-            //Actualización de elementos del mapa
-            map.actualizarElementos(mov[0], mov[1]);
+                //Actualización de elementos del mapa
+                map.actualizarElementos(mov[0], mov[1]);
 
-            //Colision con muros
-            float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
-            x += movColision[0];
-            y += movColision[1];
+                //Colision con muros
+                float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
+                x += movColision[0];
+                y += movColision[1];
 
-            //Movimiento enemigos
-            map.movimientoEnemigos(i, gc, ruby.getHitbox());
+                //Movimiento enemigos
+                map.movimientoEnemigos(i, gc, ruby.getHitbox());
 
-            //Detección de click sobre huerto
-            InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
-            if (gc.getInput().isMouseButtonDown(0)) {
-                for (Hitbox hitbox_terreno : map.getHuerto()) {
-                    if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
-                        plantando = true;
-                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+                //Detección de click sobre huerto
+                InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+                if (gc.getInput().isMouseButtonDown(0)) {
+                    for (Hitbox hitbox_terreno : map.getHuerto()) {
+                        if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
+                            plantando = true;
+                            plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+                        }
                     }
                 }
-            }
 
-            //Detección de click sobre npcs
-            if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
-                hablando = true;
-            }
+                //Detección de click sobre npcs
+                if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
+                    hablando = true;
+                }
 
-            //MOVIMENTO DEL RATÓN
-            coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
+                //MOVIMENTO DEL RATÓN
+                coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
-            //Comprobacion de salto de escenario
-            Prueba_Mazmorra p = (Prueba_Mazmorra) game.getState(4);
-            switch (Colision_Service.saltoMapa(ruby, map)) {
-                case "SpawnSur":
-                    p.posicinarEnSpawnARuby("SpawnNorte", 0, -100);
-                    game.enterState(4);
-                    break;
-                case "SpawnEste":
-                    p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                    game.enterState(4);
-                    break;
-                default:
+                //Comprobacion de salto de escenario
+                Prueba_Mazmorra p = (Prueba_Mazmorra) game.getState(4);
+                switch (Colision_Service.saltoMapa(ruby, map)) {
+                    case "SpawnSur":
+                        p.posicinarEnSpawnARuby("SpawnNorte", 0, -100);
+                        game.enterState(4);
+                        break;
+                    case "SpawnEste":
+                        p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
+                        game.enterState(4);
+                        break;
+                    default:
+                }
             }
-        }
-        if (hablando && click) {
-            hablando = false;
+            if (hablando && click) {
+                hablando = false;
+            }
+        } else {  //Ruby a muerto en combate
+            ((Casa) game.getState(1)).init(gc, game);
+            ruby.setVida(100);
+            ruby.setDinero(ruby.getDinero() - 50);
+            game.enterState(1);
         }
     }
 
@@ -211,15 +220,14 @@ public class Prueba extends BasicGameState {
         map.actualizarElementos(x, y);
     }
 
-    public void combateGanado(boolean ganado) {
-        if (ganado) {
+    public void combateGanado(boolean ganado) throws SlickException {
+        if (ganado && combatiente != null) {
             if (map.getEnemigos().contains(combatiente)) {
                 map.getEnemigos().remove(combatiente);
             } else {
                 map.getBosses().remove(combatiente);
             }
-        } else {
-            System.out.println("Combate perdido");
+            ruby.setDinero(ruby.getDinero() + combatiente.getDinero());
         }
         combatiente = null;
     }
