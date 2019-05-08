@@ -1,18 +1,24 @@
 package services;
 
+import elementos.Mapa;
 import java.awt.Font;
 import objetos.Inventario;
+import objetos.plantas.Planta_agua;
+import objetos.plantas.Planta_fuego;
+import objetos.plantas.Planta_rayo;
 import objetos.semillas.Semilla;
 import objetos.semillas.Semilla_agua;
 import objetos.semillas.Semilla_fuego;
 import objetos.semillas.Semilla_rayo;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
+import personajes.Jugador;
 
 public class Plantar_Service {
     private int x, y, pos_x, pos_y;
@@ -29,9 +35,9 @@ public class Plantar_Service {
         Circle cursor = new Circle(x2, y2, 2);
         //grphcs.draw(cursor);
         Semilla semilla= null;
-        Rectangle semilla_fuego = new Rectangle(x-32,y-95,211,28);
-        Rectangle semilla_agua = new Rectangle(x-32,y-66,211,28);
-        Rectangle semilla_rayo = new Rectangle(x-32,y-37,211,28);
+        Rectangle semilla_fuego = new Rectangle(x+32,y-95,211,28);
+        Rectangle semilla_agua = new Rectangle(x+32,y-66,211,28);
+        Rectangle semilla_rayo = new Rectangle(x+32,y-37,211,28);
         Font font = new Font("Segoe UI", Font.BOLD, 16);
         Color marron = new Color(90, 60, 40);
         Color verde = new Color(180, 255, 180);
@@ -90,5 +96,21 @@ public class Plantar_Service {
 
     public int getPos_y() {
         return pos_y;
+    }
+    
+    public void plantar(GameContainer gc, Mapa map, int x, int y, Jugador ruby, Semilla semilla) throws SlickException {
+        if (gc.getInput().isMouseButtonDown(0)) {
+            boolean hay = false;
+            if (semilla.getNombre().equals("Semilla de fuego")) {
+                map.getHuerto().anadirPlanta(x, y, new Planta_fuego());
+            } else if (semilla.getNombre().equals("Semilla de agua")) {
+                map.getHuerto().anadirPlanta(x, y, new Planta_agua());
+            } else if (semilla.getNombre().equals("Semilla de rayo")) {
+                map.getHuerto().anadirPlanta(x, y, new Planta_rayo());
+            } else {
+                System.out.println("Error al plantar una semilla en la función clickHuerto()");
+            }
+            ruby.getInventario().eliminarObjeto(semilla);
+        }
     }
 }

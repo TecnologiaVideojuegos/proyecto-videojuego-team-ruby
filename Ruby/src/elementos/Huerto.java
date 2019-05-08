@@ -101,6 +101,15 @@ public class Huerto {
         planta_temp.setCoordenadas(huerto.get(x).get(y).getHitbox().getRectangulo().getMinX(), huerto.get(x).get(y).getHitbox().getRectangulo().getMinY());
         huerto.get(x).get(y).setPlanta(planta_temp);
     }
+    
+    public Planta eliminarPlanta(int x, int y) {
+        Planta planta = null;
+        if(huerto.get(x).get(y).getPlanta().isCrecida()){
+            planta = huerto.get(x).get(y).getPlanta();
+            huerto.get(x).get(y).setPlanta(null);
+        }
+        return planta;
+    }
 
     public ArrayList<ArrayList<Hitbox_Planta>> getHuerto() {
         return huerto;
