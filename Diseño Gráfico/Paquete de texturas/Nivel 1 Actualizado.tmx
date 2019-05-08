@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1">
+ <tileset firstgid="1" source="Suelo.tsx"/>
+ <tileset firstgid="193" source="Arboles.tsx"/>
+ <tileset firstgid="449" source="Casas.tsx"/>
+ <tileset firstgid="1025" source="Valla.tsx"/>
+ <tileset firstgid="1121" source="Detalles.tsx"/>
+ <tileset firstgid="1377" source="Tierra.tsx"/>
+ <tileset firstgid="1569" source="Ruby.tsx"/>
+ <tileset firstgid="1581" source="Bosque.tsx"/>
+ <tileset firstgid="1837" source="Árboles 2.tsx"/>
+ <tileset firstgid="2093" source="Plantas 2.tsx"/>
+ <tileset firstgid="2349" source="Más árboles.tsx"/>
+ <tileset firstgid="2605" source="Planta fuego.tsx"/>
+ <tileset firstgid="2861" source="Cultivo.tsx"/>
+ <layer id="1" name="Suelo" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3QMQ4AIAgEQeD/j7Y1xhgbuCvWZCqKBTMiEoCl89HvUYP9W6ses4k7f+fd/W61Ue+g7jvsoLxd2Vf9exr0AQB6C4olqM0AEAAA
+  </data>
+ </layer>
+ <layer id="8" name="Huerto" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3NoQ0AAAjAMAz/38RnaDyChDaZXgRwVeXM/9cfAAA2NcQaS/4AEAAA
+  </data>
+ </layer>
+ <layer id="2" name="Walls" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3VyU4UURTG8VuhA+UD+ACAqFuHhDgwKO4Ng0PiSmQBKKM+gOKEJKCuBJRhiSYCKgqYiC5IVKbuF4BuBIed7nCWf4WucDlV3Va1dLOQk/xCF6l7v3NudYFSm+W3MtOUykI2tiEH27EDO9OSn7+PjP04gIPIQz4KUJhA/lYzNrcqJqMEpSjDMRzHCZxMMN+qYLpSoXTn7/WqZP8qVOMszqEGtahDPfoM76wa37LyM0x2RMvfS35uQKlTUdbni+x/CU24jCu4imu4jmYf81v5N8hoic75mewvWn5RYO39d9i7HR3oxF3cQxe60YNen/kdZHfGeM4yf4C9B/EIj/EEQ3iKZxjGiM/8+2Q/8Jj/mr3f4C0mMIkpTGMGQYR85o+S/TxG/lGRH2bvCObxDgtYxHt8wEd88pDfbK4+d/u756WW2PsrvuE7fuAnfuE3/ljZgb9uo9rNtc/d6sFPH/9afab7c09VDyOm+3NP5Rm41Ubm/2+z6393U52vv3/2u7dR75+d25qhVBtuZiQ/X3//7PwucrvRg94k9eA24y0+38ZD9GMAg8jkf0MWso31y4834wuux/ASr7CL3N3YE81PpB+5Rs6o1zTXMwgihEOsOYwiHDGc/cizdOtPrpEz6jXL9RzCiKCYNSUoRZnh7Ec/S7csq+QaOWO8Os395TiDCsPZjzxLmWWVXCNnjFcN3N+I87hgOPuRZymz3Gawv+uJlOxHnmWsLH3NepY8S9nfZnmrZVQyNzoAEAAA
+  </data>
+ </layer>
+ <layer id="9" name="NPCs" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMQEAAAwCINe/9DJ4+UACEgDo3DoAAEDtAU6atR0AEAAA
+  </data>
+ </layer>
+ <layer id="10" name="SpawnEste" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMQEAAAwCINe/9GJ4CAlIAIAl1w4AABUPFiG6dwAQAAA=
+  </data>
+ </layer>
+ <layer id="11" name="SpawnRuby" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OIQEAAAgDsNO/NBEuEJgtwRIA6OY7AADAyQIAhi9mABAAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Arboles" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3WN07EQBTG8dlquAQF0JEXKjILNKSFBRoyC1TkBSoyB1g4AeEChAsQLkC4AOEo/F1Ysp4tzxpLTIE/6Sc3ft8bTWFZKXOqU0rVoBZ1qRIGRFqYaUUb2tERoSPOrJt+ZgYwiCEMR+iIM+tmkpkpTGMGs6KjvOz3s6VmhblVrGE9YkecWTd7zO3jAIcRO+LMJkkSlnqtVAMakdZ/v7+TnV3oRsbC/iw7RzCKnIX9c+ycxwLyFvZvsHMTWyhY2H/EzmOc4NTC/iRJkvzfVPA/VYkqS/9VafY2odnS/gx7e9CLPpzxDT6P8R0u6vAOed85nmMYxwQumbvCdcC8qdvJhQ7vkPed57mIJdzw/i3ucK/9ZzV1O5EdMvK+C9jGDh54/xFPeNb+s5q6ncgOGXnf3rzw/ive8K79ZzV1B3XIeO97Wez/4P1PfOFb+89q6g7qkPHe9y5+AMvx/NEAEAAA
+  </data>
+ </layer>
+</map>
