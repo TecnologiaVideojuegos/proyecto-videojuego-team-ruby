@@ -1,13 +1,19 @@
 package services;
 
 import elementos.Hitbox;
+import elementos.Huerto;
 import elementos.Mapa;
 import java.util.ArrayList;
 import objetos.plantas.Planta;
+import objetos.plantas.Planta_agua;
+import objetos.plantas.Planta_fuego;
+import objetos.plantas.Planta_rayo;
+import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
+import personajes.Jugador;
 import personajes.Npc;
 import personajes.Personaje;
 
@@ -36,21 +42,19 @@ public class InputCapture_Service {
         return mov;
     }
     
-    public static void clickHuerto(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia) throws SlickException{
-        boolean hay = false;
-        if (gc.getInput().isMouseButtonDown(0)) {
-            Hitbox hitbox = actualizarMouse(map.getHuerto(), cursor_hitbox, personajeReferencia);
-            if (hitbox != null) {
-                for(Planta planta : map.getPlantas()){
-                    if(planta.getPos_x() == hitbox.getRectangulo().getCenterX() && planta.getPos_y() == hitbox.getRectangulo().getCenterY()){
-                        hay = true;
-                        break;
-                    }
-                }
-                if(!hay){
-                    map.anadirPlanta_fuego(hitbox.getRectangulo().getMinX(), hitbox.getRectangulo().getMinY());
-                }
+    public static void clickHuerto(GameContainer gc, Mapa map, int x, int y, Jugador ruby, Semilla semilla) throws SlickException{
+        if (gc.getInput().isMouseButtonDown(0)){
+            boolean hay = false;
+            if(semilla.getNombre().equals("Semilla de fuego")){
+                map.getHuerto().anadirPlanta(x, y, new Planta_fuego());
+            }else if(semilla.getNombre().equals("Semilla de agua")){
+                map.getHuerto().anadirPlanta(x, y, new Planta_agua());
+            }else if(semilla.getNombre().equals("Semilla de rayo")){
+                map.getHuerto().anadirPlanta(x, y, new Planta_rayo());
+            }else{
+                System.out.println("Error al plantar una semilla en la función clickHuerto()");
             }
+            ruby.getInventario().eliminarObjeto(semilla);
         }
     }
     

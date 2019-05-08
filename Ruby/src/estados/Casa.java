@@ -130,12 +130,12 @@ public class Casa extends BasicGameState {
             y += movColision[1];
 
             //Detección de click sobre huerto
-            InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
+            //InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
             if (gc.getInput().isMouseButtonDown(0)) {
-                for (Hitbox hitbox_terreno : map.getHuerto()) {
+                for (Hitbox hitbox_terreno : map.getHuerto().getHitboxs()) {
                     if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
                         plantando = true;
-                        plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+                        //plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
                     }
                 }
             }

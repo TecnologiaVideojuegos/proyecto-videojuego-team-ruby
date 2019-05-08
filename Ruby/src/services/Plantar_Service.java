@@ -15,11 +15,13 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Plantar_Service {
-    private int x, y;
+    private int x, y, pos_x, pos_y;
 
-    public Plantar_Service(int x, int y) {
+    public Plantar_Service(int x, int y, int pos_x, int pos_y) {
         this.x = x+10;
         this.y = y-10;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
     }
     
     public Semilla elegirSemilla(Graphics grphcs, int x2, int y2, Inventario inventario, boolean click) throws SlickException{
@@ -66,11 +68,27 @@ public class Plantar_Service {
         grphcs.drawImage(new Image("./resources/objetos/semillas/Icono_semilla_rayo.png").getScaledCopy(24, 24), x+34, y-35);
         if(cursor.intersects(semilla_fuego) && click && inventario.getCantidad(new Semilla_fuego())>0){
             semilla = new Semilla_fuego();
-        }else if(cursor.intersects(semilla_fuego) && click && inventario.getCantidad(new Semilla_agua())>0){
+        }else if(cursor.intersects(semilla_agua) && click && inventario.getCantidad(new Semilla_agua())>0){
             semilla = new Semilla_agua();
-        }else if(cursor.intersects(semilla_fuego) && click && inventario.getCantidad(new Semilla_rayo())>0){
+        }else if(cursor.intersects(semilla_rayo) && click && inventario.getCantidad(new Semilla_rayo())>0){
             semilla = new Semilla_rayo();
         }
         return semilla;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getPos_x() {
+        return pos_x;
+    }
+
+    public int getPos_y() {
+        return pos_y;
     }
 }

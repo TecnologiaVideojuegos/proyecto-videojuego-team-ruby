@@ -2,8 +2,6 @@ package elementos;
 
 import java.util.ArrayList;
 import objetos.plantas.Planta;
-import objetos.plantas.Planta_agua;
-import objetos.plantas.Planta_fuego;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,9 +18,8 @@ public class Mapa {
     private ArrayList<Enemigo> enemigos;
     private ArrayList<Boss> bosses;
     private ArrayList<Npc> npcs;
-    private ArrayList<Hitbox> huerto;
+    private Huerto huerto;
     private ArrayList<Spawn> spawns;
-    private ArrayList<Planta> plantas;
 
     //Constructor por defecto
     public Mapa() {
@@ -36,9 +33,7 @@ public class Mapa {
         enemigos = new ArrayList<>();
         bosses = new ArrayList<>();
         npcs = new ArrayList<>();
-        huerto = new ArrayList<>();
         spawns = new ArrayList<>();
-        plantas = new ArrayList<>();
         cargaMuros();
         cargaEnemigos();
         cargaBosses();
@@ -79,14 +74,6 @@ public class Mapa {
         this.npcs = npcs;
     }
 
-    public ArrayList<Hitbox> getHuerto() {
-        return huerto;
-    }
-
-    public void setHuerto(ArrayList<Hitbox> huerto) {
-        this.huerto = huerto;
-    }
-
     public ArrayList<Boss> getBosses() {
         return bosses;
     }
@@ -111,14 +98,16 @@ public class Mapa {
         return hitboxNpcs;
     }
 
-    public ArrayList<Planta> getPlantas() {
-        return plantas;
+    public Huerto getHuerto() {
+        return huerto;
     }
 
-    public void anadirPlanta_fuego(float pos_x, float pos_y) throws SlickException {
-        Planta planta = new Planta_agua();
-        planta.setCoordenadas(pos_x, pos_y);
-        plantas.add(planta);
+    public void setHuerto(Huerto huerto) {
+        this.huerto = huerto;
+    }
+
+    public void anadirPlanta(int x, int y, Planta planta) throws SlickException {
+        huerto.anadirPlanta(x, y, planta);
     }
 
     //*****************************************************//
@@ -188,28 +177,33 @@ public class Mapa {
 
     private void cargaHuerto() {
         int wallLayer = map.getLayerIndex("Huerto");
+        ArrayList<Hitbox> huerto_array = new ArrayList<>();
+        int x=0, y=0, x_temp=0, y_temp=0;
 
         if (wallLayer != -1) {    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        huerto.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
+                        if(i>x_temp){
+                            x_temp=i;
+                            x++;
+                        }
+                        if(j>y_temp){
+                            y_temp=j;
+                            y++;
+                        }
+                        huerto_array.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
                     }
                 }
             }
         }
+        huerto = new Huerto(x, y, huerto_array);
     }
 
     //*****************************************************//
     //***               UPDATE ELEMENTOS                ***//
     //*****************************************************//
     public void actualizarElementos(float pos_x, float pos_y) {
-        //Plantas
-        if (!plantas.isEmpty()) {
-            plantas.forEach((planta) -> {
-                planta.setCoordenadas(planta.getPos_x() + pos_x, planta.getPos_y() + pos_y);
-            });
-        }
 
         //Elementos muro
         if (!blocks.isEmpty()) {
@@ -239,12 +233,7 @@ public class Mapa {
             });
         }
 
-        //Elementos huerto
-        if (!huerto.isEmpty()) {
-            huerto.forEach((hitbox) -> {
-                hitbox.updatePos(pos_x, pos_y);
-            });
-        }
+        huerto.updatePos(pos_x, pos_y);
 
         //Elementos spawn
         if (!spawns.isEmpty()) {
@@ -269,13 +258,11 @@ public class Mapa {
     public void renderMap(GameContainer gc, double x, double y, Graphics grphcs, boolean ver_hitbox) {
         map.render((int) x, (int) y, 0, 0, gc.getWidth(), gc.getHeight());
 
+        //Elementos tipo Planta
+        huerto.renderPlantas();
+        
         //Dibujo de los elementos de colision
         boolean amarillo = true;
-
-        //Elementos tipo Planta
-        for (Planta planta : plantas) {
-            planta.render();
-        }
 
         //Elementos tipo muro
         if (ver_hitbox) {
@@ -317,11 +304,12 @@ public class Mapa {
                 grphcs.drawRect(npc.getHitbox().getRectangulo().getX(), npc.getHitbox().getRectangulo().getY(), npc.getHitbox().getRectangulo().getWidth(), npc.getHitbox().getRectangulo().getHeight());
             }
         }
-
+        
+        
         if (ver_hitbox) {
             //Elementos tipo huerto
             amarillo = true;
-            for (Hitbox hitbox : huerto) {
+            for (Hitbox hitbox : huerto.getHitboxs()) {
                 if (amarillo) {
                     grphcs.setColor(Color.orange);
                     amarillo = false;

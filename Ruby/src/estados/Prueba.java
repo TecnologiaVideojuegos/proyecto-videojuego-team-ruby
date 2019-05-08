@@ -2,6 +2,7 @@ package estados;
 
 import elementos.Hitbox;
 import elementos.Mapa;
+import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -42,6 +43,8 @@ public class Prueba extends BasicGameState {
     private boolean click = false;
 
     private Plantar_Service plantar;
+    
+    private Semilla semilla = null;
 
     //Combate
     private Personaje combatiente = null;
@@ -98,6 +101,9 @@ public class Prueba extends BasicGameState {
 
         if (plantando) {
             if (plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click) != null) {
+                semilla = plantar.elegirSemilla(grphcs, gc.getInput().getMouseX(), gc.getInput().getMouseY(), ruby.getInventario(), click);
+                InputCapture_Service.clickHuerto(gc, map, plantar.getPos_x(), plantar.getPos_y(), ruby, semilla);
+                semilla = null;
                 plantando = false;
             }
         }
@@ -140,12 +146,11 @@ public class Prueba extends BasicGameState {
                 map.movimientoEnemigos(i, gc, ruby.getHitbox());
 
                 //Detección de click sobre huerto
-                InputCapture_Service.clickHuerto(gc, map, cursor_hitbox, ruby);
                 if (gc.getInput().isMouseButtonDown(0)) {
-                    for (Hitbox hitbox_terreno : map.getHuerto()) {
-                        if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox)) {
+                    for (Hitbox hitbox_terreno : map.getHuerto().getHitboxs()) {
+                        if (hitbox_terreno.getRectangulo().intersects(cursor_hitbox) && !map.getHuerto().hayPlanta(map.getHuerto().getX(hitbox_terreno), map.getHuerto().getY(hitbox_terreno))) {
                             plantando = true;
-                            plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY());
+                            plantar = new Plantar_Service(gc.getInput().getAbsoluteMouseX(), gc.getInput().getAbsoluteMouseY(), map.getHuerto().getX(hitbox_terreno), map.getHuerto().getY(hitbox_terreno));
                         }
                     }
                 }
@@ -175,6 +180,7 @@ public class Prueba extends BasicGameState {
             if (hablando && click) {
                 hablando = false;
             }
+                
         } else {  //Ruby a muerto en combate
             ((Casa) game.getState(1)).init(gc, game);
             ruby.setVida(100);

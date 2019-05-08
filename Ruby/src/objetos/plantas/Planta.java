@@ -51,6 +51,10 @@ public abstract class Planta extends Objeto {
     public void render() {
         animacion.renderAnimacion(pos_x, pos_y);
     }
+
+    public void setAnimacion(Animacion_planta animacion) {
+        this.animacion = animacion;
+    }
     
     @Override
     public abstract String getNombre();
