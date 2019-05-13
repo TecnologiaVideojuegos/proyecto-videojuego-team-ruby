@@ -65,7 +65,7 @@ public class Casa extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Casa.tmx");
+        map = new Mapa("./resources/maps/Casax2_huerto_normal.tmx");
         map.agregarSpawn("SpawnEste");
 
         //Posicionar a Ruby en un spawn inicial
@@ -194,7 +194,7 @@ public class Casa extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Casa.tmx");
+        map = new Mapa("./resources/maps/Casax2_huerto_normal.tmx");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
     }
