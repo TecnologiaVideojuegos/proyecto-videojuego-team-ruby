@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1">
+ <tileset firstgid="1" source="Basic.tsx"/>
+ <tileset firstgid="1025" source="Suelo.tsx"/>
+ <tileset firstgid="1217" source="Arboles.tsx"/>
+ <tileset firstgid="1473" source="Árboles 2.tsx"/>
+ <tileset firstgid="1729" source="Más árboles.tsx"/>
+ <tileset firstgid="1985" source="Bosque.tsx"/>
+ <layer id="1" name="Suelo" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3dT04CMRhAcTF4CVzhsbyAR8YLcAATd27MLAiTCWQ6pe33Wh7JS1wIM/1+zh8i0cPry8vBzMxsgI772KLXT+syl11Q0eunFeVA8Djt2zU9lmufHvPv+djpoYceesR73Lo26MHyWO6DHno8q8e9teuhhx59eOSeh6M9pudOs7vXbn/9Wo94j7mJHm08Utanhx6tPUratPCYn7/WPM4VZtrCYVSP1O5t7+vtWonZjuaxVk2PR0168ih1np/vy9r92tqxtjwec/p9co+cmdV8vfn9xyPzyTWK9qBVw2OLS+rst/6c9lppAz3KeZxvrJ3iET2nVqXMPPcY0qOOx/J3zHp4fETPqaXH2nsTPRgeXs9ZXTzOs9lseb4edTyW6cHxmGZYcht66NFr0xxunWNae/zpgfIovU3To5f0YKUHqxSPdz1QHrl5n8zyiF5bj+nBqqaH5y49ek8PVq08Pr1nRnl4fOjRY3qUq8Qa9WD1yHxTP8s/8ud9SR4pr68Dy8PaeETv96jpwSrn2h29zyPntYKV5ydWerDSg5UerPRgpQcrPVjpwUoPVikWP74/1+NJ04OVHqz0YKUHq9T73VpprQc5PVjpwUoPVnqw0oOVHqz0YEXyyLUZyTTa4wSYAaloCz1YHiOda/QYry3/S6fE3/Jd9g2YASk9WOnBSg9WerAayeM4QCN4RM9QDz3IHiO5/AMAWGVdQJwAAA==
+  </data>
+ </layer>
+ <layer id="2" name="Walls" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2dt5MURxTG92B3i/RAimWQYpwSuQBTJSETYBK5ABPJBMBFMv+eIJWjSEE6SakkyPV11U1V3zftZrp7+g3zflVfsMsx5n3T/drOrlaKoiiKoiiKopTg0br/3cN1/G+UOqgfssjx45XtavUqdHJL32/wPXRyU+Yal0SOH2fgw1noHPlxBj6chc5Zfvi8Uw6T48d5xPYCdBG6ZMX5PHy4AF2ELh144vNOOUyOH1cQ26vQNei6Fecr8OAqdA26fuCHzzvlMDl+3EBcb0K3oNtWjG/Ag5vQLej2gR8+75TD9GK9Dfth5+o7+Nu70D1oD3rv2Gr1PnQH/3YXugftQTvrvnea892YWJ9CfE5bz2zID1euToG9G3ucOfEMcfsrQU+t+A6tr1y5eghdGco9zhwwcTuyiethhh+uXD2GUseRjInb8U1cOX64cvUYSh1HMiZuP+HefoZ+gX6FfnPca44fnKvHUuo4kjFxe4x7ewL9Dv0B7Tvu9U8rl/yd4Ifh/jqsB4Exrh8j/3eIQueRhvHjH8T/X+g/6Cn0zOHHjpVLjkbKz5Bz+xhzvDHnkYa51h20JY9AR6E1tHH0vXatXHJC/aiGudZdxP84dAJ6AXpxRF/Yrs9S5ar3co5ni+9xLpS6Vrs+S5Wr3ss53pD2uVRKXatdn6XKVe8ZzJjImOMNaZ9LwNUXD9UZqeweyz9GR6kxkTn44eqLh+qMFpQaE+H2gMR2sKsv7qszWlFqTCSlfda63Jjzv4l7fAt6G3oHeleYH6XGRObix2Xc4wfQh9BH0MdC/LDnNkqMiczFj09wj59Cn0GfQ19M5AevTeDPpec2Qv2XDgl+GL7EPX8FfQ19U8kPnsvjtQn8ufTcRqj/0pUdKX58i2v6Dvoe+qGSH/y889oE/lx6biPUf7HrspZtrSmfB37eeW0Cf55ybsOVW1qUlSnPyc87r03gz1PObSzRD37eeW2C/XnqdSNL9GPI8z71uhFX26vEuNFQWrcnfHCuqV1eXG2vFuNGUv3gXFO7vLjaXi3GjaT6wbmmxjoriWuFpPrBucYVu9x9BxLXCkn1g+HY2X35N7bj9oVIXCu0P5P1Mhw77svn7guZ+7r51uWK45e7L8S352EutPaD45f7fHPflPNVbGynNfsN6y4Dx6/08835Kja2I6mt1rKs+Pb05ML5KjS2szfx2GeMVn7YfcRT0OmGcZDUVmvlh8S9OBLqrVZ+SLh3RkK91coPCffOSKi3Wvkh4d4N0spp675IaXp9j0hfRFo5fd786PU9In2R2uU0db9zy3m0kvDz3ut7RPoitUnd7yx1/fVQpI9dpe53lrr+eij8vEt7/8bzlg+GIPH9G0v2Y+p1FEyt/VFzZep1FMwc9kdNyRTrKELMYX/UlKSso6jJknNFClxeaucT9SMMl5fa+UT9GEbtfKJ+DKN2PlE/htHLJyPW4YVQP4bRyyeZ6/AY9SOP0u9nVj/yKL0uTv3Io/RYvfqRB4/Vvwa9PnK9vUH9qMPYPK9+1GFsnlc/6jA2z4/djyNxz44kJM7JL7nsTb0GJYUl+2GQ9ltXS/dD2m9dSfCj5TMq7beuSvrB83K+ebrYO8+mRNoeQ5cfY+c7eV7ON08Xe+fZlEhrY7n84Hh5f5uTvud5Od88XeydZ95yVaheC/1OWWuMH3z/HC9+z0IH1zOxPQAdsXeeectVoXpN4vrGDuMHXx/Hy/vbnPR9bA9AR+ydZ95yReeL1au+8iRxT2OH8YOvj+Pl/W3O7bA9AN3+2theDG+5ovP16tXEdoK0vVI2xg++Po4X1yfdeHWtXOgtV3S+Xr26SWsnSNsrZWP8iF2fL+fVyoX8PLwEveyo13r16ibcTkgtny0xfki+vhC9enUTbifMAQn987H06tVIO0GZlrmWc0VRFEVRFEVRlsn/ibajo0CcAAA=
+  </data>
+ </layer>
+ <layer id="11" name="Decoracion" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3cyVHDMBTGcR8S9+FwYzkkoYEsDWRpIEsDSagQaAaagI/hAsrYlo0UPYf/b+YdGOKMR08rSMoyAAAAWwZ5lt3kqd8CX4bKw0gxVjySk+QmysFUMVPMyUdwg776nr7/5xfKwVKxUqzJh5cPz/Id6nMjxbhBPjbKwVaxU+zJR1AT5WGqmCnmnjk5KAdHxYlcBLdQDpaKlWLdoI0gjo1ysFXsFHvykdxBOTgqToon8gEAQFTPGmtfFK+MuQAAAEB0Tf5/BeB63aovuFPcKx7+Yb/w1suy917qtwAAAADiYt4LfCv6zfd1I542+7oRT5t93biMIuc8nCU/z8MhPfc8nDvWu+2H9nRZ7ljvth/3Z+Zqcbljvdt+3J+Zq9nCXM0m+i1b6Ldsod9Kjz7qbwqn3Ir8/Pe/1h41axH6qLjO1h41a5GyPop2045b38/WHjVrkTK0m3Zi/e2Ksb2dWHc5cS+ILdwLYgv3glwOcydbmDvZwtzJFuZOtpTNnRhX0iibOzGu2MK4Ygvjii2syW1hTQ4AAAAAAAAAAAAAAGAfezbDqipPn3uO2LMZVlV5+py9ZM+mP5/6XVWePmcvm+zZDHGvWJf7R5/6XVWeCz23VKwU65LvaLJnM8RZ5y73jz71u6o8N3pmq9gp9iXPN9mzGeKsc5f7R5/6XVWeBz1zVJwUTwHOivu8T+13dHhPu0/97tr7dHlPe+j6beF92NMO4Np8AnlorBBAnAAA
+  </data>
+ </layer>
+ <layer id="9" name="SpawnNorte" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMQ0AAAgDsJHgXzMWeAhPq6AJAAAAAADsVX8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbg3260OyQJwAAA==
+  </data>
+ </layer>
+ <layer id="10" name="SpawnEste" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMQ0AAAgDsJHgXzMaOAhPq6AJAAAAAAAAAAAAAAAAAAAAAAAAAJeqvwcAAAAAAAAAAAAAAAAAAAAAAAAAbAwPfaKZQJwAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Enemigos" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3bsQkAAAgDMAcf8f8nxRsUXJILugilYAQAAAAAAAAAAAAwKr8TAFvuGAAAAAAAAAAAAAAAAACAC/5WAQD2dCoAAAAALtiZAAAAAAAA+NSREKN9QJwAAA==
+  </data>
+ </layer>
+ <layer id="4" name="Bosses" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OQQ0AAAgEoHtYxP4ljaGbkIAEAAAAAACAS7q2BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvw0yy31XQJwAAA==
+  </data>
+ </layer>
+ <layer id="5" name="NPCs" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OMREAAAgEoB8sYv+SZnDwXCABCQAAAAAAAAAAAADc6foeAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOwM3Fvbm0CcAAA=
+  </data>
+ </layer>
+</map>
