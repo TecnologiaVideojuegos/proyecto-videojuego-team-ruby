@@ -1,6 +1,8 @@
 package personajes;
 
+import elementos.Dialogo;
 import elementos.Hitbox;
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 
 public abstract class Personaje{
@@ -9,6 +11,7 @@ public abstract class Personaje{
     protected Hitbox hitbox;
     private int vida;
     private int dinero;
+    private ArrayList<Dialogo> dialogos;
     //private String[][] inventario;
 
     public Personaje(String nombre, Hitbox hitbox, int vida, int dinero) {
@@ -17,7 +20,23 @@ public abstract class Personaje{
         this.vida = vida;
         this.dinero = dinero;
     }
+    
+    public Personaje(String nombre, Hitbox hitbox, int vida, int dinero, ArrayList<Dialogo> dialogos) {
+        this.nombre = nombre;
+        this.hitbox = hitbox;
+        this.vida = vida;
+        this.dinero = dinero;
+        this.dialogos = dialogos;
+    }
 
+    public ArrayList<Dialogo> getDialogos() {
+        return dialogos;
+    }
+
+    public void setDialogos(ArrayList<Dialogo> dialogos) {
+        this.dialogos = dialogos;
+    }
+    
     public String getNombre() {
         return nombre;
     }

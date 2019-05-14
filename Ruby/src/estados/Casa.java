@@ -12,6 +12,7 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import personajes.Jugador;
+import personajes.Npc;
 import personajes.Personaje;
 import services.Colision_Service;
 import services.Dialog_Service;
@@ -48,6 +49,10 @@ public class Casa extends BasicGameState {
     private Plantar_Service plantar;
 
     private Semilla semilla = null;
+
+    private Npc npc = null;
+
+    private int n_dialogo = 0;
 
     //Combate
     private Personaje combatiente = null;
@@ -93,7 +98,7 @@ public class Casa extends BasicGameState {
         }
 
         if (hablando) {
-            Dialog_Service.mostrarBocadillo(gc, grphcs, "Pipo recibe una patada", "Hostia.. Perro", "Pasan los meses....", "Pipo muere", true, false);
+            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo));
         }
 
         if (inventario) {
@@ -116,6 +121,15 @@ public class Casa extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
+        if (hablando && gc.getInput().isMousePressed(0)) {
+            if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
+                n_dialogo = 1;
+            } else {
+                hablando = false;
+                n_dialogo = 0;
+                npc = null;
+            }
+        }
         if ((!hablando) && (!inventario) && (!plantando)) {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
@@ -140,6 +154,7 @@ public class Casa extends BasicGameState {
             //Detección de click sobre npcs
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
                 hablando = true;
+                npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
             }
 
             //MOVIMENTO DEL RATÓN
@@ -158,9 +173,6 @@ public class Casa extends BasicGameState {
                     break;
                 default:
             }
-        }
-        if (hablando && gc.getInput().isMousePressed(0)) {
-            hablando = false;
         }
     }
 

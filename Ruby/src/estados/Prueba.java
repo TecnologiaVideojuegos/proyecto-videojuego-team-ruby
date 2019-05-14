@@ -46,6 +46,10 @@ public class Prueba extends BasicGameState {
 
     private Semilla semilla = null;
 
+    private Npc npc = null;
+
+    private int n_dialogo = 0;
+
     //Combate
     private Personaje combatiente = null;
 
@@ -92,7 +96,7 @@ public class Prueba extends BasicGameState {
         }
 
         if (hablando) {
-            Dialog_Service.mostrarBocadillo(gc, grphcs, "Pipo recibe una patada", "Hostia.. Perro", "Pasan los meses....", "Pipo muere", true, false);
+            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo));
         }
 
         if (inventario) {
@@ -107,7 +111,6 @@ public class Prueba extends BasicGameState {
                 plantando = false;
             }
         }
-
     }
 
     /**
@@ -116,6 +119,15 @@ public class Prueba extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         if (ruby.getVida() > 0) {
+            if (hablando && gc.getInput().isMousePressed(0)) {
+                if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
+                    n_dialogo = 1;
+                } else {
+                    hablando = false;
+                    n_dialogo = 0;
+                    npc = null;
+                }
+            }
             if ((!hablando) && (!inventario) && (!plantando)) {
                 cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
                 cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
@@ -150,6 +162,7 @@ public class Prueba extends BasicGameState {
 
                 //Detección de click sobre npcs
                 if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
+                    npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
                     hablando = true;
                 }
 
@@ -170,9 +183,7 @@ public class Prueba extends BasicGameState {
                     default:
                 }
             }
-            if (hablando && gc.getInput().isMousePressed(0)) {
-                hablando = false;
-            }
+            
         } else {  //Ruby a muerto en combate
             ((Casa) game.getState(1)).init(gc, game);
             ruby.setVida(100);
