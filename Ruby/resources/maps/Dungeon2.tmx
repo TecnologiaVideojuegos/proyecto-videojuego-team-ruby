@@ -3,29 +3,29 @@
  <tileset firstgid="1" source="Basic.tsx"/>
  <tileset firstgid="1025" source="../../../Diseño Gráfico/Paquete de texturas/Mazmorras.tsx"/>
  <tileset firstgid="1037" source="MazmorrasX2.tsx"/>
- <layer id="21" name="SpawnEste" width="70" height="50">
+ <layer id="22" name="SpawnEste" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OMQEAAAgDoB1GsH9WU6gPJCABAAAAAAAAAAAAAIBdXd8DAODCABuNqw2wNgAA
+   H4sIAAAAAAAACu3OQQ0AAAgEoHtYwf5VDWAA5wYJSAAAAAAAAAAAAGDruh4AAAAA3wxlY7k/sDYAAA==
   </data>
  </layer>
- <layer id="23" name="Enemigos" width="70" height="50">
+ <layer id="21" name="SpawnNorte" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3WwQ0AIAgEMB6O4P6zuoC8JFFJO8ElwIUIAOhpjtsJyJgNAAD8xx8Pe26Dl9hH4IQOAQAAAAAAqizZViuIsDYAAA==
-  </data>
- </layer>
- <layer id="22" name="SpawnNorte" width="70" height="50">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OQQ0AAAgEoHto/8rGcFNIQAIAAAAAAHBP1/YAAAAAAAAA4J8Be4HIbrA2AAA=
+   H4sIAAAAAAAACu3OQQ0AMAgAsXtgYf6tIoMsaRW0AAAAAIDfvbkeAAAAAAAAAABALWNqchOwNgAA
   </data>
  </layer>
  <layer id="20" name="Walls" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2ZSw7DIAxEs+gRmvtfNeoiUoQGgsEenGaexALCxzzR4LbbJoTIwPdjK8y1ImKwxBrRN2K81xze6/ybl9ZZfLuXWl1ecF1ecF1ecN1yJ77JS8Q4y3wr85fMXlbSG8+vfS9K+dwzV/XKf0fPksXLk5EXjLxg3uQlMo94upfeZx5eonMDL5heZvsxkRfMGRPj/TLbj8nVS9ke+X6ZmZcB20urPRPygpEXjLxg5AUjLxh5wcgLRl4w8oJZ5aX1PSwDq7yUv/+jguZjlt49Z/DChu1lhOs49rmx7NPa39tLNL2uMnlBnzNvanHKS1/7rJdzL6N72hteIu59ppfaXdPD3X/7o3HWYHmJRF7u15IXvBbDy8z7jJl7ReV8QgguB+Yqkg6wNgAA
+   H4sIAAAAAAAACu2XSxLDIAxDs+gRev+zdt9x8E8GA9JMNh2Q7JfgpM9DUT59P/te1VxmC9VXJd+duSBELrKsXGadXXKRM1fOl3+PN29LFlJILtk9p3Lh81KjE+cLQuQi60QuK+ZLNt+yf7TGmu8Vmgs6e7Qmmz/SzOclkr0bl2yONZtc/PPvFi5eny5cspeW7a23A5cKRbl4vzEiIpf3HM0bcYakXtD3gFxsvSC9UPPRkkcushdivmjvPCnHkruCi9aHtj+bSS7yno5csiIXWeQi61QunC96HrnIXuQie5GL7HUjF+v/xsgVqcXbTwcuKF8ry65cMvcfcaY7zpesN7lg1kc9buBSNZOiPqgZOFqfrSXLJVJvpq/qer1CPi9W/4p60UK+pz2/R0Uudr/oPPGch2gvIy7V9c7SbvXO0g+WBpndsDYAAA==
+  </data>
+ </layer>
+ <layer id="23" name="Enemigos" width="70" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3YMREAMAgDQAYs1L/Vumi58K8gZMhAFQBkO/07wQx6eEfXAAAAAAAzpP5rU+8CstgqAAAAgL0uw0ADT7A2AAA=
   </data>
  </layer>
  <layer id="19" name="Suelo" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3aMQ/CIBCGYQYXh9pBF3Xy//9JdWiCTYsH3B3QvF9yS5Ny8GjRVkMgxD/TKYSLoDx7Wc5Be66evXpwuX763QTl2ctyDnGmhDkuuKTmUzpX7Xngkt8Ll35dLM6TjIfL73gPozWWRLq+7+fWHFV83qxQueNZf+fDpc6l9vpvWbjg4uXyGsxFui4Nl9S+hQsua5fnTvXusvVMQMtlzwSXcV22DDRd1sdHcjnjwvulA5etXrjgggsuuOCCS78u8fFRXJb7JM37aalfD9XKRfKcfW3VKv9es5oxLVxq/ueT8/uHp0vJdYOLrL/1niRZFy64eLuk9lRJpfZlCzNc2rlYFy7HcLkf1IUQQjzzBihjbbCwNgAA
+   H4sIAAAAAAAACu2awRKCMAxEe+DgRT2oF///Q/UgI8NAm27SNJTdmR5ETJY3IaXFlKicrlNKN8dhlZdc2nvZ0uP7/dNxWOUlF/1474yzc5nZrD9LuXh47lUvOS8jcUE150XqJXdOFC5or9Vw2YtFLvG5SMdy/lkfr+VyhP6C8CGX7XpZ1s2oXFBp+otkjirFfP1GTV6r/CVvtVy2+iyyviCX/ZgjcbG6x5dcSs8RvbiUYtdyuUz/np6LeTYuNfWCxonApYVqWXt6PxKXmnvM0pu3js7Fau9ZywXpYeTiz8XKP7m04YJqrvd7RQxPLtp9LHKx5YLMW9772T16CLmQy0hctHFRkQt+jchvyKV8Drng/snF1r9EyBo2Chd0fU0uOBev9489n+vIhVyicUH3Fq32jqXXK313q/GrzSHNI5kDonJpWdetuLTy68XF8rmOXNp4lv4/3UOR1gFUbH0ARHO6p7A2AAA=
   </data>
  </layer>
 </map>
