@@ -58,8 +58,8 @@ public class Combate extends BasicGameState {
         this.iconoFAgua = new Image("./resources/img/florAzul.png");
         this.iconoPFuego = new Image("./resources/img/florRoja.png");
         this.iconoPRayo = new Image("./resources/img/florAmarilla.png");
-        this.iconoPocionVida = new Image("./resources/img/florAzul.png");
-        this.iconoPocionDanio = new Image("./resources/img/florRoja.png");
+        this.iconoPocionVida = new Image("./resources/img/pocionVida.png");
+        this.iconoPocionDanio = new Image("./resources/img/pocionDanio.png");
     }
 
     @Override

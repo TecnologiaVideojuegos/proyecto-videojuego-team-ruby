@@ -6,7 +6,6 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Animacion_dinamica{
 
-    // TODO: fijar valores para todos los sprites
     private final int ANCHO = 32;   // Ancho de cada frame del sprite
     private final int ALTO = 32;    // Alto de cada frame del sprite
 
