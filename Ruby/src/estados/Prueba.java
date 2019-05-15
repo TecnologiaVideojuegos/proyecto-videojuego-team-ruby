@@ -133,10 +133,10 @@ public class Prueba extends BasicGameState {
                 cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
                 if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                    Combate combate = (Combate) game.getState(2);
+                    Combate combate = (Combate) game.getState(3);
                     combate.setEstadoAnterior(getID());
                     combate.setCombatiente(combatiente);
-                    game.enterState(2); //COMBATE
+                    game.enterState(3); //COMBATE
                     game.getCurrentState().leave(gc, game);
                 }
 
@@ -170,15 +170,15 @@ public class Prueba extends BasicGameState {
                 coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
                 //Comprobacion de salto de escenario
-                Prueba_Mazmorra p = (Prueba_Mazmorra) game.getState(4);
+                Prueba_Mazmorra p = (Prueba_Mazmorra) game.getState(5);
                 switch (Colision_Service.saltoMapa(ruby, map)) {
                     case "SpawnSur":
                         p.posicinarEnSpawnARuby("SpawnNorte", 0, -100);
-                        game.enterState(4);
+                        game.enterState(5);
                         break;
                     case "SpawnEste":
                         p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                        game.enterState(4);
+                        game.enterState(5);
                         break;
                     default:
                 }
@@ -194,13 +194,13 @@ public class Prueba extends BasicGameState {
 
     @Override
     public int getID() {
-        return 3;
+        return 4;
     }
 
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_F11) {
-            game.enterState(5); //DEMO
+            game.enterState(6); //DEMO
         }
 
         if (key == Input.KEY_ESCAPE) {

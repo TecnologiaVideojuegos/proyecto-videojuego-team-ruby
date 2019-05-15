@@ -301,28 +301,37 @@ public class Combate extends BasicGameState {
             //Comprovamos finalización de combate
             if (combatiente.getVida() <= 0) {
                 String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
-                if (nombreClaseAnterior.equals("estados.Prueba")) {
+                if (nombreClaseAnterior.equals("estados.Mazmorra")) {
+                    ((Mazmorra) game.getState(estadoAnterior)).combateGanado(true);
+                    game.getCurrentState().leave(gc, game);
+                    resetAllValues();
+                    game.enterState(2);
+                } else if (nombreClaseAnterior.equals("estados.Prueba")) {
                     ((Prueba) game.getState(estadoAnterior)).combateGanado(true);
                     game.getCurrentState().leave(gc, game);
                     resetAllValues();
-                    game.enterState(3);
+                    game.enterState(4);
                 } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
                     ((Prueba_Mazmorra) game.getState(estadoAnterior)).combateGanado(true);
                     game.getCurrentState().leave(gc, game);
                     resetAllValues();
-                    game.enterState(4);
+                    game.enterState(5);
                 }
                 game.enterState(estadoAnterior);
             } else if (ruby.getVida() <= 0) {
                 String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
-                if (nombreClaseAnterior.equals("estados.Prueba")) {
+                if (nombreClaseAnterior.equals("estados.Mazmorra")) {
+                    ((Mazmorra) game.getState(estadoAnterior)).combateGanado(false);
+                    resetAllValues();
+                    game.enterState(2);
+                } else if (nombreClaseAnterior.equals("estados.Prueba")) {
                     ((Prueba) game.getState(estadoAnterior)).combateGanado(false);
                     resetAllValues();
-                    game.enterState(3);
+                    game.enterState(4);
                 } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
                     ((Prueba_Mazmorra) game.getState(estadoAnterior)).combateGanado(false);
                     resetAllValues();
-                    game.enterState(4);
+                    game.enterState(5);
                 }
             }
 
@@ -443,7 +452,10 @@ public class Combate extends BasicGameState {
                         if (turnoRuby) {    //En el turno de ruby
                             if (huir) {
                                 String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
-                                if (nombreClaseAnterior.equals("estados.Prueba")) {
+                                if (nombreClaseAnterior.equals("estados.Mazmorra")) {
+                                    ((Mazmorra) game.getState(estadoAnterior)).huidoDeCombate();
+                                    //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
+                                }else if (nombreClaseAnterior.equals("estados.Prueba")) {
                                     ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
                                     //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
                                 } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
@@ -495,7 +507,7 @@ public class Combate extends BasicGameState {
 
     @Override
     public int getID() {
-        return 2;
+        return 3;
     }
 
     public void setEstadoAnterior(int i) {
