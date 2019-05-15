@@ -29,6 +29,14 @@ public abstract class Personaje{
         this.dialogos = dialogos;
     }
 
+    public void quitarDinero(int d){
+        dinero = dinero - d;
+    }
+    
+    public void sumarDinero(int d){
+        dinero = + d;
+    }
+    
     public ArrayList<Dialogo> getDialogos() {
         return dialogos;
     }
