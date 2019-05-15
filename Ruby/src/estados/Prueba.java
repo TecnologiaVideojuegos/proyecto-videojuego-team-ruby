@@ -1,8 +1,6 @@
 package estados;
 
-import elementos.Hitbox;
 import elementos.Mapa;
-import objetos.plantas.Planta;
 import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

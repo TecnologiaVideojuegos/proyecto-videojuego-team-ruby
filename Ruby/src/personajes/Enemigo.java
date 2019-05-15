@@ -16,9 +16,8 @@ public class Enemigo extends Personaje {
     private float movX = 0, movY = 0;
 
     public Enemigo(String nombre, Hitbox hitbox, int nivel) throws SlickException {
-        // TODO: modificar animación original por Animacion_dinamica cuando haya sprite
         super(nombre, hitbox, 100, 20*nivel);
-        this.animacion = new Animacion_dinamica("./resources/sprites/Planta_enemiga.png"); //TODO pendiente de modificacion de la ruta
+        this.animacion = new Animacion_dinamica("./resources/sprites/Planta_enemiga.png");
         this.nivel = nivel;
         this.combate = false;
     }

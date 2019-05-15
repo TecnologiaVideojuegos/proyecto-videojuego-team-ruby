@@ -32,7 +32,6 @@ public class Npc extends Personaje {
         animacion.direccionAnimacion(2);
     }
 
-    // TODO: comprobacion de nivel del jugador para mostrar nivel    
     @Override
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
         animacion.renderAnimacion(-movEjeX, -movEjeY, hitbox.getRectangulo().getX() + 5, hitbox.getRectangulo().getY());

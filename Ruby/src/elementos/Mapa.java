@@ -115,7 +115,7 @@ public class Mapa {
     //***              CARGA DE ELEMENTOS               ***//
     //*****************************************************//
     private void cargaMuros() {
-        int wallLayer = map.getLayerIndex("Walls"); //TODO: definir otro nombre para la capa
+        int wallLayer = map.getLayerIndex("Walls");
 
         if (wallLayer != -1) {    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {

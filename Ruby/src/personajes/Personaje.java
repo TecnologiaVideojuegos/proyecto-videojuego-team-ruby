@@ -75,9 +75,5 @@ public abstract class Personaje{
         this.dinero = dinero;
     }
 
-    // TODO: Update hitbox
-    /* TODO: Update animacion
-             Render animacion
-     */
     public abstract void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY);
 }
