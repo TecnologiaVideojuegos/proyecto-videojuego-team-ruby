@@ -20,12 +20,13 @@ public class Mapa {
     private ArrayList<Npc> npcs;
     private Huerto huerto;
     private ArrayList<Spawn> spawns;
+    private int nivelRuby;
 
     //Constructor por defecto
     public Mapa() {
     }
 
-    public Mapa(String ruta) throws SlickException {
+    public Mapa(String ruta, int nivelRuby) throws SlickException {
         this.map = new TiledMap(ruta);
 
         //Carga de elementos del mapa
@@ -34,12 +35,12 @@ public class Mapa {
         bosses = new ArrayList<>();
         npcs = new ArrayList<>();
         spawns = new ArrayList<>();
+        this.nivelRuby = nivelRuby;
         cargaMuros();
         cargaEnemigos();
         cargaBosses();
         cargaNPCs();
         cargaHuerto();
-        /*TODO: cargaSaltosEstado */
     }
 
     public TiledMap getMap() {
@@ -137,7 +138,7 @@ public class Mapa {
                         enemigos.add(new Enemigo(
                                 "Enemigo",
                                 new Hitbox((float) i * 32, (float) j * 32, 32, 32),
-                                10));  //32 = ancho del patron
+                                nivelRuby));  //32 = ancho del patron
                     }
                 }
             }
@@ -154,7 +155,7 @@ public class Mapa {
                         bosses.add(new Boss(
                                 "Boss",
                                 new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64),
-                                10));  //32 = ancho del patron
+                                nivelRuby));  //32 = ancho del patron
                     }
                 }
             }

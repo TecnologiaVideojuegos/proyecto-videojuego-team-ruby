@@ -1,6 +1,5 @@
 package estados;
 
-import elementos.Hitbox;
 import elementos.Mapa;
 import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
@@ -70,7 +69,7 @@ public class Casa extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Granja_test.tmx");
+        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
         map.agregarSpawn("SpawnEste");
 
         //Posicionar a Ruby en un spawn inicial
@@ -164,10 +163,10 @@ public class Casa extends BasicGameState {
             Mazmorra p = (Mazmorra) game.getState(2);
             switch (Colision_Service.saltoMapa(ruby, map)) {
                 case "SpawnSur":
-                    p.posicinarEnSpawnARuby("SpawnNorte", 0, -100);
-                    game.enterState(2);
+
                     break;
                 case "SpawnEste":
+                    ruby.setNivel(3);
                     p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
                     game.enterState(2);
                     break;
@@ -206,7 +205,7 @@ public class Casa extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Granja_test.tmx");
+        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
     }

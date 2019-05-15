@@ -67,7 +67,7 @@ public class Prueba extends BasicGameState {
         this.gc = gc;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/demo_map.tmx");
+        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel());
         map.agregarSpawn("SpawnSur");
         map.agregarSpawn("SpawnEste");
 
@@ -223,7 +223,7 @@ public class Prueba extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/demo_map.tmx");
+        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel());
         map.agregarSpawn("SpawnSur");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);

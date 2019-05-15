@@ -13,7 +13,7 @@ public class Boss extends Personaje {
 
     public Boss(String nombre, Hitbox hitbox, int nivel) throws SlickException {
         // TODO: modificar animación original por Animacion_dinamica cuando haya sprite
-        super(nombre, hitbox, 100, 20);
+        super(nombre, hitbox, 100, 50*nivel);
         animacion = new Animacion_dinamica("./resources/sprites/Boss.png");
         animacion.direccionAnimacion(2);
         this.nivel = nivel;
