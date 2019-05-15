@@ -15,6 +15,7 @@ import personajes.Jugador;
 import personajes.Npc;
 import personajes.Personaje;
 import services.Colision_Service;
+import services.Comercio_Service;
 import services.Dialog_Service;
 import services.InputCapture_Service;
 import services.Inventario_Service;
@@ -41,10 +42,12 @@ public class Casa extends BasicGameState {
     private float mov[] = new float[2]; //Movimiento entre cada update
 
     private float gcWidth, gcHeight;
-
+    
+    //ACCIONES
     private boolean hablando = false;
     private boolean inventario = false;
     private boolean plantando = false;
+    private boolean comerciando = false;
 
     private Plantar_Service plantar;
 
@@ -116,6 +119,10 @@ public class Casa extends BasicGameState {
                 plantando = false;
             }
         }
+        
+        if(comerciando) {
+            Comercio_Service.comerciar(grphcs, ruby, gc.getInput().getMouseX(), gc.getInput().getMouseX(), gc.getInput().isMouseButtonDown(0));
+        }
 
     }
 
@@ -124,9 +131,16 @@ public class Casa extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-        if (hablando && gc.getInput().isMousePressed(0)) {
+        if (hablando && gc.getInput().isMouseButtonDown(0)) {
             if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
-                n_dialogo = 1;
+                if (npc.getDialogos().get(n_dialogo + 1).getFrases().get(0).equals("Comercio_Service")) {
+                    comerciando = true;
+                    n_dialogo = 0;
+                    hablando = false;
+                    npc = null;
+                } else {
+                    n_dialogo++;
+                }
             } else {
                 hablando = false;
                 n_dialogo = 0;
@@ -187,13 +201,19 @@ public class Casa extends BasicGameState {
 
     @Override
     public void keyPressed(int key, char c) {
-
-        if (key == Input.KEY_ESCAPE) {
-            ((Menu) game.getState(0)).setEstadoAnterior(getID());
-            huerto = map.getHuerto();
-            game.enterState(0); //MENU
-        } else if (key == Input.KEY_F12) {
-            ver_hitbox = !ver_hitbox;
+        
+        if (!hablando && !plantando && !inventario && !comerciando) {
+            if (key == Input.KEY_ESCAPE) {
+                ((Menu) game.getState(0)).setEstadoAnterior(getID());
+                huerto = map.getHuerto();
+                game.enterState(0); //MENU
+            } else if (key == Input.KEY_F12) {
+                ver_hitbox = !ver_hitbox;
+            }
+        }
+        
+        if(comerciando && key == Input.KEY_ESCAPE){
+            comerciando = false;
         }
 
         if (!hablando && !plantando) {

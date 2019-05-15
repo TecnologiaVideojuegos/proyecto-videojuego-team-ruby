@@ -25,7 +25,7 @@ public class Comercio_Service {
         Circle mouse = new Circle(x2, y2, 2);
         Inventario inventario = ruby.getInventario();
         Objeto objeto = null;
-        Font font = new Font("Segoe UI", Font.BOLD, 20);
+        Font font = new Font("Regular", Font.BOLD, 20);
         Color marron = new Color(90, 60, 40);
         Color verde = new Color(180, 255, 180);
         Rectangle vender_planta_agua = new Rectangle(46,127,283,38);
@@ -49,7 +49,7 @@ public class Comercio_Service {
         grphcs.fillRect(5, 5, 350, 710);
         grphcs.fillRect(925, 5, 350, 710);
         grphcs.setColor(marron);
-        grphcs.setFont(new TrueTypeFont(new Font("Segoe UI", Font.BOLD, 30), true));
+        grphcs.setFont(new TrueTypeFont(new Font("Regular", Font.BOLD, 30), true));
         grphcs.drawString("Vender:", 37, 36);
         grphcs.drawString("Comprar:", 974, 36);
         grphcs.setFont(new TrueTypeFont(font, true));
@@ -140,10 +140,10 @@ public class Comercio_Service {
         objeto.getIcono().draw(51, 204, 32, 32);
         objeto.getIcono().draw(988, 204, 32, 32);
         objeto = new Pocion_vida();
-        objeto.getIcono().draw(51, 167, 32, 32);
+        objeto.getIcono().draw(51, 288, 32, 32);
         objeto.getIcono().draw(988, 450, 32, 32);
         objeto = new Pocion_ataque();
-        objeto.getIcono().draw(51, 204, 32, 32);
+        objeto.getIcono().draw(51, 325, 32, 32);
         objeto.getIcono().draw(988, 487, 32, 32);
         objeto = new Semilla_agua();
         objeto.getIcono().draw(988, 288, 32, 32);
@@ -162,8 +162,8 @@ public class Comercio_Service {
         grphcs.drawString("Semilla de agua  20$", 1029, 291);
         grphcs.drawString("Semilla de fuego  50$", 1029, 328);
         grphcs.drawString("Semilla de rayo  150$", 1029, 365);
-        grphcs.drawString("Pocion de vida  300$", 1029, 365);
-        grphcs.drawString("Pocion de ataque  1000$", 1029, 365);
+        grphcs.drawString("Pocion de vida  300$", 1029, 453);
+        grphcs.drawString("Pocion de ataque  1000$", 1029, 490);
         if(vender_planta_agua.intersects(mouse) && inventario.getCantidad(new Planta_agua())!=0 && click){
             ruby.getInventario().eliminarObjeto(new Planta_agua());
             ruby.sumarDinero(50);
