@@ -1,6 +1,5 @@
 package animaciones;
 
-import java.io.Serializable;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -98,6 +97,23 @@ public class Animacion_dinamica{
                 animacion_d.draw(posX - ANCHO, posY - ALTO, ANCHO * size, ALTO * size);
                 break;
             default:
+                break;
+        }
+    }
+    
+    public void direccionAnimacion(int i){
+        switch(i){
+            case 0:
+                lado_animacion = 0;
+                break;
+            case 1:
+                lado_animacion = 1;
+                break;
+            case 2:
+                lado_animacion = 2;
+                break; 
+            case 3:
+                lado_animacion = 3;
                 break;
         }
     }

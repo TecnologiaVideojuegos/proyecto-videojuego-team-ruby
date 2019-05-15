@@ -165,6 +165,6 @@ public class Enemigo extends Personaje {
 
     @Override
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
-        animacion.renderAnimacion(-movX, -movY, hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
+        animacion.renderAnimacion(-movX, -movY, hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY() - 32);
     }
 }

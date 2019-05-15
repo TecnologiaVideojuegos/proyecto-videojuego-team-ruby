@@ -153,7 +153,7 @@ public class Mapa {
                     if (map.getTileId(i, j, wallLayer) != 0) {
                         bosses.add(new Boss(
                                 "Boss",
-                                new Hitbox((float) i * 32, (float) j * 32, 32, 32),
+                                new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64),
                                 10));  //32 = ancho del patron
                     }
                 }
@@ -168,7 +168,7 @@ public class Mapa {
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        npcs.add(new Npc(new Hitbox((float) i * 32, (float) j * 32, 32, 32)));  //32 = ancho del patron
+                        npcs.add(new Npc(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64)));  //32 = ancho del patron
                     }
                 }
             }
@@ -178,18 +178,18 @@ public class Mapa {
     private void cargaHuerto() {
         int wallLayer = map.getLayerIndex("Huerto");
         ArrayList<Hitbox> huerto_array = new ArrayList<>();
-        int x=0, y=0, x_temp=0, y_temp=0;
+        int x = 0, y = 0, x_temp = 0, y_temp = 0;
 
         if (wallLayer != -1) {    //Si encuentra la capa
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        if(i>x_temp){
-                            x_temp=i;
+                        if (i > x_temp) {
+                            x_temp = i;
                             x++;
                         }
-                        if(j>y_temp){
-                            y_temp=j;
+                        if (j > y_temp) {
+                            y_temp = j;
                             y++;
                         }
                         huerto_array.add(new Hitbox((float) i * 32, (float) j * 32, 32, 32));  //32 = ancho del patron
@@ -260,7 +260,7 @@ public class Mapa {
 
         //Elementos tipo Planta
         huerto.renderPlantas();
-        
+
         //Dibujo de los elementos de colision
         boolean amarillo = true;
 
@@ -304,8 +304,7 @@ public class Mapa {
                 grphcs.drawRect(npc.getHitbox().getRectangulo().getX(), npc.getHitbox().getRectangulo().getY(), npc.getHitbox().getRectangulo().getWidth(), npc.getHitbox().getRectangulo().getHeight());
             }
         }
-        
-        
+
         if (ver_hitbox) {
             //Elementos tipo huerto
             amarillo = true;

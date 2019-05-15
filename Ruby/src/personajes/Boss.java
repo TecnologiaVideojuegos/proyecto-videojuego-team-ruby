@@ -1,6 +1,6 @@
 package personajes;
 
-import animaciones.Animacion_estatica;
+import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -9,22 +9,23 @@ public class Boss extends Personaje {
 
     private int nivel;
     private boolean combate;
-    private Animacion_estatica animacion;
+    private Animacion_dinamica animacion;
 
     public Boss(String nombre, Hitbox hitbox, int nivel) throws SlickException {
         // TODO: modificar animación original por Animacion_dinamica cuando haya sprite
         super(nombre, hitbox, 100, 20);
-        animacion = new Animacion_estatica("./resources/img/enemigo.png");
-
+        animacion = new Animacion_dinamica("./resources/sprites/Boss.png");
+        animacion.direccionAnimacion(2);
         this.nivel = nivel;
         this.combate = false;
     }
 
-    public Boss(String nombre, Hitbox hitbox, Animacion_estatica animacion, int vida, int dinero, int nivel) {
+    public Boss(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) {
         super(nombre, hitbox, vida, dinero);
         this.nivel = nivel;
         this.combate = false;
         this.animacion = animacion;
+        animacion.direccionAnimacion(2);
     }
 
     public int getNivel() {
@@ -45,7 +46,7 @@ public class Boss extends Personaje {
 
     @Override
     public void renderPersonaje(GameContainer gc, float movEjeX, float movEjeY) {
-        animacion.renderAnimacion(hitbox.getRectangulo().getX(), hitbox.getRectangulo().getY());
+        animacion.renderAnimacion(-movEjeX, -movEjeY, hitbox.getRectangulo().getX() + 5, hitbox.getRectangulo().getY());
     }
 
     public boolean ataque(Personaje enemigo) {
