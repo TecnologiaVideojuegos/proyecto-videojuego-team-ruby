@@ -7,6 +7,10 @@ public class Huerto {
 
     private ArrayList<ArrayList<Hitbox_Planta>> huerto = new ArrayList<>();
     private int x, y;
+    
+    public Huerto(){
+        
+    }
 
     public Huerto(int x, int y, ArrayList<Hitbox> hitbox_huerto) {
         ArrayList<Hitbox_Planta> hitboxs_planta;

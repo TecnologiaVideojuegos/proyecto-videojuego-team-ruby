@@ -1,6 +1,7 @@
 package core;
 
 import elementos.Hitbox;
+import elementos.Huerto;
 import estados.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,6 +15,7 @@ public class Main extends StateBasedGame {
 
     private AppGameContainer contenedor;
     private Jugador ruby;
+    private Huerto huerto;
     private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
     //TEST HITBOX
     private boolean ver_hitbox = true;
@@ -34,8 +36,9 @@ public class Main extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         ruby = new Jugador(new Hitbox(gc.getWidth() / 2 - (ancho_Ruby - 30) - 5, (gc.getHeight() / 2 - (largo_Ruby - 25)) + 45, 40, 32));
+        huerto = new Huerto();
         this.addState(new Menu(ruby, ver_hitbox));              //0
-        this.addState(new Casa(ruby, ver_hitbox));              //1
+        this.addState(new Casa(ruby, ver_hitbox, huerto));              //1
         this.addState(new Mazmorra(ruby, ver_hitbox));          //2
         this.addState(new Combate(ruby));                       //3
         this.addState(new Prueba(ruby, ver_hitbox));            //4

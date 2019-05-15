@@ -1,5 +1,6 @@
 package estados;
 
+import elementos.Huerto;
 import elementos.Mapa;
 import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
@@ -48,6 +49,7 @@ public class Casa extends BasicGameState {
     private Plantar_Service plantar;
 
     private Semilla semilla = null;
+    private Huerto huerto;
 
     private Npc npc = null;
 
@@ -56,9 +58,10 @@ public class Casa extends BasicGameState {
     //Combate
     private Personaje combatiente = null;
 
-    public Casa(Jugador ruby, boolean ver_hitbox) {
+    public Casa(Jugador ruby, boolean ver_hitbox, Huerto huerto) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
+        this.huerto = huerto;
     }
 
     /**
@@ -70,6 +73,7 @@ public class Casa extends BasicGameState {
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
         map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
+        huerto = map.getHuerto();
         map.agregarSpawn("SpawnEste");
 
         //Posicionar a Ruby en un spawn inicial
@@ -168,6 +172,7 @@ public class Casa extends BasicGameState {
                 case "SpawnEste":
                     ruby.setNivel(3);
                     p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
+                    huerto = map.getHuerto();
                     game.enterState(2);
                     break;
                 default:
@@ -185,6 +190,7 @@ public class Casa extends BasicGameState {
 
         if (key == Input.KEY_ESCAPE) {
             ((Menu) game.getState(0)).setEstadoAnterior(getID());
+            huerto = map.getHuerto();
             game.enterState(0); //MENU
         } else if (key == Input.KEY_F12) {
             ver_hitbox = !ver_hitbox;
@@ -206,6 +212,7 @@ public class Casa extends BasicGameState {
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
         map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
+        map.setHuerto(huerto);
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
     }
