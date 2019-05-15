@@ -3,7 +3,6 @@ package personajes;
 import animaciones.Animacion_dinamica;
 import elementos.Hitbox;
 import elementos.Mapa;
-import objetos.plantas.Planta;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import services.Colision_Service;
@@ -80,10 +79,9 @@ public class Enemigo extends Personaje {
         int danio = 0;
 
         if (numRandom != 0 || numRandom != 1) {
+            danio = 3 * nivel;
             if (numRandom == 2) {                   //Critico
-                danio = 7 * 2; //TODO: sustituir por el daño de la planta
-            } else {
-                danio = 7;
+                danio *= 2;
             }
 
             enemigo.setVida(enemigo.getVida() - danio);

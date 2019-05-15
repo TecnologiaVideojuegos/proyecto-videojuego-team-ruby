@@ -89,7 +89,7 @@ public class Jugador extends Personaje {
 
     public void tomarPocionVida() throws SlickException{
         inventario.eliminarObjeto(new Pocion_vida());
-        super.setVida(super.getVida()+30);
+        super.setVida(super.getVida()+ 25 + 5 * nivel);
     }
     
     // TODO: comprar

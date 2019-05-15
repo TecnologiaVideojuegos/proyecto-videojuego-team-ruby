@@ -54,10 +54,9 @@ public class Boss extends Personaje {
         int danio = 0;
 
         if (numRandom != 0) {
+            danio = 5 * nivel;
             if (numRandom == 2) {                   //Critico
-                danio = 10 * 2; //TODO: sustituir por el daño de la planta
-            } else {
-                danio = 10;
+                danio *= 2;
             }
 
             enemigo.setVida(enemigo.getVida() - danio);
