@@ -1,6 +1,10 @@
 package estados;
 
 import elementos.Mapa;
+import objetos.plantas.Planta_fuego;
+import objetos.plantas.Planta_rayo;
+import objetos.semillas.Semilla_fuego;
+import objetos.semillas.Semilla_rayo;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -36,6 +40,7 @@ public class Mazmorra extends BasicGameState {
     private boolean ver_hitbox;
 
     private StateBasedGame game;
+    private GameContainer gc;
 
     private float mov[] = new float[2]; //Movimiento entre cada update
 
@@ -43,6 +48,7 @@ public class Mazmorra extends BasicGameState {
 
     //Combate
     private Personaje combatiente = null;
+    private boolean finMazmorra = false;
 
     //Musica
     private Music music;
@@ -55,6 +61,7 @@ public class Mazmorra extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         this.game = game;
+        this.gc = gc;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
         map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
@@ -82,49 +89,57 @@ public class Mazmorra extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         if (ruby.getVida() > 0) {
-            cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
-            cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
+            if (finMazmorra) {
+                ((Casa) game.getState(1)).init(gc, game);
+                ruby.setVida(100);
+                ruby.setNivel(ruby.getNivel() + 1);
+                music.stop();
+                game.enterState(1, new FadeOutTransition(), new FadeInTransition());
+            } else {
+                cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
+                cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
-            if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
-                Combate combate = (Combate) game.getState(3);
-                combate.setEstadoAnterior(getID());
-                combate.setCombatiente(combatiente);
-                game.enterState(3, new FadeOutTransition(), new FadeInTransition()); //COMBATE
-                game.getCurrentState().leave(gc, game);
-            }
+                if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
+                    Combate combate = (Combate) game.getState(3);
+                    combate.setEstadoAnterior(getID());
+                    combate.setCombatiente(combatiente);
+                    game.enterState(3, new FadeOutTransition(), new FadeInTransition()); //COMBATE
+                    game.getCurrentState().leave(gc, game);
+                }
 
-            //Captura movimiento Ruby
-            mov = InputCapture_Service.capturaMovimiento(gc, i);
-            x += mov[0];    // Agregamos movimiento sobre el ejeX
-            y += mov[1];    // Agregamos movimiento sobre el ejeY
+                //Captura movimiento Ruby
+                mov = InputCapture_Service.capturaMovimiento(gc, i);
+                x += mov[0];    // Agregamos movimiento sobre el ejeX
+                y += mov[1];    // Agregamos movimiento sobre el ejeY
 
-            //Actualización de elementos del mapa
-            map.actualizarElementos(mov[0], mov[1]);
+                //Actualización de elementos del mapa
+                map.actualizarElementos(mov[0], mov[1]);
 
-            //Colision con muros
-            float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
-            x += movColision[0];
-            y += movColision[1];
+                //Colision con muros
+                float movColision[] = Colision_Service.colisionMuros(ruby, map, gc, i, mov[0], mov[1]);
+                x += movColision[0];
+                y += movColision[1];
 
-            //Movimiento enemigos
-            map.movimientoEnemigos(i, gc, ruby.getHitbox());
+                //Movimiento enemigos
+                map.movimientoEnemigos(i, gc, ruby.getHitbox());
 
-            //MOVIMENTO DEL RATÓN
-            coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
+                //MOVIMENTO DEL RATÓN
+                coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
 
-            //Comprobacion de salto de escenario
-            Prueba p = (Prueba) game.getState(4);
-            switch (Colision_Service.saltoMapa(ruby, map)) {
-                case "SpawnOeste":
-                    ((Casa) game.getState(1)).posicinarEnSpawnARuby("SpawnEste", 100, 0);
-                    ruby.setVida(100);
-                    music.stop();
-                    game.enterState(1, new FadeOutTransition(), new FadeInTransition());
-                    break;
-                case "SpawnEste":
+                //Comprobacion de salto de escenario
+                Prueba p = (Prueba) game.getState(4);
+                switch (Colision_Service.saltoMapa(ruby, map)) {
+                    case "SpawnOeste":
+                        ((Casa) game.getState(1)).posicinarEnSpawnARuby("SpawnEste", 100, 0);
+                        ruby.setVida(100);
+                        music.stop();
+                        game.enterState(1, new FadeOutTransition(), new FadeInTransition());
+                        break;
+                    case "SpawnEste":
 
-                    break;
-                default:
+                        break;
+                    default:
+                }
             }
         } else {  //Ruby a muerto en combate
             ((Casa) game.getState(1)).init(gc, game);
@@ -159,16 +174,42 @@ public class Mazmorra extends BasicGameState {
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
         map.actualizarElementos(x, y);
         music.loop();
+        finMazmorra = false;
     }
 
-    public void combateGanado(boolean ganado) {
+    public void combateGanado(boolean ganado) throws SlickException {
         if (ganado) {
             if (map.getEnemigos().contains(combatiente)) {
                 map.getEnemigos().remove(combatiente);
+                switch (ruby.getNivel()) {
+                    case 1:
+                        ruby.getInventario().anadirObjeto(new Semilla_fuego(), 1);
+                        break;
+                    case 2:
+                        ruby.getInventario().anadirObjeto(new Semilla_rayo(), 1);
+                        break;
+                    case 3:
+                        ruby.getInventario().anadirObjeto(new Semilla_rayo(), 2);
+                        break;
+                }
             } else {
                 map.getBosses().remove(combatiente);
+                switch (ruby.getNivel()) {
+                    case 1:
+                        ruby.getInventario().anadirObjeto(new Planta_fuego(), 3);
+                        break;
+                    case 2:
+                        ruby.getInventario().anadirObjeto(new Planta_rayo(), 3);
+                        break;
+                    case 3:
+                        ruby.getInventario().anadirObjeto(new Planta_rayo(), 5);
+                        break;
+                }
+
+                finMazmorra = true;
             }
             ruby.setDinero(ruby.getDinero() + combatiente.getDinero());
+
         }
         combatiente = null;
     }

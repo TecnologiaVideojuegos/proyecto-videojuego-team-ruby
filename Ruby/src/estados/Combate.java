@@ -454,13 +454,10 @@ public class Combate extends BasicGameState {
                                 String nombreClaseAnterior = game.getState(estadoAnterior).getClass().getName();
                                 if (nombreClaseAnterior.equals("estados.Mazmorra")) {
                                     ((Mazmorra) game.getState(estadoAnterior)).huidoDeCombate();
-                                    //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
                                 }else if (nombreClaseAnterior.equals("estados.Prueba")) {
                                     ((Prueba) game.getState(estadoAnterior)).huidoDeCombate();
-                                    //((Prueba)game.getState(estadoAnterior)).combateGanado(false);
                                 } else if (nombreClaseAnterior.equals("estados.Prueba_Mazmorra")) {
                                     ((Prueba_Mazmorra) game.getState(estadoAnterior)).huidoDeCombate();
-                                    //((Prueba_Mazmorra)game.getState(estadoAnterior)).combateGanado(false);
                                 }
                                 resetAllValues();
                                 game.enterState(estadoAnterior);
