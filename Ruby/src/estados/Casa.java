@@ -212,8 +212,14 @@ public class Casa extends BasicGameState {
             }
         }
         
-        if(comerciando && key == Input.KEY_ESCAPE){
+        if((hablando || plantando || inventario || comerciando) && key == Input.KEY_ESCAPE){
+            hablando = false;
+            plantando = false;
+            inventario = false;
             comerciando = false;
+            npc = null;
+            semilla = null;
+            n_dialogo = 0;
         }
 
         if (!hablando && !plantando) {
