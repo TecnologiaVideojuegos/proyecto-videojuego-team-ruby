@@ -26,8 +26,8 @@ public class Comercio_Service {
         Inventario inventario = ruby.getInventario();
         Objeto objeto = null;
         Font font = new Font("Regular", Font.BOLD, 17);
-        Color marron = new Color(90, 60, 40);
-        Color verde = new Color(180, 255, 180);
+        Color naranjaOscuro = new Color(210, 113, 18);
+        Color naranja = new Color(254, 195, 117);
         Rectangle vender_planta_agua = new Rectangle(46,127,283,38);
         Rectangle vender_planta_fuego = new Rectangle(46,164,283,38);
         Rectangle vender_planta_rayo = new Rectangle(46,201,283,38);
@@ -42,13 +42,13 @@ public class Comercio_Service {
         Rectangle comprar_pocion_vida = new Rectangle(985,447,264,38);
         Rectangle comprar_pocion_ataque = new Rectangle(985,484,264,38);
         
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
         grphcs.fillRect(0, 0, 360, 720);
         grphcs.fillRect(920, 0, 360, 720);
-        grphcs.setColor(verde);
+        grphcs.setColor(naranja);
         grphcs.fillRect(5, 5, 350, 710);
         grphcs.fillRect(925, 5, 350, 710);
-        grphcs.setColor(marron);
+        grphcs.setColor(Color.black);
         grphcs.setFont(new TrueTypeFont(new Font("Regular", Font.BOLD, 30), true));
         grphcs.drawString("Vender:", 37, 36);
         grphcs.drawString("Comprar:", 974, 36);
@@ -58,77 +58,78 @@ public class Comercio_Service {
         grphcs.drawString("Pociones", 37, 243);
         grphcs.drawString("Semillas", 974, 243);
         grphcs.drawString("Pociones", 974, 405);
+        grphcs.setColor(naranjaOscuro);
         grphcs.drawRect(36, 121, 284, 1);
         grphcs.drawRect(36, 279, 284, 1);
         grphcs.drawRect(973, 121, 254, 1);
         grphcs.drawRect(973, 279, 254, 1);
         grphcs.drawRect(973, 439, 254, 1);
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
         if(vender_planta_agua.intersects(mouse) && inventario.getCantidad(new Planta_agua())!=0){
             grphcs.fillRect(44, 125, 287, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(46, 127, 283, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(vender_planta_fuego.intersects(mouse) && inventario.getCantidad(new Planta_fuego())!=0){
             grphcs.fillRect(44, 162, 287, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(46, 164, 283, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(vender_planta_rayo.intersects(mouse) && inventario.getCantidad(new Planta_rayo())!=0){
             grphcs.fillRect(44, 199, 287, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(46, 201, 283, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(vender_pocion_vida.intersects(mouse) && inventario.getCantidad(new Pocion_vida())!=0){
             grphcs.fillRect(44, 283, 287, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(46, 285, 283, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(vender_pocion_ataque.intersects(mouse) && inventario.getCantidad(new Pocion_ataque())!=0){
             grphcs.fillRect(44, 320, 287, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(46, 322, 283, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_planta_agua.intersects(mouse) && ruby.getDinero()>=100){
             grphcs.fillRect(983, 125, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 127, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_planta_fuego.intersects(mouse) && ruby.getDinero()>=250){
             grphcs.fillRect(983, 162, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 164, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_planta_rayo.intersects(mouse) && ruby.getDinero()>=750){
             grphcs.fillRect(983, 199, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 201, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_semilla_agua.intersects(mouse) && ruby.getDinero()>=20){
             grphcs.fillRect(983, 283, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 285, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_semilla_fuego.intersects(mouse) && ruby.getDinero()>=50){
             grphcs.fillRect(983, 320, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 322, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_semilla_rayo.intersects(mouse) && ruby.getDinero()>=150){
             grphcs.fillRect(983, 357, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 359, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_pocion_vida.intersects(mouse) && ruby.getDinero()>=300){
             grphcs.fillRect(983, 445, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 447, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(comprar_pocion_ataque.intersects(mouse) && ruby.getDinero()>=1000){
             grphcs.fillRect(983, 482, 268, 42);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(985, 484, 264, 38);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }
         objeto = new Planta_agua();
         objeto.getIcono().draw(51, 130, 32, 32);
@@ -151,6 +152,7 @@ public class Comercio_Service {
         objeto.getIcono().draw(988, 325, 32, 32);
         objeto = new Semilla_rayo();
         objeto.getIcono().draw(988, 362, 32, 32);
+        grphcs.setColor(Color.black);
         grphcs.drawString("Planta de agua 50$ (x" + inventario.getCantidad(new Planta_agua()) + ")", 92, 133);
         grphcs.drawString("Planta de fuego 125$ (x" + inventario.getCantidad(new Planta_fuego()) + ")", 92, 170);
         grphcs.drawString("Planta de rayo 375$ (x" + inventario.getCantidad(new Planta_rayo()) + ")", 92, 207);

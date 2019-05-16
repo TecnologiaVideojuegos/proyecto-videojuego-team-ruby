@@ -28,7 +28,7 @@ public class Menu extends BasicGameState {
     private boolean pulsado_nuevaPartidaContinuar = false, pulsado_cargarGuardarPartida = false, pulsado_salir = false;
     private StateBasedGame game;
     private int estadoAnterior = 0;
-    private boolean ver_hitbox = true;
+    private boolean ver_hitbox;
 
     public Menu(Jugador ruby, boolean ver_hitbox) throws SlickException {
         this.ruby = ruby;
@@ -58,55 +58,48 @@ public class Menu extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame game, Graphics grphcs) throws SlickException {
         fondo.draw(0, 0, p_Widht, p_Height);
 
-        /*
-        COLORES:
-        Rojo->0xF0544F
-        Gris->0x3A3335
-        MoradoOscuro->0x685762
-        RosaOscuro->0xE2B4BD
-         */
         //Texto Ruby
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(new Color(0xD27112));
         grphcs.fillRect(p_Widht / 4 * 1 - 115 - 5, p_Height / 9 * 4 - 27 - 5, 310, 110);    //Rectangulo exterior
-        grphcs.setColor(new Color(0x685762));
+        grphcs.setColor(new Color(0xFEC375));
         grphcs.fillRect(p_Widht / 4 * 1 - 115, p_Height / 9 * 4 - 27, 300, 100);            //Rectangulo interior
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(Color.black);
         font = new Font("Verdana", Font.BOLD, 40);
         grphcs.setFont(new TrueTypeFont(font, true));
         grphcs.drawString("RUBY", p_Widht / 4 * 1 - 30, p_Height / 9 * 4);                 //Impresion Ruby en pantalla
 
         //----------------------------- Botones ----------------------------- //
         //Boton Nueva partida
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(new Color(0xD27112));
         grphcs.fillRect(p_Widht / 5 * 3 - 10 - 5, p_Height / 6 * 2 - 27 - 5, 390, 110);    //Rectangulo exterior Nueva partida
         if (pulsado_nuevaPartidaContinuar) {
-            grphcs.setColor(new Color(0xE2B4BD));
+            grphcs.setColor(new Color(0xD4A05B));
         } else {
-            grphcs.setColor(new Color(0x685762));
+            grphcs.setColor(new Color(0xFEC375));
         }
         grphcs.fillRect(p_Widht / 5 * 3 - 10, p_Height / 6 * 2 - 27, 380, 100);            //Rectangulo interior Nueva partida
 
         //Boton Cargar/Guardar partida
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(new Color(0xD27112));
         grphcs.fillRect(p_Widht / 5 * 3 - 10 - 5, p_Height / 6 * 3 - 27 - 5, 390, 110);    //Rectangulo exterior Cargar/Guardar partida
         if (pulsado_cargarGuardarPartida) {
-            grphcs.setColor(new Color(0xE2B4BD));
+            grphcs.setColor(new Color(0xD4A05B));
         } else {
-            grphcs.setColor(new Color(0x685762));
+            grphcs.setColor(new Color(0xFEC375));
         }
         grphcs.fillRect(p_Widht / 5 * 3 - 10, p_Height / 6 * 3 - 27, 380, 100);            //Rectangulo interior Cargar/Guardar partida
 
         //Boton Salir
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(new Color(0xD27112));
         grphcs.fillRect(p_Widht / 5 * 4 - 20 - 5, p_Height / 6 * 5 - 27 - 5, 160, 110);    //Rectangulo exterior Salir
         if (pulsado_salir) {
-            grphcs.setColor(new Color(0xE2B4BD));
+            grphcs.setColor(new Color(0xD4A05B));
         } else {
-            grphcs.setColor(new Color(0x685762));
+            grphcs.setColor(new Color(0xFEC375));
         }
         grphcs.fillRect(p_Widht / 5 * 4 - 20, p_Height / 6 * 5 - 27, 150, 100);            //Rectangulo interior Salir
         
-        grphcs.setColor(new Color(0xF0544F));
+        grphcs.setColor(Color.black);
         font = new Font("Verdana", Font.BOLD, 40);
         grphcs.setFont(new TrueTypeFont(font, true));
         if (inicio) {

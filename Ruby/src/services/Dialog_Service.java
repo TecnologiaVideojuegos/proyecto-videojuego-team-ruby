@@ -15,24 +15,25 @@ public class Dialog_Service{
         Image imagen_ruby = new Image("./resources/img/RubyAvatar.png");
         Image imagen_npc = imagen;
         Font font = new Font("Segoe UI", Font.BOLD, 30);
-        Color marron = new Color(90, 60, 40);
-        Color verde = new Color(180, 255, 180);
-        Color transparente = new Color(180, 255, 180, 200);
-        grphcs.setColor(marron);
+        Color naranjaOscuro = new Color(210, 113, 18);
+        Color naranja = new Color(254, 195, 117);
+        Color transparente = new Color(251, 264, 204, 150);
+        grphcs.setColor(naranjaOscuro);
         grphcs.fillRect(0, 475, 1280, 245);
-        grphcs.setColor(verde);
+        grphcs.setColor(naranja);
         grphcs.fillRect(5, 480, 1270, 235);
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
         grphcs.fillRect(15, 491, 215, 215);
         grphcs.fillRect(1051, 491, 215, 215);
-        grphcs.setColor(verde);
+        grphcs.setColor(naranja);
         grphcs.fillRect(20, 495, 205, 205);
         grphcs.fillRect(1056, 496, 205, 205);
         imagen_ruby.draw(20, 495, 205, 205);
         imagen_npc.draw(1056, 496, 205, 205);
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
         grphcs.setFont(new TrueTypeFont(font, true));
         if (cont_hablando) {
+            grphcs.setColor(Color.black);
             grphcs.drawString("...", 1001, 665);
         }
         if (habla_Ruby) {
@@ -42,7 +43,7 @@ public class Dialog_Service{
             grphcs.setColor(transparente);
             grphcs.fillRect(20, 495, 205, 205);
         }
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
     }
 
     /**
@@ -56,6 +57,7 @@ public class Dialog_Service{
     private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
             cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
+            grphcs.setColor(Color.black);
             grphcs.drawString(frase1, 252, 496);
         } catch (SlickException e) {
             System.out.println("Error: " + e.toString());
@@ -74,6 +76,7 @@ public class Dialog_Service{
     private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
             cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
+            grphcs.setColor(Color.black);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 2) * 1);
         } catch (SlickException e) {
@@ -94,6 +97,7 @@ public class Dialog_Service{
     private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
             cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
+            grphcs.setColor(Color.black);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 3) * 1);
             grphcs.drawString(frase3, 252, 496 + (183 / 3) * 2);
@@ -116,6 +120,7 @@ public class Dialog_Service{
     private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, String frase4, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
             cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
+            grphcs.setColor(Color.black);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 4) * 1);
             grphcs.drawString(frase3, 252, 496 + (183 / 4) * 2);

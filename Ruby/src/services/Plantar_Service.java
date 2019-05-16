@@ -39,32 +39,34 @@ public class Plantar_Service {
         Rectangle semilla_agua = new Rectangle(x+32,y-66,211,28);
         Rectangle semilla_rayo = new Rectangle(x+32,y-37,211,28);
         Font font = new Font("Segoe UI", Font.BOLD, 16);
-        Color marron = new Color(90, 60, 40);
-        Color verde = new Color(180, 255, 180);
+        Color naranjaOscuro = new Color(210, 113, 18);
+        Color naranja = new Color(254, 195, 117);
         Image imagen;
-        grphcs.setColor(marron);
+        grphcs.setColor(naranjaOscuro);
         grphcs.fillRect(x, y-130, 280, 130);
-        grphcs.setColor(verde);
+        grphcs.setColor(naranja);
         grphcs.fillRect(x+5, y-125, 270, 120);
-        grphcs.setColor(marron);
+        grphcs.setColor(Color.black);
         grphcs.setFont(new TrueTypeFont(new Font("Segoe UI", Font.BOLD, 24), true));
         grphcs.drawString("Plantar:", x+11, y-127);
+        grphcs.setColor(naranjaOscuro);
         if(cursor.intersects(semilla_fuego) && inventario.getCantidad(new Semilla_fuego())>0){
             grphcs.fillRect(x+29, y-98, 217, 34);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(x+32, y-95, 211, 28);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(cursor.intersects(semilla_agua) && inventario.getCantidad(new Semilla_agua())>0){
             grphcs.fillRect(x+29, y-69, 217, 34);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(x+32, y-66, 211, 28);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }else if(cursor.intersects(semilla_rayo) && inventario.getCantidad(new Semilla_rayo())>0){
             grphcs.fillRect(x+29, y-39, 217, 34);
-            grphcs.setColor(verde);
+            grphcs.setColor(naranja);
             grphcs.fillRect(x+32, y-36, 211, 28);
-            grphcs.setColor(marron);
+            grphcs.setColor(naranjaOscuro);
         }
+        grphcs.setColor(Color.black);
         grphcs.setFont(new TrueTypeFont(font, true));
         grphcs.drawString("Semilla de fuego x "+inventario.getCantidad(new Semilla_fuego()), x+83, y-93);
         grphcs.drawString("Semilla de agua x "+inventario.getCantidad(new Semilla_agua()), x+83, y-64);
