@@ -16,7 +16,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Jugador extends Personaje {
-    
+
     private int nivel;
     private boolean multiplicadorDanio;
     private int contadorTurnos;
@@ -50,47 +50,51 @@ public class Jugador extends Personaje {
     }
 
     public void setNivel(int nivel) {
-        this.nivel = nivel;
+        if (nivel > 3) {
+            this.nivel = 3;
+        } else {
+            this.nivel = nivel;
+        }
     }
-    
+
     public boolean ataque(Personaje enemigo, Planta planta) {
         boolean exito = false;
         int numRandom = (int) (Math.random() * 10);
         int danio = 0;
-        
+
         inventario.eliminarObjeto(planta);
-        
+
         if (numRandom != 0) {
             danio = planta.getDanio();
             if (numRandom == 2) {   //Critico
                 danio *= 2;
             }
-            
-            if(multiplicadorDanio){
-                danio*=2;
+
+            if (multiplicadorDanio) {
+                danio *= 2;
                 contadorTurnos--;
-                if(contadorTurnos == 0){
+                if (contadorTurnos == 0) {
                     multiplicadorDanio = false;
                 }
             }
-            
+
             enemigo.setVida(enemigo.getVida() - danio);
             exito = true;
         }
         return exito;
     }
-    
-    public void tomarPocionDanio() throws SlickException{
+
+    public void tomarPocionDanio() throws SlickException {
         inventario.eliminarObjeto(new Pocion_ataque());
         contadorTurnos = 3;
         multiplicadorDanio = true;
     }
 
-    public void tomarPocionVida() throws SlickException{
+    public void tomarPocionVida() throws SlickException {
         inventario.eliminarObjeto(new Pocion_vida());
-        super.setVida(super.getVida()+ 25 + 5 * nivel);
+        super.setVida(super.getVida() + 25 + 5 * nivel);
     }
-    
+
     // TODO: comprar
     // TODO: vender
     // TODO: plantar

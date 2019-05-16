@@ -182,7 +182,7 @@ public class Prueba extends BasicGameState {
                     default:
                 }
             }
-            
+
         } else {  //Ruby a muerto en combate
             ((Casa) game.getState(1)).init(gc, game);
             ruby.setVida(100);
@@ -200,6 +200,10 @@ public class Prueba extends BasicGameState {
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_F11) {
             game.enterState(6); //DEMO
+        }
+
+        if (key == Input.KEY_F12) {
+            ver_hitbox = !ver_hitbox;
         }
 
         if (key == Input.KEY_ESCAPE) {
