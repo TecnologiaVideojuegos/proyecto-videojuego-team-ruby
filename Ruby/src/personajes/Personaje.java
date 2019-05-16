@@ -54,6 +54,10 @@ public abstract class Personaje{
         }
     }
 
+    public Image getImagen() {
+        return imagen;
+    }
+
     public void quitarDinero(int d){
         dinero = dinero - d;
     }

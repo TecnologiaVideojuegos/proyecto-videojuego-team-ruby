@@ -11,9 +11,9 @@ import org.newdawn.slick.TrueTypeFont;
 
 public class Dialog_Service{
 
-    private static void cargarComun(Graphics grphcs, boolean habla_Ruby, boolean cont_hablando) throws SlickException {
+    private static void cargarComun(Graphics grphcs, boolean habla_Ruby, boolean cont_hablando, Image imagen) throws SlickException {
         Image imagen_ruby = new Image("./resources/img/RubyAvatar.png");
-        Image imagen_npc = new Image("./resources/img/npc_cabeza.png");
+        Image imagen_npc = imagen;
         Font font = new Font("Segoe UI", Font.BOLD, 30);
         Color marron = new Color(90, 60, 40);
         Color verde = new Color(180, 255, 180);
@@ -53,9 +53,9 @@ public class Dialog_Service{
      * @param habla_Ruby indica si está hablando Ruby
      * @param cont_hablando indica si luego se va a continuar hablando
      */
-    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, boolean habla_Ruby, boolean cont_hablando) {
+    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
-            cargarComun(grphcs, habla_Ruby, cont_hablando);
+            cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
             grphcs.drawString(frase1, 252, 496);
         } catch (SlickException e) {
             System.out.println("Error: " + e.toString());
@@ -71,9 +71,9 @@ public class Dialog_Service{
      * @param habla_Ruby indica si está hablando Ruby
      * @param cont_hablando indica si luego se va a continuar hablando
      */
-    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, boolean habla_Ruby, boolean cont_hablando) {
+    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
-            cargarComun(grphcs, habla_Ruby, cont_hablando);
+            cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 2) * 1);
         } catch (SlickException e) {
@@ -91,9 +91,9 @@ public class Dialog_Service{
      * @param habla_Ruby indica si está hablando Ruby
      * @param cont_hablando indica si luego se va a continuar hablando
      */
-    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, boolean habla_Ruby, boolean cont_hablando) {
+    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
-            cargarComun(grphcs, habla_Ruby, cont_hablando);
+            cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 3) * 1);
             grphcs.drawString(frase3, 252, 496 + (183 / 3) * 2);
@@ -113,9 +113,9 @@ public class Dialog_Service{
      * @param habla_Ruby indica si está hablando Ruby
      * @param cont_hablando indica si luego se va a continuar hablando
      */
-    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, String frase4, boolean habla_Ruby, boolean cont_hablando) {
+    private static void mostrarBocadillo1(GameContainer gc, Graphics grphcs, String frase1, String frase2, String frase3, String frase4, boolean habla_Ruby, boolean cont_hablando, Image imagen) {
         try {
-            cargarComun(grphcs, habla_Ruby, cont_hablando);
+            cargarComun(grphcs, habla_Ruby, cont_hablando, imagen);
             grphcs.drawString(frase1, 252, 496);
             grphcs.drawString(frase2, 252, 496 + (183 / 4) * 1);
             grphcs.drawString(frase3, 252, 496 + (183 / 4) * 2);
@@ -125,19 +125,19 @@ public class Dialog_Service{
         }
     }
     
-    public static void mostrarBocadillo(GameContainer gc, Graphics grphcs, Dialogo dialogo){
+    public static void mostrarBocadillo(GameContainer gc, Graphics grphcs, Dialogo dialogo, Image imagen){
         switch (dialogo.getFrases().size()) {
             case 1:
-                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.isHabla_Ruby(), dialogo.isCont_hablando());
+                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.isHabla_Ruby(), dialogo.isCont_hablando(), imagen);
                 break;
             case 2:
-                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.isHabla_Ruby(), dialogo.isCont_hablando());
+                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.isHabla_Ruby(), dialogo.isCont_hablando(), imagen);
                 break;
             case 3:
-                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.getFrases().get(2), dialogo.isHabla_Ruby(), dialogo.isCont_hablando());
+                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.getFrases().get(2), dialogo.isHabla_Ruby(), dialogo.isCont_hablando(), imagen);
                 break;
             default:
-                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.getFrases().get(2), dialogo.getFrases().get(3), dialogo.isHabla_Ruby(), dialogo.isCont_hablando());
+                mostrarBocadillo1(gc, grphcs, dialogo.getFrases().get(0), dialogo.getFrases().get(1), dialogo.getFrases().get(2), dialogo.getFrases().get(3), dialogo.isHabla_Ruby(), dialogo.isCont_hablando(), imagen);
                 break;
         }
     }
