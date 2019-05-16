@@ -28,7 +28,7 @@ public class Main extends StateBasedGame {
         contenedor.setDisplayMode(1280, 720, true);
         //contenedor.setDisplayMode((int) screenSize.getWidth(), (int) screenSize.getHeight(), false);
         contenedor.setVSync(true);
-        //contenedor.setShowFPS(true);
+        contenedor.setShowFPS(false);
         contenedor.start();
     }
 

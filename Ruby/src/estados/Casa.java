@@ -106,7 +106,7 @@ public class Casa extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame game, Graphics grphcs) throws SlickException {
 
         map.renderMap(gc, x, y, grphcs, ver_hitbox);
-        grphcs.drawString(coordenadas, 35, 35);
+        //grphcs.drawString(coordenadas, 35, 35);
 
         //Jugador
         ruby.renderPersonaje(gc, mov[0], mov[1]);
