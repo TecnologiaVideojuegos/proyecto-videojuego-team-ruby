@@ -21,7 +21,7 @@ public class Enemigo extends Personaje {
         this.combate = false;
     }
 
-    public Enemigo(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) {
+    public Enemigo(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) throws SlickException {
         super(nombre, hitbox, vida, dinero);
         this.nivel = nivel;
         this.combate = false;

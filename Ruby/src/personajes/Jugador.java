@@ -40,7 +40,7 @@ public class Jugador extends Personaje {
         this.multiplicadorDanio = false;
     }
 
-    public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {
+    public Jugador(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) throws SlickException {
         super(nombre, hitbox, vida, dinero);
         this.animacion = animacion;
     }

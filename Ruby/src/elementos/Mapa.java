@@ -17,7 +17,9 @@ public class Mapa {
     private ArrayList<Hitbox> blocks;   //Elementos del mapa bloqueados al movimiento
     private ArrayList<Enemigo> enemigos;
     private ArrayList<Boss> bosses;
-    private ArrayList<Npc> npcs;
+    //private ArrayList<Npc> npcs;
+    private Abuela abuela = null;
+    private Gato gato = null;
     private Huerto huerto;
     private ArrayList<Spawn> spawns;
     private int nivelRuby;
@@ -33,13 +35,15 @@ public class Mapa {
         blocks = new ArrayList<>();
         enemigos = new ArrayList<>();
         bosses = new ArrayList<>();
-        npcs = new ArrayList<>();
+        //npcs = new ArrayList<>();
         spawns = new ArrayList<>();
         this.nivelRuby = nivelRuby;
         cargaMuros();
         cargaEnemigos();
         cargaBosses();
-        cargaNPCs();
+        cargaGato();
+        cargaAbuela();
+        //cargaNPCs();
         cargaHuerto();
     }
 
@@ -67,12 +71,20 @@ public class Mapa {
         this.enemigos = enemigos;
     }
 
-    public ArrayList<Npc> getNpcs() {
-        return npcs;
+    public Abuela getAbuela() {
+        return abuela;
     }
 
-    public void setNpcs(ArrayList<Npc> npcs) {
-        this.npcs = npcs;
+    public void setAbuela(Abuela abuela) {
+        this.abuela = abuela;
+    }
+
+    public Gato getGato() {
+        return gato;
+    }
+
+    public void setGato(Gato gato) {
+        this.gato = gato;
     }
 
     public ArrayList<Boss> getBosses() {
@@ -93,10 +105,24 @@ public class Mapa {
 
     public ArrayList<Hitbox> getHitboxNpc() {
         ArrayList<Hitbox> hitboxNpcs = new ArrayList<>();
-        for (Npc npc : npcs) {
-            hitboxNpcs.add(npc.getHitbox());
+        if(abuela!=null){
+            hitboxNpcs.add(abuela.getHitbox());
+        }
+        if(gato!=null){
+            hitboxNpcs.add(gato.getHitbox());
         }
         return hitboxNpcs;
+    }
+    
+    public ArrayList<Npc> getNpcs(){
+        ArrayList<Npc> npcs = new ArrayList<>();
+        if(abuela!=null){
+            npcs.add(abuela);
+        }
+        if(gato!=null){
+            npcs.add(gato);
+        }
+        return npcs;
     }
 
     public Huerto getHuerto() {
@@ -162,20 +188,34 @@ public class Mapa {
         }
     }
 
-    private void cargaNPCs() throws SlickException {
-        int wallLayer = map.getLayerIndex("NPCs");
-
-        if (wallLayer != -1) {    //Si encuentra la capa
+    private void cargaGato() throws SlickException {
+        int wallLayer = map.getLayerIndex("Gato");
+        
+        if(wallLayer != -1){
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        npcs.add(new Npc(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64)));  //32 = ancho del patron
+                        gato = new Gato(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64), 1, 0);
                     }
                 }
             }
         }
     }
-
+    
+    private void cargaAbuela() throws SlickException {
+        int wallLayer = map.getLayerIndex("Abuela");
+        
+        if(wallLayer != -1){
+            for (int j = 0; j < map.getHeight(); j++) {
+                for (int i = 0; i < map.getWidth(); i++) {
+                    if (map.getTileId(i, j, wallLayer) != 0) {
+                        abuela = new Abuela(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64), 1, 0);
+                    }
+                }
+            }
+        }
+    }
+    
     private void cargaHuerto() {
         int wallLayer = map.getLayerIndex("Huerto");
         ArrayList<Hitbox> huerto_array = new ArrayList<>();
@@ -228,10 +268,11 @@ public class Mapa {
         }
 
         //Elementos npc
-        if (!npcs.isEmpty()) {
-            npcs.forEach((npc) -> {
-                npc.getHitbox().updatePos(pos_x, pos_y);
-            });
+        if(abuela!=null){
+            abuela.getHitbox().updatePos(pos_x, pos_y);
+        }
+        if(gato!=null){
+            gato.getHitbox().updatePos(pos_x, pos_y);
         }
 
         huerto.updatePos(pos_x, pos_y);
@@ -298,11 +339,18 @@ public class Mapa {
         }
 
         //Elementos tipo npc
-        for (Npc npc : npcs) {
-            npc.renderPersonaje(gc, 0, 0);
+        if (abuela != null) {
+            abuela.renderPersonaje(gc, 0, 0);
             if (ver_hitbox) {
                 grphcs.setColor(Color.green);
-                grphcs.drawRect(npc.getHitbox().getRectangulo().getX(), npc.getHitbox().getRectangulo().getY(), npc.getHitbox().getRectangulo().getWidth(), npc.getHitbox().getRectangulo().getHeight());
+                grphcs.drawRect(abuela.getHitbox().getRectangulo().getX(), abuela.getHitbox().getRectangulo().getY(), abuela.getHitbox().getRectangulo().getWidth(), abuela.getHitbox().getRectangulo().getHeight());
+            }
+        }
+        if (gato != null) {
+            gato.renderPersonaje(gc, 0, 0);
+            if (ver_hitbox) {
+                grphcs.setColor(Color.green);
+                grphcs.drawRect(gato.getHitbox().getRectangulo().getX(), gato.getHitbox().getRectangulo().getY(), gato.getHitbox().getRectangulo().getWidth(), gato.getHitbox().getRectangulo().getHeight());
             }
         }
 
