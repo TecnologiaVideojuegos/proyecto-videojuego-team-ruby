@@ -1,7 +1,10 @@
 package personajes;
 
 import animaciones.Animacion_dinamica;
+import elementos.Dialogo;
 import elementos.Hitbox;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -12,11 +15,15 @@ public class Boss extends Personaje {
     private Animacion_dinamica animacion;
 
     public Boss(String nombre, Hitbox hitbox, int nivel) throws SlickException {
-        super(nombre, hitbox, 100, 50*nivel);
+        super(nombre, hitbox, 100, 50*nivel, new ArrayList<Dialogo>());
         animacion = new Animacion_dinamica("./resources/sprites/Boss.png");
         animacion.direccionAnimacion(2);
         this.nivel = nivel;
         this.combate = false;
+        super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
+        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Sí, ahora es mio"))));
+        super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
+        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
     }
 
     public Boss(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) throws SlickException {
