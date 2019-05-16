@@ -20,8 +20,10 @@ public class Npc extends Personaje {
         animacion.direccionAnimacion(2);
     }
 
-    public Npc(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) {
+    public Npc(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) throws SlickException {
         super(nombre, hitbox, vida, dinero, new ArrayList<Dialogo>());
+        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Ruby,", "¿Quieres comprar algo?"))));
+        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Comercio_Service"))));
         this.animacion = animacion;
         animacion.direccionAnimacion(2);
     }

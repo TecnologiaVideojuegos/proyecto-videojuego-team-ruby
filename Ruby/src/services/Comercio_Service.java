@@ -25,7 +25,7 @@ public class Comercio_Service {
         Circle mouse = new Circle(x2, y2, 2);
         Inventario inventario = ruby.getInventario();
         Objeto objeto = null;
-        Font font = new Font("Regular", Font.BOLD, 20);
+        Font font = new Font("Regular", Font.BOLD, 17);
         Color marron = new Color(90, 60, 40);
         Color verde = new Color(180, 255, 180);
         Rectangle vender_planta_agua = new Rectangle(46,127,283,38);
@@ -158,7 +158,7 @@ public class Comercio_Service {
         grphcs.drawString("Pocion de ataque 500$ (x" + inventario.getCantidad(new Pocion_ataque()) + ")", 92, 330);
         grphcs.drawString("Planta de agua  100$", 1029, 133);
         grphcs.drawString("Planta de fuego  250$", 1029, 170);
-        grphcs.drawString("Planta de rayo  100$", 1029, 207);
+        grphcs.drawString("Planta de rayo  750$", 1029, 207);
         grphcs.drawString("Semilla de agua  20$", 1029, 291);
         grphcs.drawString("Semilla de fuego  50$", 1029, 328);
         grphcs.drawString("Semilla de rayo  150$", 1029, 365);

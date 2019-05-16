@@ -19,7 +19,7 @@ public class Boss extends Personaje {
         this.combate = false;
     }
 
-    public Boss(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) {
+    public Boss(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) throws SlickException {
         super(nombre, hitbox, vida, dinero);
         this.nivel = nivel;
         this.combate = false;
