@@ -10,6 +10,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import personajes.Enemigo;
 import personajes.Jugador;
 import personajes.Personaje;
@@ -41,7 +43,7 @@ public class Mazmorra extends BasicGameState {
 
     //Combate
     private Personaje combatiente = null;
-    
+
     //Musica
     private Music music;
 
@@ -55,7 +57,7 @@ public class Mazmorra extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 2) + ".tmx", ruby.getNivel());
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
 
@@ -118,7 +120,7 @@ public class Mazmorra extends BasicGameState {
                     ((Casa) game.getState(1)).init(gc, game);
                     ruby.setVida(100);
                     music.stop();
-                    game.enterState(1);
+                    game.enterState(1, new FadeOutTransition(), new FadeInTransition());
                     break;
                 case "SpawnEste":
 
@@ -130,7 +132,7 @@ public class Mazmorra extends BasicGameState {
             ruby.setVida(100);
             ruby.setDinero(ruby.getDinero() - 50);
             music.stop();
-            game.enterState(1);
+            game.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
     }
 
@@ -141,13 +143,11 @@ public class Mazmorra extends BasicGameState {
 
     @Override
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_F11) {
-            game.enterState(6); //DEMO
-        }
-
         if (key == Input.KEY_ESCAPE) {
             ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU
+        } else if (key == Input.KEY_F12) {
+            ver_hitbox = !ver_hitbox;   //VER HITBOX
         }
 
     }
@@ -156,7 +156,7 @@ public class Mazmorra extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 2) + ".tmx", ruby.getNivel());
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);

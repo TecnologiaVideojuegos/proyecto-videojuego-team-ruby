@@ -137,6 +137,10 @@ public class Prueba_Mazmorra extends BasicGameState {
             game.enterState(5); //DEMO
         }
 
+        if (key == Input.KEY_F12) {
+            ver_hitbox = !ver_hitbox;
+        }
+        
         if (key == Input.KEY_ESCAPE) {
             ((Menu) game.getState(0)).setEstadoAnterior(getID());
             game.enterState(0); //MENU

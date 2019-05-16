@@ -12,6 +12,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import personajes.Jugador;
 import personajes.Npc;
 import personajes.Personaje;
@@ -43,7 +45,7 @@ public class Casa extends BasicGameState {
     private float mov[] = new float[2]; //Movimiento entre cada update
 
     private float gcWidth, gcHeight;
-    
+
     //ACCIONES
     private boolean hablando = false;
     private boolean inventario = false;
@@ -61,7 +63,7 @@ public class Casa extends BasicGameState {
 
     //Combate
     private Personaje combatiente = null;
-    
+
     //Musica
     private Music music;
 
@@ -90,11 +92,11 @@ public class Casa extends BasicGameState {
         map.actualizarElementos(x, y);
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
-        
+
         //Musica
         music = new Music("./resources/music/Ambiente bosque.ogg");
         music.loop();
-        
+
     }
 
     /**
@@ -128,8 +130,8 @@ public class Casa extends BasicGameState {
                 plantando = false;
             }
         }
-        
-        if(comerciando) {
+
+        if (comerciando) {
             Comercio_Service.comerciar(grphcs, ruby, gc.getInput().getMouseX(), gc.getInput().getMouseY(), gc.getInput().isMouseButtonDown(0));
         }
 
@@ -193,11 +195,10 @@ public class Casa extends BasicGameState {
 
                     break;
                 case "SpawnEste":
-                    ruby.setNivel(3);
                     p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
                     huerto = map.getHuerto();
                     music.stop();
-                    game.enterState(2);
+                    game.enterState(2, new FadeOutTransition(), new FadeInTransition());
                     break;
                 default:
             }
@@ -211,7 +212,7 @@ public class Casa extends BasicGameState {
 
     @Override
     public void keyPressed(int key, char c) {
-        
+
         if (!hablando && !plantando && !inventario && !comerciando) {
             if (key == Input.KEY_ESCAPE) {
                 ((Menu) game.getState(0)).setEstadoAnterior(getID());
@@ -219,10 +220,12 @@ public class Casa extends BasicGameState {
                 game.enterState(0); //MENU
             } else if (key == Input.KEY_F12) {
                 ver_hitbox = !ver_hitbox;
+            } else if (key == Input.KEY_F11) {
+                game.enterState(4); //SANDBOX
             }
         }
-        
-        if((hablando || plantando || inventario || comerciando) && key == Input.KEY_ESCAPE){
+
+        if ((hablando || plantando || inventario || comerciando) && key == Input.KEY_ESCAPE) {
             hablando = false;
             plantando = false;
             inventario = false;
