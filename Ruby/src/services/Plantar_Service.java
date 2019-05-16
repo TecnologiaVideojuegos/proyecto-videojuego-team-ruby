@@ -62,7 +62,7 @@ public class Plantar_Service {
         }else if(cursor.intersects(semilla_rayo) && inventario.getCantidad(new Semilla_rayo())>0){
             grphcs.fillRect(x+29, y-39, 217, 34);
             grphcs.setColor(verde);
-            grphcs.fillRect(x+32, y-37, 211, 28);
+            grphcs.fillRect(x+32, y-36, 211, 28);
             grphcs.setColor(marron);
         }
         grphcs.setFont(new TrueTypeFont(font, true));

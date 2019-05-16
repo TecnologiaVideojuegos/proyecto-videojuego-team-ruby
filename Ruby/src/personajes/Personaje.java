@@ -34,7 +34,7 @@ public abstract class Personaje{
     }
     
     public void sumarDinero(int d){
-        dinero = + d;
+        dinero = dinero + d;
     }
     
     public ArrayList<Dialogo> getDialogos() {

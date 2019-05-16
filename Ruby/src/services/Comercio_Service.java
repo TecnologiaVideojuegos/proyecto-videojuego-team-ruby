@@ -82,12 +82,12 @@ public class Comercio_Service {
         }else if(vender_pocion_vida.intersects(mouse) && inventario.getCantidad(new Pocion_vida())!=0){
             grphcs.fillRect(44, 283, 287, 42);
             grphcs.setColor(verde);
-            grphcs.fillRect(46, 185, 283, 38);
+            grphcs.fillRect(46, 285, 283, 38);
             grphcs.setColor(marron);
         }else if(vender_pocion_ataque.intersects(mouse) && inventario.getCantidad(new Pocion_ataque())!=0){
-            grphcs.fillRect(44, 125, 287, 42);
+            grphcs.fillRect(44, 320, 287, 42);
             grphcs.setColor(verde);
-            grphcs.fillRect(46, 127, 283, 38);
+            grphcs.fillRect(46, 322, 283, 38);
             grphcs.setColor(marron);
         }else if(comprar_planta_agua.intersects(mouse) && ruby.getDinero()>=100){
             grphcs.fillRect(983, 125, 268, 42);
@@ -204,5 +204,6 @@ public class Comercio_Service {
             ruby.getInventario().anadirObjeto(new Pocion_vida(), 1);
             ruby.quitarDinero(1000);
         }
+        grphcs.drawString("Dinero: "+ruby.getDinero()+"$", 54, 642);
     }
 }

@@ -42,7 +42,6 @@ public class InputCapture_Service {
     }
 
     public static Plantar_Service clickHuerto1(GameContainer gc, Mapa map, int x, int y, Jugador ruby, Circle cursor_hitbox, Plantar_Service plantar) throws SlickException {
-        boolean plantando = false;
         int distancia = 100;
         if (gc.getInput().isMouseButtonDown(0)) {
             for (Hitbox hitbox_terreno : map.getHuerto().getHitboxs()) {

@@ -121,7 +121,7 @@ public class Casa extends BasicGameState {
         }
         
         if(comerciando) {
-            Comercio_Service.comerciar(grphcs, ruby, gc.getInput().getMouseX(), gc.getInput().getMouseX(), gc.getInput().isMouseButtonDown(0));
+            Comercio_Service.comerciar(grphcs, ruby, gc.getInput().getMouseX(), gc.getInput().getMouseY(), gc.getInput().isMouseButtonDown(0));
         }
 
     }
@@ -165,8 +165,8 @@ public class Casa extends BasicGameState {
             y += movColision[1];
 
             //Detección de click sobre huerto
-            plantar = InputCapture_Service.clickHuerto1(gc, map, i, i, ruby, cursor_hitbox, plantar);
             plantando = InputCapture_Service.clickHuerto2(gc, map, i, i, ruby, cursor_hitbox, plantar);
+            plantar = InputCapture_Service.clickHuerto1(gc, map, i, i, ruby, cursor_hitbox, plantar);
 
             //Detección de click sobre npcs
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
