@@ -57,9 +57,8 @@ public class Mazmorra extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 2) + ".tmx", ruby.getNivel());
-        map.agregarSpawn("SpawnNorte");
-        map.agregarSpawn("SpawnEste");
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
+        map.agregarSpawn("SpawnOeste");
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
         //Musica
@@ -90,7 +89,7 @@ public class Mazmorra extends BasicGameState {
                 Combate combate = (Combate) game.getState(3);
                 combate.setEstadoAnterior(getID());
                 combate.setCombatiente(combatiente);
-                game.enterState(3); //COMBATE
+                game.enterState(3, new FadeOutTransition(), new FadeInTransition()); //COMBATE
                 game.getCurrentState().leave(gc, game);
             }
 
@@ -116,8 +115,8 @@ public class Mazmorra extends BasicGameState {
             //Comprobacion de salto de escenario
             Prueba p = (Prueba) game.getState(4);
             switch (Colision_Service.saltoMapa(ruby, map)) {
-                case "SpawnNorte":
-                    ((Casa) game.getState(1)).init(gc, game);
+                case "SpawnOeste":
+                    ((Casa) game.getState(1)).posicinarEnSpawnARuby("SpawnEste", 100, 0);
                     ruby.setVida(100);
                     music.stop();
                     game.enterState(1, new FadeOutTransition(), new FadeInTransition());
@@ -153,12 +152,11 @@ public class Mazmorra extends BasicGameState {
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
+        map.agregarSpawn("SpawnOeste");
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 2) + ".tmx", ruby.getNivel());
-        map.agregarSpawn("SpawnNorte");
-        map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
         music.loop();
     }

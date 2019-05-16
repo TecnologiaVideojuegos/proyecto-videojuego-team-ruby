@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="53">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="53">
  <tileset firstgid="1" source="Basic.tsx"/>
  <tileset firstgid="1025" source="../../../Diseño Gráfico/Paquete de texturas/Mazmorras.tsx"/>
  <tileset firstgid="1037" source="MazmorrasX2.tsx"/>
  <layer id="22" name="SpawnOeste" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OQQ0AMAgAsXsgYf61IoMsaRW0AAAAAAAAAAAAAAAAoN5cD4DfLZlsLoSwNgAA
+   H4sIAAAAAAAACu3OQQ0AAAgEoHuYwv5BjeGmkIAEAAAAAAAAAAAAAADgtq7tAcAPA12zy86wNgAA
   </data>
  </layer>
- <layer id="21" name="SpawnNorte" width="70" height="50">
+ <layer id="21" name="Bosses" width="70" height="50" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3OQQ0AMAgAsXtgYf6tIoMsaRW0AAAAAIDfvbkeAAAAAAAAAABALWNqchOwNgAA
   </data>
  </layer>
  <layer id="20" name="Walls" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2XSxLDIAxDs+gRev+zdt9x8E92DJFm2IGEX8C010VRPn0/+45qLt1C1VXJd2cuCJGLLCuXrrtLLnLmk/3l3+PO25KFFJJLds2pXHheanRif0GIXGSdyOWJ/pLNt6xfzbHme4Xmgs5ezcnmr9R5XiLZu3HJ5lizycXf/97CxeszhUt2aNne/U7gUqEoF+9vjIjI5T5H80bcIakW9DcgF1stSC9Uf7TkkYvshegv2psn5Vhyn+Ci1aGtz2aSi7xmIpesyEUWucg6lQv7i55HLrIXuche5CJ7vZGL9X9jZET24q1nAheUr5XlVC6Z74+400gu6LPt2WNmftSDXGxzqt+jrHf1nfb0pKq+G/GW1lsyJnHJ1NW9X03dXLIiF7sfucTfz+z9jday4lK93y7ttt8u/QAKIaPYsDYAAA==
+   H4sIAAAAAAAACu2XQRLDIAwDc+gT+v+39t5xYhsJY4g0ww1LsAGXXpck5fT97Dtmc6kWa18z+e7MhSFxsRXlUnV3xcXOXNlf/j3uvCNZTDG5oDWnctF5maMT+wtD4mLrRC4r+guaH6l/mhPNz4rNhZ39NAfNf1LleRnJ3o0LmhPNFpd8/3sLl6xPFy7o8LKz6+3AZYZGuWTfGCMSl/scz5txh6y9sL+BuMT2wvRi9cdInrjYXoz+4v3mWTmR3BVcvH149WimuNg1HbmgEhdb4mLrVC7qL36euNhe4mJ7iYvtdQKX7Ps7+r9xZGS16rygXDJisOx6XpDvz7jTHfsL6i0unPmjHm/gMqsnsdeCeFv1kYxOXJB9Va/XUzUXVOIS9xMX/O2EvLPYXGavt0q7rbdKPxfgh5+wNgAA
   </data>
  </layer>
- <layer id="23" name="Enemigos" width="70" height="50">
+ <layer id="23" name="Enemigos" width="70" height="50" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3YMREAIAwDwA5IAP9W0cAA7ZV/BbkMGRIBAL2tkZ2gBj28o2sAAADgxPQlAFzjrwXIY4MBAAAA/rUBJvcJdbA2AAA=
   </data>
  </layer>
- <layer id="19" name="Suelo" width="70" height="50" visible="0">
+ <layer id="19" name="Suelo" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2awRLCIAxEOfTgRT2oF///Q/VgR6bTAllCCHR3JgdtDds3aRDaEKiUrksIN8PQGpdc2nvZ0+N7/GkYWuOSS328D+LsXFY228+lXCw896qXlJeZuKBax0XqJXWOFy5or63hcpSLXPxzKY14/tl+L+UyQn9B+JDLfr3EdTMrF1Q1/aVkjsrlfP1CMq7W+DlvUi57fRZZX5DLcc6ZuGjd4zGX3P+IXlxyuaVcLsu/p6dyno2LpF7QPB64tJCUtaX3kbhI7jFNb9YanYvW3nMtF6SHkYs9Fy3/5NKGC6q13u+CHJZcavexyEWXCzJvWe9n9+gh5EIuM3GpzYuKXPBrRH5DLvlzyAX3Ty66/kuErGG9cEHX1+SCc7F6/qix/9LaI7mMxaXVOsCCC7q3aD0flT671fJLLrhf9HpacfHil1zm5VL6frqFPK0DKN/6AFK6wMSwNgAA
+   H4sIAAAAAAAACu2auQ7CMBBEXaQFCo4CaCig4v+/DyKIiELiY7xeH5mRXBDCevK0Xsc2xlA2bTpjtopNql9ySe9lTvv39wfFJtUvucS380JbO5eBzfSzLxcNz7nyxealJS6ohn6RfLHdUwoXtNbGcFmKRS7lc/Ft4/lnej2USw31BeFDLvP5Ms6bVrmgiqkvPnOUK+bx20L6lerf5S2Uy1ydRdYX5LIcsyUuUmN8zMX1HpGLiyt2KJdL96vptphr4xKSL2icErikUChrTe81cQkZY5LetFU7F6m951guSA0jF30uUv7JJQ0XVEO+7wJiaHKJ3cciF1kuyLylvZ+do4aQC7m0xCU2LipywZ8R+Q25uO8hF9z/Wri4JOXfR8gaNhUXl5cpF3R9TS44F63zx5zvdeRCLqVxQfcWU3DxfS4Nv6m43N/XHxVzSZXX/Vnqs/ucC56EuaQah1pc+n768+YrufxxuQn4lfDs+/90DWmtY6j69QIj2v6osDYAAA==
   </data>
  </layer>
 </map>

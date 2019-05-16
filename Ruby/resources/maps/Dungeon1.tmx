@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="53">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="70" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="53">
  <tileset firstgid="1" source="Basic.tsx"/>
  <tileset firstgid="1025" source="../../../Diseño Gráfico/Paquete de texturas/Mazmorras.tsx"/>
  <tileset firstgid="1037" source="MazmorrasX2.tsx"/>
  <layer id="21" name="SpawnOeste" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OIQEAAAgDsAtS0D8oIRA3W4IlAAAAwNdOewAAAAAAAAAAAAB9B7FtQDWwNgAA
+   H4sIAAAAAAAACu3OMREAAAgEoB9sYP+ulvB0gQQkAAAAAPu6vgcAAAAAAAAAAABcG29aZt6wNgAA
   </data>
  </layer>
- <layer id="23" name="Enemigos" width="70" height="50">
+ <layer id="23" name="Enemigos" width="70" height="50" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3WwQ0AIAgEMB6O4P6zuoC8JFFJO8ElwIUIAOhpjtsJyJgNAAD8xx8Pe26Dl9hH4IQOAQAAAAAAqizZViuIsDYAAA==
   </data>
  </layer>
- <layer id="22" name="SpawnNorte" width="70" height="50">
+ <layer id="22" name="Bosses" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OQQ0AAAgEoHto/8rGcFNIQAIAAAAAAHBP1/YAAAAAAAAA4J8Be4HIbrA2AAA=
+   H4sIAAAAAAAACu3OQQ0AAAgEoHvYwv49jeGmkIAEAAAAAACAL7q2BwAAAAAAAMBlAzZT+NiwNgAA
   </data>
  </layer>
  <layer id="20" name="Walls" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2ZSw7DIAwFs8gRmk3vf9Cqi0gVejY/27jhjcQCl4AZpcFpj4MQkoHX2dci1/LIoSdXj7Ee11vNYb3O07xo9+LuXqQ+veD+U728T7lJc+3ipRaveWk9E3fy0pODtRfP+kXzcrfMXryQvGjrS/l841fRys8ta1Wr+hfNb+3ln6EXTIuXkefLLl7QeNSvxVcyWkfM1nUt8ZVoOc2ebz3nQDYivcyOi4ReMHdOHu8pT/FSxj2fLzPzRhDtRYtngl4w9IKhFwy9YOgFQy8YesHQC4ZeMKu8aO9hGVjlpfz9HzU0X2Rr3XMGL9FEexnh97ro+6Znn73jrb140+oqkxf0PbNGypNe2uKzXu69jO7pUrx4nPuRXqSzpoXaf/ujeUpEefGEXupr0QteK8LLzPMssvbyqvkIIbF8AFZMZw6wNgAA
+   H4sIAAAAAAAACu2ZQQ6DIBBFXXiEumnvf8/GhYkhHxxg/ojyX8IChAFebBnaZREils9q7/ut6MsY7xXDwu6lpkTOxVhDzVoZfRnjvWLkYp3rs3vJvYuze8nV5QXX5QXX3+rlt9pKLnbNmfg0L6zYbC/M/MXTy5UHhhdPzrlwS15c8rIlJX3umat65b8ovreXJyMvGHnBzOSlNY+YwYv1mYeXntwgkh4vltK7hrto9dIbuyduBMeaGPeUt3hJ2729sO6FDKK9lNpHQl4w8oKRF4y8YOQFIy8YecHIC0ZeMHd5Kd3DRuAuL+nv/6igeJHFuucRvEQT7aWF87jo96Zmn7X9vb2wsboayQv6nHmTW6e82Np7vRx7ad3TVvDCOPcjveTOGgtX/+23rjNHlBcm8nI9l7zguSK89HyfReZerJxPCBHLH2AKwF6wNgAA
   </data>
  </layer>
  <layer id="19" name="Suelo" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3aPRPCIAwGYAYXh9pBF+vk//+T6pbjUhrIRwHf3GXpWZI+AvVqU0Ig4mO5pHQTZGQtzx6se42s1YPL/VvvIcjIWp490FgK5nCBS6mf1l6t+/B24fayUj+tvVoEXPiIdPnV2rIs9dN6HRYR7ULP3Zj505PLZjjeUS0rl9+aXEnS81aDrB1P85uPc6FZMxdndtGsUe36PzM958vsLqXP/JOL9D79HszlKLT3S+pS2rfgApfc5bWTvbtwzwSsXPZM4DKuC2dg6ZIfH8nlChfMlw5cuFpwgQtc4AIXuMClXxd6fBQX7f8c+ZgjP5eKdJE8Z8+tzoqj70wzpoeL5j2fmv8/Il1a1g1cZPW99yTJdcEFLtEupT1VkjXvBFiYweU8F++Eyxwuz0ldEAgEIjI+OtJQprA2AAA=
+   H4sIAAAAAAAACu2azW4DIQyEc9hr2kPaSE1zSCK1p77/83VXKtJ05AGzsCxVsYSUAAH7w5i/HA5DhrSX43Q4PDlSy7621KG2ri376oHLae7vxZFa9rWlDijHCPPBZXCJ6bNW19p6DC75fZXq8D75Yvzgks/Fa0cNacll6esiUum4b8HlUrE9JRfyBcXCy2XxvWdI2PZzhZTb3to934vBRfnL65zO/4TLx/z9k+y3fGbJW+bcNcEl6B0YlsSC1gllsfXLYMA+c5vTfU4PBxdkaDHqlZkaY89cSsWXEzFkRvxdJWSnOFr5JcxLuNwdXFA/ZMR+p2xBdooj5p+NPM8Ysu2lXGJxyzOPLPuQEbLDz9gG5gd+FvOeuAT92G6LT6h7mXy+gfopfrW4eCT8/v6jo5Ww3ivpnrL5JsbbmnuhLreZ8hfrTqAWF8UEuaCt1njG4o+KrdY89MSunrgoBmpeqPUE64X4qmKMh4vFoCYXzlfz6CwYKB/hGIzthPgaW9+t+GXpuhcXZJFaly1bMOaHdh7T75jK80v5oGVDD/7CLGJ7E1xnOA6ruRmLuS25KN9U/sLjHrPV4qHmHs4vLscx6YkLrze4n0GdY3HzOvm4cDmX9cRF7XdT65Blm7VGW+1gfSzriQufG1Fva8xjZ0vP+oxMrlTWExeeR9b4xtYs3tPj2ZATM+w57qbiSGz9sMoDG089Lu+Ji+eegGOL8gfvOUG1vScXzOf4krLLe0+19rdK19L3H27Tey/lTSlupb/di4vnnp1Z7SWoh3UWKWlzCy4l//PJef8Ieqj4V5PLmnfRvbmo+Ncbl9I359z+VN9bcfG+UZRyyX0L2ZNLzj6lFhcvm1ZcrJh6I535PhK5lfy3hvf9HmZ7cmG9+J4e49saLtY9uboHZWYtuKR8O+i1dq9m9avmqLqDyXlD2pIL6m3xyImTVr/Wvjbn/LAll7dIv7H9eO75xzseOeeHHqV03zRkyJC/Kd/kyk9/sDYAAA==
   </data>
  </layer>
 </map>

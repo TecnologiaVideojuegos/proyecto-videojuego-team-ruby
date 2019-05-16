@@ -364,7 +364,7 @@ public class Combate extends BasicGameState {
                     if (gc.getInput().isMousePressed(0)) {
                         turnoRuby = true;
                         entrarTurnoCombate();
-                        if ((int) (Math.random() * 3) == 0) {
+                        if (((int) (Math.random() * 3)) == 0) {
                             huir = true;
                         } else {
                             huir = false;

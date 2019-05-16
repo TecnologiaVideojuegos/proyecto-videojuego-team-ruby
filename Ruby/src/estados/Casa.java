@@ -195,7 +195,7 @@ public class Casa extends BasicGameState {
 
                     break;
                 case "SpawnEste":
-                    p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
+                    p.posicinarEnSpawnARuby("SpawnOeste", -50, 0);
                     huerto = map.getHuerto();
                     music.stop();
                     game.enterState(2, new FadeOutTransition(), new FadeInTransition());
