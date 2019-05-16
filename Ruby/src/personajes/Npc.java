@@ -12,18 +12,8 @@ public class Npc extends Personaje {
 
     protected Animacion_dinamica animacion;
 
-    public Npc(Hitbox hitbox) throws SlickException {
-        super("NPC", hitbox, 100, 1000, new ArrayList<Dialogo>());
-        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Ruby,", "¿Quieres comprar algo?"))));
-        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Comercio_Service"))));
-        animacion = new Animacion_dinamica("./resources/sprites/Abuela.png");
-        animacion.direccionAnimacion(2);
-    }
-
-    public Npc(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero) throws SlickException {
-        super(nombre, hitbox, vida, dinero, new ArrayList<Dialogo>());
-        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Ruby,", "¿Quieres comprar algo?"))));
-        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Comercio_Service"))));
+    public Npc(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, ArrayList<Dialogo> dialogos) throws SlickException {
+        super(nombre, hitbox, vida, dinero, dialogos);
         this.animacion = animacion;
         animacion.direccionAnimacion(2);
     }
