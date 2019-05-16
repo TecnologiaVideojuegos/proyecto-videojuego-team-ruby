@@ -17,7 +17,7 @@ Las ultimas semanas mi gato Manchas ha estado sorprendentemente nervioso, no hac
 
 <p style="text-align: center">
     Estas invitado a la aventura, para hacerlo pulsa sobre el enlace de GitHub y descarga nuestro proyecto, no te olvides de dejarnos una estrella si te ha gustado.<br>
-    <a href="https://github.com/TecnologiaVideojuegos/proyecto-videojuego-team-ruby"><img style="width: 20px" src="Diseño Gráfico\GitHub.png"></a>
+    <a href="https://github.com/TecnologiaVideojuegos/proyecto-videojuego-team-ruby"><img style="width: 20px" src="Diseño Gráfico\Github.png"></a>
 </p>
 
 ----
