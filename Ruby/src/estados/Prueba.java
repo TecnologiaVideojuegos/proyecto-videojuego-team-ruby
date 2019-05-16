@@ -94,7 +94,7 @@ public class Prueba extends BasicGameState {
         }
 
         if (hablando) {
-            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo));
+            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo), npc.getImagen());
         }
 
         if (inventario) {
