@@ -147,7 +147,7 @@ public class Casa extends BasicGameState {
                 npc = null;
             }
         }
-        if ((!hablando) && (!inventario) && (!plantando)) {
+        if ((!hablando) && (!inventario) && (!plantando) && (!comerciando)) {
             cursor_hitbox.setX(gc.getInput().getMouseX() - (cursor_hitbox.getHeight() / 2));
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
@@ -169,7 +169,7 @@ public class Casa extends BasicGameState {
             plantar = InputCapture_Service.clickHuerto1(gc, map, i, i, ruby, cursor_hitbox, plantar);
 
             //Detección de click sobre npcs
-            if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null) {
+            if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null && !comerciando && !hablando) {
                 hablando = true;
                 npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
             }
