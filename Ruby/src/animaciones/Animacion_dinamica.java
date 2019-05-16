@@ -4,14 +4,14 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class Animacion_dinamica{
+public class Animacion_dinamica {
 
     private final int ANCHO = 32;   // Ancho de cada frame del sprite
     private final int ALTO = 32;    // Alto de cada frame del sprite
 
     private Animation animacion_w, animacion_a, animacion_s, animacion_d;
     private int size = 3, lado_animacion = 0;
-
+    private boolean bloqueoAnimacion = false;
     private SpriteSheet sprite;
 
     public Animacion_dinamica(String dir) throws SlickException {
@@ -38,44 +38,47 @@ public class Animacion_dinamica{
     }
 
     public void animaPersonaje(float movEjeX, float movEjeY) {
-        if (movEjeX > 0) {
-            lado_animacion = 1;
-            if (animacion_a.getFrame() == 2) {
-                animacion_a.setCurrentFrame(0);
+        if (!bloqueoAnimacion) {
+            if (movEjeX > 0) {
+                lado_animacion = 1;
+                if (animacion_a.getFrame() == 2) {
+                    animacion_a.setCurrentFrame(0);
+                }
+            } else if (movEjeX < 0) {
+                animacion_d.start();
+                lado_animacion = 3;
+                if (animacion_d.getFrame() == 2) {
+                    animacion_d.setCurrentFrame(0);
+                }
+            } else if (movEjeY > 0) {
+                animacion_w.start();
+                lado_animacion = 0;
+                if (animacion_w.getFrame() == 2) {
+                    animacion_w.setCurrentFrame(0);
+                }
+            } else if (movEjeY < 0) {
+                animacion_s.start();
+                lado_animacion = 2;
+                if (animacion_s.getFrame() == 2) {
+                    animacion_s.setCurrentFrame(0);
+                }
             }
-        } else if (movEjeX < 0) {
-            animacion_d.start();
-            lado_animacion = 3;
-            if (animacion_d.getFrame() == 2) {
-                animacion_d.setCurrentFrame(0);
+
+            if (!(movEjeX != 0 || movEjeY != 0)) {
+                animacion_w.stop();
+                animacion_w.setCurrentFrame(2);
+                animacion_a.stop();
+                animacion_a.setCurrentFrame(2);
+                animacion_s.stop();
+                animacion_s.setCurrentFrame(2);
+                animacion_d.stop();
+                animacion_d.setCurrentFrame(2);
+            } else {
+                animacion_w.start();
+                animacion_a.start();
+                animacion_s.start();
+                animacion_d.start();
             }
-        } else if (movEjeY > 0) {
-            animacion_w.start();
-            lado_animacion = 0;
-            if (animacion_w.getFrame() == 2) {
-                animacion_w.setCurrentFrame(0);
-            }
-        } else if (movEjeY < 0) {
-            animacion_s.start();
-            lado_animacion = 2;
-            if (animacion_s.getFrame() == 2) {
-                animacion_s.setCurrentFrame(0);
-            }
-        }
-        if (!(movEjeX != 0 || movEjeY != 0)) {
-            animacion_w.stop();
-            animacion_w.setCurrentFrame(2);
-            animacion_a.stop();
-            animacion_a.setCurrentFrame(2);
-            animacion_s.stop();
-            animacion_s.setCurrentFrame(2);
-            animacion_d.stop();
-            animacion_d.setCurrentFrame(2);
-        } else {
-            animacion_w.start();
-            animacion_a.start();
-            animacion_s.start();
-            animacion_d.start();
         }
     }
 
@@ -99,9 +102,9 @@ public class Animacion_dinamica{
                 break;
         }
     }
-    
-    public void direccionAnimacion(int i){
-        switch(i){
+
+    public void direccionAnimacion(int i) {
+        switch (i) {
             case 0:
                 lado_animacion = 0;
                 break;
@@ -110,10 +113,48 @@ public class Animacion_dinamica{
                 break;
             case 2:
                 lado_animacion = 2;
-                break; 
+                break;
             case 3:
                 lado_animacion = 3;
                 break;
         }
+    }
+
+    public void setAnimaPersonaje(int i) {
+        bloqueoAnimacion = true;
+        switch (i) {
+            case 0:
+                lado_animacion = 1;
+                if (animacion_a.getFrame() == 2) {
+                    animacion_a.setCurrentFrame(0);
+                }
+                break;
+            case 1:
+                animacion_d.start();
+                lado_animacion = 3;
+                if (animacion_d.getFrame() == 2) {
+                    animacion_d.setCurrentFrame(0);
+                }
+                break;
+            case 2:
+                animacion_w.start();
+                lado_animacion = 0;
+                if (animacion_w.getFrame() == 2) {
+                    animacion_w.setCurrentFrame(0);
+                }
+                break;
+            case 3:
+                animacion_s.start();
+                lado_animacion = 2;
+                if (animacion_s.getFrame() == 2) {
+                    animacion_s.setCurrentFrame(0);
+                }
+                break;
+        }
+
+        animacion_w.start();
+        animacion_a.start();
+        animacion_s.start();
+        animacion_d.start();
     }
 }

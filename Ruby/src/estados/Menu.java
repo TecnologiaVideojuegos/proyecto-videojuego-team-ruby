@@ -43,7 +43,6 @@ public class Menu extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         this.game = game;
-
         fondo = new Image("./resources/img/menu.png");
         p_Widht = gc.getWidth();
         p_Height = gc.getHeight();

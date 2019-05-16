@@ -14,6 +14,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import personajes.Gato;
 import personajes.Jugador;
 import personajes.Npc;
 import personajes.Personaje;
@@ -61,6 +62,9 @@ public class Casa extends BasicGameState {
 
     private int n_dialogo = 0;
 
+    private Gato gato;
+    private boolean huir = false;
+    
     //Combate
     private Personaje combatiente = null;
 
@@ -81,10 +85,14 @@ public class Casa extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
+        
+        gc.setMusicVolume(1 / 10.0f);
+        
         map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel(), huerto);
         huerto = map.getHuerto();
         map.agregarSpawn("SpawnEste");
-
+        gato = map.getGato();
+        
         //Posicionar a Ruby en un spawn inicial
         float posSapawnRuby[] = map.getPosicionSpawn("SpawnRuby");
         x = -(posSapawnRuby[0]) + (gc.getWidth() / 2);
@@ -96,7 +104,6 @@ public class Casa extends BasicGameState {
         //Musica
         music = new Music("./resources/music/Ambiente bosque.ogg");
         music.loop();
-
     }
 
     /**
@@ -141,7 +148,10 @@ public class Casa extends BasicGameState {
      * Actualiza
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {        
+        if(huir){
+            gato.huir();
+        }
         if (hablando && gc.getInput().isMouseButtonDown(0)) {
             if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
                 if (npc.getDialogos().get(n_dialogo + 1).getFrases().get(0).equals("Comercio_Service")) {
@@ -149,6 +159,7 @@ public class Casa extends BasicGameState {
                     n_dialogo = 0;
                     hablando = false;
                     npc = null;
+                    huir=true;
                 } else {
                     n_dialogo++;
                 }

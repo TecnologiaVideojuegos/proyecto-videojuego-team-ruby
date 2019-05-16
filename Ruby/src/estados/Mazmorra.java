@@ -41,7 +41,6 @@ public class Mazmorra extends BasicGameState {
     private boolean ver_hitbox;
 
     private StateBasedGame game;
-    private GameContainer gc;
 
     private float mov[] = new float[2]; //Movimiento entre cada update
 
@@ -62,7 +61,7 @@ public class Mazmorra extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         this.game = game;
-        this.gc = gc;
+        gc.setMusicVolume(1 / 10.0f);
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
         map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel(), new Huerto());
@@ -168,7 +167,7 @@ public class Mazmorra extends BasicGameState {
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
-        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnOeste");
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));

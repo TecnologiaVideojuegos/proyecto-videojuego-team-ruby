@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 
 public class Npc extends Personaje {
 
-    private Animacion_dinamica animacion;
+    protected Animacion_dinamica animacion;
 
     public Npc(Hitbox hitbox) throws SlickException {
         super("NPC", hitbox, 100, 1000, new ArrayList<Dialogo>());
