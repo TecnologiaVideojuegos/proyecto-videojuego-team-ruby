@@ -15,7 +15,7 @@ public class Enemigo extends Personaje {
     private float movX = 0, movY = 0;
 
     public Enemigo(String nombre, Hitbox hitbox, int nivel) throws SlickException {
-        super(nombre, hitbox, 100, 20*nivel);
+        super(nombre, hitbox, 100, 20 * nivel);
         this.animacion = new Animacion_dinamica("./resources/sprites/Planta_enemiga.png");
         this.nivel = nivel;
         this.combate = false;
@@ -153,6 +153,13 @@ public class Enemigo extends Personaje {
                 default:
                     break;                            //Movimiento no varia, se mantiene el anterior
             }
+        }
+
+        if (movX > 5 || movX < -5) {
+            movX = 0;
+        }
+        if (movY > 5 || movY < -5) {
+            movY = 0;
         }
 
         hitbox.updatePos(movX, movY);
