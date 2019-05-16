@@ -1,5 +1,6 @@
 package estados;
 
+import elementos.Huerto;
 import elementos.Mapa;
 import objetos.semillas.Semilla;
 import org.newdawn.slick.GameContainer;
@@ -65,7 +66,7 @@ public class Prueba extends BasicGameState {
         this.gc = gc;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnSur");
         map.agregarSpawn("SpawnEste");
 
@@ -225,7 +226,7 @@ public class Prueba extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/demo_map.tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnSur");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);

@@ -5,14 +5,18 @@ import objetos.plantas.Planta;
 
 public class Huerto {
 
-    private ArrayList<ArrayList<Hitbox_Planta>> huerto = new ArrayList<>();
+    private ArrayList<ArrayList<Hitbox_Planta>> huerto;
     private int x, y;
-    
-    public Huerto(){
-        
+
+    public Huerto() {
+        huerto = new ArrayList<ArrayList<Hitbox_Planta>>();
+        x = 0;
+        y = 0;
     }
 
-    public Huerto(int x, int y, ArrayList<Hitbox> hitbox_huerto) {
+    public Huerto(int x, int y, ArrayList<Hitbox> hitbox_huerto, Huerto huerto_ant) {
+        System.out.println("(" + x + ", " + y + ")");
+        huerto = new ArrayList<ArrayList<Hitbox_Planta>>();
         ArrayList<Hitbox_Planta> hitboxs_planta;
         int i, j;
         this.x = x;
@@ -29,6 +33,22 @@ public class Huerto {
             System.out.println("Error al crear un huerto");
             System.exit(1);
         }
+        for (i = 0; i < x; i++) {
+            for (j = 0; j < y; j++) {
+                if (huerto_ant.hayPlanta(i, j)) {
+                    System.out.println("Hay planta en la posición ("+i+", "+j+")");
+                    anadirPlanta(i, j, huerto_ant.getHitbox_Planta(i, j).getPlanta());
+                }
+            }
+        }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     /**
@@ -105,10 +125,10 @@ public class Huerto {
         planta_temp.setCoordenadas(huerto.get(x).get(y).getHitbox().getRectangulo().getMinX(), huerto.get(x).get(y).getHitbox().getRectangulo().getMinY());
         huerto.get(x).get(y).setPlanta(planta_temp);
     }
-    
+
     public Planta eliminarPlanta(int x, int y) {
         Planta planta = null;
-        if(huerto.get(x).get(y).getPlanta().isCrecida()){
+        if (huerto.get(x).get(y).getPlanta().isCrecida()) {
             planta = huerto.get(x).get(y).getPlanta();
             huerto.get(x).get(y).setPlanta(null);
         }
@@ -154,10 +174,13 @@ public class Huerto {
         }
         return y_temp;
     }
-    
-    public boolean hayPlanta(int x, int y){
+
+    public boolean hayPlanta(int x, int y) {
         boolean hay = true;
-        if(huerto.get(x).get(y).getPlanta()==null){
+        if ((this.x - 1) < x || (this.y - 1) < y) {
+            return false;
+        }
+        if (huerto.get(x).get(y).getPlanta() == null) {
             hay = false;
         }
         return hay;

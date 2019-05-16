@@ -81,7 +81,7 @@ public class Casa extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel(), huerto);
         huerto = map.getHuerto();
         map.agregarSpawn("SpawnEste");
 
@@ -250,7 +250,7 @@ public class Casa extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel(), huerto);
         map.setHuerto(huerto);
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);

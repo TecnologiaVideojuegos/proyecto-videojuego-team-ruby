@@ -1,5 +1,6 @@
 package estados;
 
+import elementos.Huerto;
 import elementos.Mapa;
 import objetos.plantas.Planta_fuego;
 import objetos.plantas.Planta_rayo;
@@ -64,7 +65,7 @@ public class Mazmorra extends BasicGameState {
         this.gc = gc;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnOeste");
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
