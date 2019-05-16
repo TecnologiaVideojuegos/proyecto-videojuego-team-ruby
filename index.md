@@ -1,4 +1,3 @@
-# Ruby
 <p><img src="Diseño Gráfico\Casa.png"></p>
 
 **¡Bienvenidos a la casa de mi abuela!, me llamo Ruby.
@@ -18,7 +17,7 @@ Las ultimas semanas mi gato Manchas ha estado sorprendentemente nervioso, no hac
 
 <p style="text-align: center">
     Estas invitado a la aventura, para hacerlo pulsa sobre el enlace de GitHub y descarga nuestro proyecto, no te olvides de dejarnos una estrella si te ha gustado.<br>
-    <a href="https://github.com/TecnologiaVideojuegos/proyecto-videojuego-team-ruby"><img style="width: 20px" src="Diseño Gráfico\GitHub.svg"></a>
+    <a href="https://github.com/TecnologiaVideojuegos/proyecto-videojuego-team-ruby"><img style="width: 20px" src="Diseño Gráfico\GitHub.png"></a>
 </p>
 
 ----
@@ -31,7 +30,7 @@ Este proyecto es totalmente educacional, comprendido por un equipo de 5 personas
 
 - José Maria Oliet Villalba  
 - Marina Fernández Gutiérrez  
-- Javier de la Peña
+- Javier de la Peña García
 - Jesús Villafranca Martínez
 - Enrique Coronado Barco
 
