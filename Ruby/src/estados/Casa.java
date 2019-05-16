@@ -262,7 +262,6 @@ public class Casa extends BasicGameState {
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
         map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel(), huerto);
-        map.setHuerto(huerto);
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
         music.loop();

@@ -13,7 +13,7 @@ public class Animacion_planta extends Thread{
         sprite = new SpriteSheet(string, ALTO, ANCHO);
         
         animacion = new Animation();
-        animacion.addFrame(sprite.getSprite(1, 0), 10000);
+        animacion.addFrame(sprite.getSprite(1, 0), 50000);
         animacion.addFrame(sprite.getSprite(0, 0), 1);
         this.start();
     }
