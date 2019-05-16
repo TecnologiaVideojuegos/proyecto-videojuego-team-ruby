@@ -10,12 +10,14 @@ public abstract class Planta extends Objeto {
     private float pos_x, pos_y;
     private boolean plantada;
     private boolean crecida;
+    private int danio;
     private Animacion_planta animacion;
 
-    public Planta(String sprite) throws SlickException {
+    public Planta(String sprite, int danio) throws SlickException {
         crecida = false;
         plantada = false;
         animacion = new Animacion_planta(sprite);
+        this.danio = danio;
     }
 
     public void setCoordenadas(float pos_x, float pos_y) {
@@ -55,6 +57,16 @@ public abstract class Planta extends Objeto {
     public void setAnimacion(Animacion_planta animacion) {
         this.animacion = animacion;
     }
+
+    public int getDanio() {
+        return danio;
+    }
+
+    public void setDanio(int danio) {
+        this.danio = danio;
+    }
+    
+    
     
     @Override
     public abstract String getNombre();

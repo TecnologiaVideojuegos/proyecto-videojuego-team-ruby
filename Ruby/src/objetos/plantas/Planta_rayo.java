@@ -8,7 +8,7 @@ public class Planta_rayo extends Planta{
     private Image icono;
     
     public Planta_rayo() throws SlickException{
-        super("./resources/objetos/plantas/Planta_rayo.png");
+        super("./resources/objetos/plantas/Planta_rayo.png", 25);
         icono = new Image("./resources/objetos/plantas/Icono_planta_rayo.png");
     }
 
@@ -26,6 +26,10 @@ public class Planta_rayo extends Planta{
     @Override
     public Image getIcono(){
         return icono;
+    }
+    
+    public int getDanio(){
+        return super.getDanio();
     }
 }
 
