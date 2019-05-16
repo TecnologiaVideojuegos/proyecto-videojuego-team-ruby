@@ -39,7 +39,7 @@ public class Huerto {
                     for (j = 0; j < y; j++) {
                         if (huerto_ant.hayPlanta(i, j)) {
                             System.out.println("Hay planta en la posición (" + i + ", " + j + ")");
-                            anadirPlanta(i, j, huerto_ant.getHuerto().get(i).get(j).getPlanta());
+                            anadirPlanta(i, j, huerto_ant.getHitbox_Planta(i, j).getPlanta());
                         }
                     }
                 }
@@ -67,7 +67,7 @@ public class Huerto {
      */
     public Hitbox_Planta getHitbox_Planta(int x, int y) {
         Hitbox_Planta planta = null;
-        if (x == huerto.size() && y == huerto.get(0).size()) {
+        if (x <= huerto.size() && y <= huerto.get(0).size()) {
             planta = huerto.get(x).get(y);
         }
         return planta;
