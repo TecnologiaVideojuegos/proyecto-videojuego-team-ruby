@@ -33,12 +33,18 @@ public class Huerto {
             System.out.println("Error al crear un huerto");
             System.exit(1);
         }
-        for (i = 0; i < x; i++) {
-            for (j = 0; j < y; j++) {
-                if (huerto_ant.hayPlanta(i, j)) {
-                    System.out.println("Hay planta en la posición ("+i+", "+j+")");
-                    anadirPlanta(i, j, huerto_ant.getHitbox_Planta(i, j).getPlanta());
+        if (!huerto_ant.getHuerto().isEmpty()) {
+            if (huerto_ant.getHuerto().size() == x && huerto_ant.getHuerto().get(0).size() == y) {
+                for (i = 0; i < x; i++) {
+                    for (j = 0; j < y; j++) {
+                        if (huerto_ant.hayPlanta(i, j)) {
+                            System.out.println("Hay planta en la posición (" + i + ", " + j + ")");
+                            anadirPlanta(i, j, huerto_ant.getHuerto().get(i).get(j).getPlanta());
+                        }
+                    }
                 }
+            } else {
+                System.out.println("Me parece que algo falla");
             }
         }
     }

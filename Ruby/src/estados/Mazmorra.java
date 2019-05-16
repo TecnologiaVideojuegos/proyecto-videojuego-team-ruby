@@ -168,7 +168,7 @@ public class Mazmorra extends BasicGameState {
     }
 
     public void posicinarEnSpawnARuby(String spawn, int mov_x, int mov_y) throws SlickException {
-        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon" + (int) (Math.random() * 3 + 1) + ".tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnOeste");
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
