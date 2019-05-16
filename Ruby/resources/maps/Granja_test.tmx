@@ -5,7 +5,7 @@
  <tileset firstgid="4289" source="Nivel 1.tsx"/>
  <layer id="3" name="Walls" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2ZSw7CMAwFu2EB5+QunJOboCyQqiqNHeflZ7+RKlUUEk9ipyk9DkIIIYSQuLyfdYc3zk6SawT/3Hnps17U5qU1f2v9Ncfn0V4zPcb6Ltfvrud+r/Vv9RjhL13Pjc/3Jfezs3+pZqz+qFptpZTrmv4s/lbo395GqU1L+/T3Wf9akjti/R/tL93rtSD9R4KKAZn/Ixk9B4j9DxJtDXpFe2/3itbfax7UONG/Xxwz0XrRv28cs5C8PK9/CY2/ZyL7R93/1NQ0/fvHMwv6Y76zK3du0Z9/PTv/Kc2td/+aPa/HOrD+x+mFaP6IXN7VHxX3tZ1d1gikv+S6kv+MOVnNP0KfOWbFgXx3q30XvHodninFZR0rT/6INld1T9AfszZc28ydR2H1/RchhBBC1uYHI5rOAwBAAAA=
+   H4sIAAAAAAAACu2ZUQ7DIAiG+7KH7Zy7y865mzRmabKYgqioCP+XmHS2Wn4FpfM4AAAAAABi837+ClVP3ffAvy7qmqvbHcv6c//rLdQ7StdcXcn2VkaMdd5nbqNEv6R8Hnw/LbZqUDu/d+PzfZXfs7N+Lm686pfGaqt+zfWqhxX6W1nh/5L20F9+bjf/l5K0a6x/s/Xf9bda/0y0bND0/5nMngON/V8TLvdfNSczke7tXpFq8+oHtd+t3oiuP1ETAx6BftkzUfV71X0RWX/U/KcmnqF/rC0rier/F9DP3/O87ye473/vlObeMzU5r8cYqNUTXX9rGyto+PKu+rXs5s5rLDNK//Xbqv4Rc0PFkMUxsHCWtIoVtszOJa3lb3cxobHncGeU1vJ3SnPtORPXPr/eYS1K9P7PKF17repPUGf+PTa3+Jk3dsjDAAAAAGCTE2JWNAYAQAAA
   </data>
  </layer>
  <layer id="7" name="Huerto" width="64" height="64">
