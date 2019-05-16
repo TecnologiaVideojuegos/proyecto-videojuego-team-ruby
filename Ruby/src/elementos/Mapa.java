@@ -28,7 +28,7 @@ public class Mapa {
     public Mapa() {
     }
 
-    public Mapa(String ruta, int nivelRuby) throws SlickException {
+    public Mapa(String ruta, int nivelRuby, Huerto huerto_ant) throws SlickException {
         this.map = new TiledMap(ruta);
 
         //Carga de elementos del mapa
@@ -43,8 +43,7 @@ public class Mapa {
         cargaBosses();
         cargaGato();
         cargaAbuela();
-        //cargaNPCs();
-        cargaHuerto();
+        cargaHuerto(huerto_ant);
     }
 
     public TiledMap getMap() {
@@ -216,7 +215,7 @@ public class Mapa {
         }
     }
     
-    private void cargaHuerto() {
+    private void cargaHuerto(Huerto huerto_ant) {
         int wallLayer = map.getLayerIndex("Huerto");
         ArrayList<Hitbox> huerto_array = new ArrayList<>();
         int x = 0, y = 0, x_temp = 0, y_temp = 0;
@@ -238,7 +237,7 @@ public class Mapa {
                 }
             }
         }
-        huerto = new Huerto(x, y, huerto_array);
+        huerto = new Huerto(x, y, huerto_array, huerto_ant);
     }
 
     //*****************************************************//

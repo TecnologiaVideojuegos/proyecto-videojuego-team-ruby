@@ -183,7 +183,7 @@ public class Comercio_Service {
             ruby.getInventario().anadirObjeto(new Planta_agua(), 1);
             ruby.quitarDinero(100);
         }else if(comprar_planta_fuego.intersects(mouse) && ruby.getDinero()>=250 && click){
-            ruby.getInventario().anadirObjeto(new Planta_agua(), 1);
+            ruby.getInventario().anadirObjeto(new Planta_fuego(), 1);
             ruby.quitarDinero(250);
         }else if(comprar_planta_rayo.intersects(mouse) && ruby.getDinero()>=750 && click){
             ruby.getInventario().anadirObjeto(new Planta_rayo(), 1);

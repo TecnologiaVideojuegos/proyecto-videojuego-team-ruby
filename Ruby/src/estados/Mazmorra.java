@@ -1,5 +1,6 @@
 package estados;
 
+import elementos.Huerto;
 import elementos.Mapa;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -51,7 +52,7 @@ public class Mazmorra extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
 
@@ -148,7 +149,7 @@ public class Mazmorra extends BasicGameState {
         float posSapawnRuby[] = map.getPosicionSpawn(spawn);
         x = +(-(posSapawnRuby[0]) + (gcWidth / 2 + mov_x));
         y = +(-(posSapawnRuby[1]) + (gcHeight / 2) + mov_y);
-        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel());
+        map = new Mapa("./resources/maps/Dungeon"+(int)(Math.random()*3+2)+".tmx", ruby.getNivel(), new Huerto());
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
