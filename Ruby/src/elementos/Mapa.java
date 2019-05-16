@@ -186,7 +186,7 @@ public class Mapa {
             }
         }
     }
-
+    
     private void cargaGato() throws SlickException {
         int wallLayer = map.getLayerIndex("Gato");
         
@@ -194,7 +194,7 @@ public class Mapa {
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        gato = new Gato(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64), 1, 0);
+                        gato = new Gato(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64));
                     }
                 }
             }
@@ -208,7 +208,7 @@ public class Mapa {
             for (int j = 0; j < map.getHeight(); j++) {
                 for (int i = 0; i < map.getWidth(); i++) {
                     if (map.getTileId(i, j, wallLayer) != 0) {
-                        abuela = new Abuela(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64), 1, 0);
+                        abuela = new Abuela(new Hitbox((float) i * 32, (float) j * 32 - 32, 32, 64));
                     }
                 }
             }
