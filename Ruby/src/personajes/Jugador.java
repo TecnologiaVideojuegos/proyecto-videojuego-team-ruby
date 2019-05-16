@@ -61,10 +61,9 @@ public class Jugador extends Personaje {
         inventario.eliminarObjeto(planta);
         
         if (numRandom != 0) {
-            if (numRandom == 2) {                   //Critico
-                danio = 10 * 2; //TODO: sustituir por el daño de la planta
-            }else{
-                danio = 10; 
+            danio = planta.getDanio();
+            if (numRandom == 2) {   //Critico
+                danio *= 2;
             }
             
             if(multiplicadorDanio){
