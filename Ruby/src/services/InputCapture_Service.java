@@ -68,18 +68,18 @@ public class InputCapture_Service {
     }
 
     public static Npc clickNpc(GameContainer gc, Mapa map, Circle cursor_hitbox, Personaje personajeReferencia) {
-        Hitbox x;
+        int x;
+        Hitbox y;
+        Npc npc = null;
         int distancia = 100;
-        int i = 0;
         if (gc.getInput().isMouseButtonDown(0)) {
-            x = actualizarMouse(map.getHitboxNpc(), cursor_hitbox, personajeReferencia);
-            if (x != null) {
-                if ((distancia > (Math.sqrt((Math.pow(x.getRectangulo().getX() - personajeReferencia.getHitbox().getRectangulo().getX(), 2)) + (Math.pow(x.getRectangulo().getY() - personajeReferencia.getHitbox().getRectangulo().getY(), 2)))))) {
-                    return map.getNpcs().get(i);
-                    
+            y = actualizarMouse(map.getHitboxNpc(), cursor_hitbox, personajeReferencia);
+            x = actualizarMouse1(map.getHitboxNpc(), cursor_hitbox, personajeReferencia);
+            if (x != -1 && y != null) {
+                if ((distancia > (Math.sqrt((Math.pow(y.getRectangulo().getX() - personajeReferencia.getHitbox().getRectangulo().getX(), 2)) + (Math.pow(y.getRectangulo().getY() - personajeReferencia.getHitbox().getRectangulo().getY(), 2)))))) {
+                    return map.getNpcs().get(x);
                 }
             }
-            i++;
         }
         return null;
     }
@@ -92,5 +92,17 @@ public class InputCapture_Service {
             }
         }
         return null;
+    }
+    
+    public static int actualizarMouse1(ArrayList<Hitbox> hitbox, Circle cursor_hitbox, Personaje personajeReferencia) {
+        int distancia = 100;
+        int i = 0;
+        for (Hitbox re : hitbox) {
+            if (cursor_hitbox.intersects(re.getRectangulo()) && (distancia > (Math.sqrt((Math.pow(re.getRectangulo().getX() - personajeReferencia.getHitbox().getRectangulo().getX(), 2)) + (Math.pow(re.getRectangulo().getY() - personajeReferencia.getHitbox().getRectangulo().getY(), 2)))))) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 }

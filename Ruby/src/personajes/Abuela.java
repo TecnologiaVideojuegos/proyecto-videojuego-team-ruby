@@ -9,8 +9,8 @@ import org.newdawn.slick.SlickException;
 
 public class Abuela extends Npc{
     
-    public Abuela(Hitbox hitbox, int vida, int dinero) throws SlickException {
-        super("Abuela", hitbox, new Animacion_dinamica("./resources/sprites/Abuela.png"), vida, dinero, new ArrayList<Dialogo>());
+    public Abuela(Hitbox hitbox) throws SlickException {
+        super("Abuela", hitbox, new Animacion_dinamica("./resources/sprites/Abuela.png"), 1, 0, new ArrayList<Dialogo>());
         super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Ruby,", "¿Me quieres comprar algo?"))));
         super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Comercio_Service"))));
         super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Ya se ha vuelto a escapar el gato"))));

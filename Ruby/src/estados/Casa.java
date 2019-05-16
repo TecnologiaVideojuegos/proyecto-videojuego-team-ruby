@@ -159,7 +159,6 @@ public class Casa extends BasicGameState {
                     n_dialogo = 0;
                     hablando = false;
                     npc = null;
-                    huir=true;
                 } else {
                     n_dialogo++;
                 }

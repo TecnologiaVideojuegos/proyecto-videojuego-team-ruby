@@ -9,8 +9,8 @@ import org.newdawn.slick.SlickException;
 
 public class Gato extends Npc {
 
-    public Gato(Hitbox hitbox, int vida, int dinero) throws SlickException {
-        super("Gato", hitbox, new Animacion_dinamica("./resources/sprites/Gato.png"), vida, dinero, new ArrayList<Dialogo>());
+    public Gato(Hitbox hitbox) throws SlickException {
+        super("Gato", hitbox, new Animacion_dinamica("./resources/sprites/Gato.png"), 1, 0, new ArrayList<Dialogo>());
         super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Miau"))));
         super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("Menos mal, estás bien"))));
         super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("Volvamos a casa Manchas"))));
