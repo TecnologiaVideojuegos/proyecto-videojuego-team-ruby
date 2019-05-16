@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
@@ -40,6 +41,9 @@ public class Mazmorra extends BasicGameState {
 
     //Combate
     private Personaje combatiente = null;
+    
+    //Musica
+    private Music music;
 
     public Mazmorra(Jugador ruby, boolean ver_hitbox) {
         this.ruby = ruby;
@@ -56,6 +60,8 @@ public class Mazmorra extends BasicGameState {
         map.agregarSpawn("SpawnEste");
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
+        //Musica
+        music = new Music("./resources/music/Mazmorra.ogg");
     }
 
     @Override
@@ -111,6 +117,7 @@ public class Mazmorra extends BasicGameState {
                 case "SpawnNorte":
                     ((Casa) game.getState(1)).init(gc, game);
                     ruby.setVida(100);
+                    music.stop();
                     game.enterState(1);
                     break;
                 case "SpawnEste":
@@ -122,6 +129,7 @@ public class Mazmorra extends BasicGameState {
             ((Casa) game.getState(1)).init(gc, game);
             ruby.setVida(100);
             ruby.setDinero(ruby.getDinero() - 50);
+            music.stop();
             game.enterState(1);
         }
     }
@@ -152,6 +160,7 @@ public class Mazmorra extends BasicGameState {
         map.agregarSpawn("SpawnNorte");
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
+        music.loop();
     }
 
     public void combateGanado(boolean ganado) {

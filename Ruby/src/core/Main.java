@@ -18,7 +18,7 @@ public class Main extends StateBasedGame {
     private Huerto huerto;
     private int size_Ruby = 3, ancho_Ruby = 32, largo_Ruby = 32;
     //TEST HITBOX
-    private boolean ver_hitbox = true;
+    private boolean ver_hitbox = false;
 
     public Main(String string) throws SlickException {
         super(string);

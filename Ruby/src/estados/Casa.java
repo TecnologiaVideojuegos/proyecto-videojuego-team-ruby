@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
@@ -60,6 +61,9 @@ public class Casa extends BasicGameState {
 
     //Combate
     private Personaje combatiente = null;
+    
+    //Musica
+    private Music music;
 
     public Casa(Jugador ruby, boolean ver_hitbox, Huerto huerto) {
         this.ruby = ruby;
@@ -86,6 +90,11 @@ public class Casa extends BasicGameState {
         map.actualizarElementos(x, y);
 
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
+        
+        //Musica
+        music = new Music("./resources/music/Ambiente bosque.ogg");
+        music.loop();
+        
     }
 
     /**
@@ -187,6 +196,7 @@ public class Casa extends BasicGameState {
                     ruby.setNivel(3);
                     p.posicinarEnSpawnARuby("SpawnEste", 100, 0);
                     huerto = map.getHuerto();
+                    music.stop();
                     game.enterState(2);
                     break;
                 default:
@@ -241,6 +251,7 @@ public class Casa extends BasicGameState {
         map.setHuerto(huerto);
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
+        music.loop();
     }
 
 }
