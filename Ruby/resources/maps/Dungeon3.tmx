@@ -3,9 +3,9 @@
  <tileset firstgid="1" source="Basic.tsx"/>
  <tileset firstgid="1025" source="../../../Diseño Gráfico/Paquete de texturas/Mazmorras.tsx"/>
  <tileset firstgid="1037" source="MazmorrasX2.tsx"/>
- <layer id="22" name="SpawnEste" width="70" height="50">
+ <layer id="22" name="SpawnOeste" width="70" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OMQEAAAgDoB22sH9PU6gPJCABAAAAAAAAAAAAAACAG13fA2DTAIOuuxCwNgAA
+   H4sIAAAAAAAACu3OQQ0AAAgEoHsYwf5ZjeGmkIAEAAAAAAAAAAC4rGt7AAAAAMAXA+KIb9mwNgAA
   </data>
  </layer>
  <layer id="25" name="SpawnNorte" width="70" height="50">
