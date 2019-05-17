@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import static org.newdawn.slick.Input.KEY_SPACE;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
@@ -19,6 +20,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import personajes.Enemigo;
 import personajes.Jugador;
+import personajes.Npc;
 import personajes.Personaje;
 import services.Colision_Service;
 import services.Dialog_Service;
@@ -60,8 +62,13 @@ public class Mazmorra extends BasicGameState {
     private boolean hablado = false;
     
     private boolean dia_nuevo;
+    
+    private Npc npc;
+    private boolean hablando_npc=false;
 
     private int n_dialogo = 0;
+    
+    private boolean boss_vencido=false;
 
     public Mazmorra(Jugador ruby, boolean ver_hitbox, boolean dia_nuevo) {
         this.ruby = ruby;
@@ -81,6 +88,7 @@ public class Mazmorra extends BasicGameState {
         cursor_hitbox = new Circle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 2);
         //Musica
         music = new Music("./resources/music/Mazmorra.ogg");
+        
     }
 
     @Override
@@ -98,6 +106,10 @@ public class Mazmorra extends BasicGameState {
         if (hablando) {
             Dialog_Service.mostrarBocadillo(gc, grphcs, combatiente.getDialogos().get(n_dialogo), combatiente.getImagen());
         }
+        
+        if(hablando_npc) {
+            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo), npc.getImagen());
+        }
 
         if (inventario) {
             Inventario_Service.mostrarInventario(grphcs, ruby);
@@ -107,7 +119,7 @@ public class Mazmorra extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
         if (ruby.getVida() > 0) {
-            if (!hablando && !inventario) {
+            if (!hablando && !inventario && !hablando_npc) {
                 if (finMazmorra) {
                     dia_nuevo = true;
                     ((Casa) game.getState(1)).init(gc, game);
@@ -151,7 +163,12 @@ public class Mazmorra extends BasicGameState {
                             break;
                         default:
                     }
-
+                    
+                    if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby)!=null && boss_vencido){
+                        npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
+                        hablando_npc=true;
+                    }
+                    
                     if ((combatiente = Colision_Service.colisionCombate(ruby, map, gc)) != null) {
                         if (combatiente.getNombre().equals("Boss") && !hablado) {
                             hablando = true;
@@ -175,10 +192,16 @@ public class Mazmorra extends BasicGameState {
                         hablado = true;
                     }
                 }
+            } else if(hablando_npc && gc.getInput().isKeyPressed(KEY_SPACE)) {
+                if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
+                    n_dialogo++;
+                }else{
+                    finMazmorra = true;
+                    hablando_npc=false;
+                }
             }
         } else {  //Ruby a muerto en combate
             ((Casa) game.getState(1)).init(gc, game);
-            ruby.setVida(100);
             ruby.setDinero(ruby.getDinero() - 50);
             music.stop();
             game.enterState(1, new FadeOutTransition(), new FadeInTransition());
@@ -255,7 +278,8 @@ public class Mazmorra extends BasicGameState {
                         break;
                 }
 
-                finMazmorra = true;
+                boss_vencido = true;
+                n_dialogo=1;
             }
             ruby.setDinero(ruby.getDinero() + combatiente.getDinero());
 

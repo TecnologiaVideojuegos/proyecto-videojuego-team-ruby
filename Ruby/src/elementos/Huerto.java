@@ -38,7 +38,6 @@ public class Huerto {
                 for (i = 0; i < x; i++) {
                     for (j = 0; j < y; j++) {
                         if (huerto_ant.hayPlanta(i, j)) {
-                            System.out.println("Hay planta en la posición (" + i + ", " + j + ")");
                             anadirPlanta(i, j, huerto_ant.getHitbox_Planta(i, j).getPlanta());
                         }
                     }

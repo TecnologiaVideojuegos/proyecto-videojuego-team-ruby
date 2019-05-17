@@ -76,7 +76,7 @@ public class Casa extends BasicGameState {
     //Musica
     private Music music;
 
-    private int tutorial;
+    private int tutorial = -1;
     private boolean dia_nuevo;
     private boolean gato_ido;
     private boolean abuela_gato;
@@ -88,8 +88,6 @@ public class Casa extends BasicGameState {
         this.dia_nuevo = dia_nuevo;
         if (dia_nuevo) {
             this.gato_ido = false;
-        } else {
-            this.gato_ido = gato_ido;
         }
         if (ruby.getNivel() == 1) {
             tutorial = 0;
@@ -103,7 +101,7 @@ public class Casa extends BasicGameState {
         }
         if (gato_ido) {
             map.setGato(null);
-            gato=null;
+            gato = null;
         }
     }
 
@@ -134,16 +132,19 @@ public class Casa extends BasicGameState {
         //Musica
         music = new Music("./resources/music/Ambiente bosque.ogg");
         music.loop();
-
-        if (gato_ido) {
-            map.setGato(null);
-            gato=null;
+        
+        if(ruby.getVida()>0){
+            dia_nuevo=true;
         }
-
-        if (ruby.getNivel() != 1) {
-            huir = true;
+        if(dia_nuevo){
+            gato_ido=false;
+            huir=false;
+            abuela_gato=false;
         }
-        dia_nuevo=false;
+        System.out.println("tutorial:"+ tutorial +", dia_nuevo:"+ dia_nuevo +", gato_ido:"+ gato_ido +", abuela_gato:"+ abuela_gato +", huir:"+huir);
+        dia_nuevo = false;
+        
+        ruby.setVida(100);
     }
 
     /**
@@ -162,8 +163,8 @@ public class Casa extends BasicGameState {
         }
 
         if (hablando) {
-            if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Muy bien abuela") && gato_ido){
-                n_dialogo=n_dialogo+2;
+            if ((npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Muy bien abuela") || npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Buenos días Ruby")) && gato_ido) {
+                n_dialogo = n_dialogo + 2;
             }
             if (!huir) {
                 Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo), npc.getImagen());
@@ -194,13 +195,14 @@ public class Casa extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-        if (huir) {
+        if (huir && !dia_nuevo) {
             gato.huir();
             if (gato.getHitbox().getRectangulo().getCenterX() > 1500) {
                 huir = false;
                 gato = null;
                 map.setGato(null);
                 gato_ido = true;
+                System.out.println("gato_ido:"+gato_ido);
             }
         }
         if (hablando && (gc.getInput().isMouseButtonDown(0) || gc.getInput().isKeyPressed(KEY_SPACE))) {
@@ -210,21 +212,21 @@ public class Casa extends BasicGameState {
                     n_dialogo = 0;
                     hablando = false;
                     npc = null;
-                } else if (npc.getDialogos().get(n_dialogo+1).getFrases().get(0).equals("gato.huir()")) {
+                } else if (npc.getDialogos().get(n_dialogo + 1).getFrases().get(0).equals("gato.huir()")) {
                     if (!gato_ido) {
                         huir = true;
                     } else {
-                        n_dialogo = n_dialogo+2;
+                        n_dialogo = n_dialogo + 2;
                     }
-                } else if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas semillas y")){
+                } else if (npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas semillas y")) {
                     ruby.getInventario().anadirObjeto(new Semilla_fuego(), 3);
                     ruby.getInventario().anadirObjeto(new Semilla_agua(), 15);
                     n_dialogo++;
-                } else if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas plantas Ruby,")){
+                } else if (npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas plantas Ruby,")) {
                     ruby.getInventario().anadirObjeto(new Planta_fuego(), 3);
                     ruby.getInventario().anadirObjeto(new Planta_agua(), 15);
                     n_dialogo++;
-                }else {
+                } else {
                     n_dialogo++;
                 }
             } else {
@@ -260,24 +262,25 @@ public class Casa extends BasicGameState {
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null && !comerciando && !hablando) {
                 hablando = true;
                 npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
-                if(npc.getNombre().equals("Abuela")){
-                    if(!abuela_gato && ruby.getNivel()!=1){
-                        n_dialogo=2;
-                    }else if(abuela_gato && ruby.getNivel()!=1){
-                        n_dialogo=0;
-                    }else if(ruby.getNivel()==1 && tutorial==0){
-                        n_dialogo=3;
-                        tutorial=1;
-                    }else if(ruby.getNivel()==1 && tutorial==1 && !map.getHuerto().isVacio()){
-                        n_dialogo=10;
-                        tutorial=-1;
-                    }else if(ruby.getNivel()==1 && tutorial==-1){
-                        n_dialogo=0;
-                    }else{
-                        hablando=false;
+                if (npc.getNombre().equals("Abuela")) {
+                    if (!abuela_gato && ruby.getNivel() != 1) {
+                        n_dialogo = 2;
+                    } else if (abuela_gato && ruby.getNivel() != 1) {
+                        n_dialogo = 0;
+                    } else if (ruby.getNivel() == 1 && tutorial == 0) {
+                        n_dialogo = 5;
+                        tutorial = 1;
+                    } else if (ruby.getNivel() == 1 && tutorial == 1 && !map.getHuerto().isVacio()) {
+                        n_dialogo = 12;
+                        tutorial = -1;
+                    } else if (ruby.getNivel() == 1 && tutorial == -1) {
+                        n_dialogo = 0;
+                    } else {
+                        hablando = false;
                     }
-                }if(npc.getNombre().equals("Gato")){
-                    n_dialogo=0;
+                }
+                if (npc.getNombre().equals("Gato")) {
+                    n_dialogo = 0;
                 }
             }
 
@@ -285,17 +288,19 @@ public class Casa extends BasicGameState {
             //coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
             //Comprobacion de salto de escenario
             Mazmorra p = (Mazmorra) game.getState(2);
-            switch (Colision_Service.saltoMapa(ruby, map)) {
-                case "SpawnSur":
+            if (gato_ido && tutorial==-1) {
+                switch (Colision_Service.saltoMapa(ruby, map)) {
+                    case "SpawnSur":
 
-                    break;
-                case "SpawnEste":
-                    p.posicinarEnSpawnARuby("SpawnOeste", -50, 0);
-                    huerto = map.getHuerto();
-                    music.stop();
-                    game.enterState(2, new FadeOutTransition(), new FadeInTransition());
-                    break;
-                default:
+                        break;
+                    case "SpawnEste":
+                        p.posicinarEnSpawnARuby("SpawnOeste", -50, 0);
+                        huerto = map.getHuerto();
+                        music.stop();
+                        game.enterState(2, new FadeOutTransition(), new FadeInTransition());
+                        break;
+                    default:
+                }
             }
         }
     }
@@ -351,9 +356,8 @@ public class Casa extends BasicGameState {
         music.loop();
         if (gato_ido) {
             map.setGato(null);
-            gato=null;
+            gato = null;
         }
-        dia_nuevo=false;
     }
 
 }

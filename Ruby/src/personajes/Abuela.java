@@ -13,6 +13,8 @@ public class Abuela extends Npc{
         super("Abuela", hitbox, new Animacion_dinamica("./resources/sprites/Abuela.png"), 1, 0, new ArrayList<Dialogo>());
         super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Ruby,", "¿Me quieres comprar algo?"))));
         super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Comercio_Service"))));
+        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Buenos días Ruby"))));
+        super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("gato.huir()"))));
         super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Ya se ha vuelto a escapar el gato"))));
         super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Buenos días Ruby,","¿qué tal has dormido?"))));
         super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("Muy bien abuela"))));
