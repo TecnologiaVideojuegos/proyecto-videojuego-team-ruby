@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import static org.newdawn.slick.Input.KEY_SPACE;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
@@ -152,7 +153,7 @@ public class Casa extends BasicGameState {
         if(huir){
             gato.huir();
         }
-        if (hablando && gc.getInput().isMouseButtonDown(0)) {
+        if (hablando && (gc.getInput().isMouseButtonDown(0) || gc.getInput().isKeyPressed(KEY_SPACE))) {
             if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
                 if (npc.getDialogos().get(n_dialogo + 1).getFrases().get(0).equals("Comercio_Service")) {
                     comerciando = true;
