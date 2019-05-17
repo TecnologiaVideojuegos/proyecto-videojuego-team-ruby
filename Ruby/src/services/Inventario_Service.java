@@ -22,6 +22,7 @@ public class Inventario_Service {
         grphcs.fillRect(0, 0, 360, 720);
         grphcs.setColor(naranja);
         grphcs.fillRect(5, 5, 350, 710);
+        grphcs.setColor(Color.black);
         grphcs.setFont(new TrueTypeFont(new Font("Segoe UI", Font.BOLD, 30), true));
         grphcs.drawString("Inventario", 54, 36);
         grphcs.setFont(new TrueTypeFont(font, true));
