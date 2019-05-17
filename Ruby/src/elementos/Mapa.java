@@ -319,6 +319,22 @@ public class Mapa {
             }
         }
 
+        //Elementos tipo npc
+        if (abuela != null) {
+            abuela.renderPersonaje(gc, 0, 0);
+            if (ver_hitbox) {
+                grphcs.setColor(Color.green);
+                grphcs.drawRect(abuela.getHitbox().getRectangulo().getX(), abuela.getHitbox().getRectangulo().getY(), abuela.getHitbox().getRectangulo().getWidth(), abuela.getHitbox().getRectangulo().getHeight());
+            }
+        }
+        if (gato != null) {
+            gato.renderPersonaje(gc, 0, 0);
+            if (ver_hitbox) {
+                grphcs.setColor(Color.green);
+                grphcs.drawRect(gato.getHitbox().getRectangulo().getX(), gato.getHitbox().getRectangulo().getY(), gato.getHitbox().getRectangulo().getWidth(), gato.getHitbox().getRectangulo().getHeight());
+            }
+        }
+        
         //Elementos tipo enemigo
         for (Enemigo enemigo : enemigos) {
             enemigo.renderPersonaje(gc, 0, 0);
@@ -337,21 +353,7 @@ public class Mapa {
             }
         }
 
-        //Elementos tipo npc
-        if (abuela != null) {
-            abuela.renderPersonaje(gc, 0, 0);
-            if (ver_hitbox) {
-                grphcs.setColor(Color.green);
-                grphcs.drawRect(abuela.getHitbox().getRectangulo().getX(), abuela.getHitbox().getRectangulo().getY(), abuela.getHitbox().getRectangulo().getWidth(), abuela.getHitbox().getRectangulo().getHeight());
-            }
-        }
-        if (gato != null) {
-            gato.renderPersonaje(gc, 0, 0);
-            if (ver_hitbox) {
-                grphcs.setColor(Color.green);
-                grphcs.drawRect(gato.getHitbox().getRectangulo().getX(), gato.getHitbox().getRectangulo().getY(), gato.getHitbox().getRectangulo().getWidth(), gato.getHitbox().getRectangulo().getHeight());
-            }
-        }
+        
 
         if (ver_hitbox) {
             //Elementos tipo huerto
