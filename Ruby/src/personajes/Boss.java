@@ -22,8 +22,8 @@ public class Boss extends Personaje {
         this.combate = false;
         super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
         super.getDialogos().add(new Dialogo(false, true, new ArrayList<>(Arrays.asList("Sí, ahora es mio"))));
-        super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
-        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("¿Has visto a mi gato Manchas?"))));
+        super.getDialogos().add(new Dialogo(true, true, new ArrayList<>(Arrays.asList("Devuelvemelo"))));
+        super.getDialogos().add(new Dialogo(false, false, new ArrayList<>(Arrays.asList("Antes tendrás que vencerme"))));
     }
 
     public Boss(String nombre, Hitbox hitbox, Animacion_dinamica animacion, int vida, int dinero, int nivel) throws SlickException {
