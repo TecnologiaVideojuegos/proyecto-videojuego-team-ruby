@@ -2,7 +2,11 @@ package estados;
 
 import elementos.Huerto;
 import elementos.Mapa;
+import objetos.plantas.Planta_agua;
+import objetos.plantas.Planta_fuego;
 import objetos.semillas.Semilla;
+import objetos.semillas.Semilla_agua;
+import objetos.semillas.Semilla_fuego;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -65,17 +69,42 @@ public class Casa extends BasicGameState {
 
     private Gato gato;
     private boolean huir = false;
-    
+
     //Combate
     private Personaje combatiente = null;
 
     //Musica
     private Music music;
 
-    public Casa(Jugador ruby, boolean ver_hitbox, Huerto huerto) {
+    private int tutorial;
+    private boolean dia_nuevo;
+    private boolean gato_ido;
+    private boolean abuela_gato;
+
+    public Casa(Jugador ruby, boolean ver_hitbox, Huerto huerto, boolean dia_nuevo, boolean gato_ido, boolean abuela_gato) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
         this.huerto = huerto;
+        this.dia_nuevo = dia_nuevo;
+        if (dia_nuevo) {
+            this.gato_ido = false;
+        } else {
+            this.gato_ido = gato_ido;
+        }
+        if (ruby.getNivel() == 1) {
+            tutorial = 0;
+        } else {
+            tutorial = -1;
+        }
+        if (dia_nuevo) {
+            abuela_gato = false;
+        } else {
+            this.abuela_gato = abuela_gato;
+        }
+        if (gato_ido) {
+            map.setGato(null);
+            gato=null;
+        }
     }
 
     /**
@@ -86,14 +115,14 @@ public class Casa extends BasicGameState {
         this.game = game;
         this.gcWidth = gc.getWidth();
         this.gcHeight = gc.getHeight();
-        
+
         gc.setMusicVolume(1 / 10.0f);
-        
+
         map = new Mapa("./resources/maps/Granja_test.tmx", ruby.getNivel(), huerto);
         huerto = map.getHuerto();
         map.agregarSpawn("SpawnEste");
         gato = map.getGato();
-        
+
         //Posicionar a Ruby en un spawn inicial
         float posSapawnRuby[] = map.getPosicionSpawn("SpawnRuby");
         x = -(posSapawnRuby[0]) + (gc.getWidth() / 2);
@@ -105,6 +134,16 @@ public class Casa extends BasicGameState {
         //Musica
         music = new Music("./resources/music/Ambiente bosque.ogg");
         music.loop();
+
+        if (gato_ido) {
+            map.setGato(null);
+            gato=null;
+        }
+
+        if (ruby.getNivel() != 1) {
+            huir = true;
+        }
+        dia_nuevo=false;
     }
 
     /**
@@ -123,7 +162,12 @@ public class Casa extends BasicGameState {
         }
 
         if (hablando) {
-            Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo), npc.getImagen());
+            if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Muy bien abuela") && gato_ido){
+                n_dialogo=n_dialogo+2;
+            }
+            if (!huir) {
+                Dialog_Service.mostrarBocadillo(gc, grphcs, npc.getDialogos().get(n_dialogo), npc.getImagen());
+            }
         }
 
         if (inventario) {
@@ -149,9 +193,15 @@ public class Casa extends BasicGameState {
      * Actualiza
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {        
-        if(huir){
+    public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
+        if (huir) {
             gato.huir();
+            if (gato.getHitbox().getRectangulo().getCenterX() > 1500) {
+                huir = false;
+                gato = null;
+                map.setGato(null);
+                gato_ido = true;
+            }
         }
         if (hablando && (gc.getInput().isMouseButtonDown(0) || gc.getInput().isKeyPressed(KEY_SPACE))) {
             if (npc.getDialogos().get(n_dialogo).isCont_hablando()) {
@@ -160,7 +210,21 @@ public class Casa extends BasicGameState {
                     n_dialogo = 0;
                     hablando = false;
                     npc = null;
-                } else {
+                } else if (npc.getDialogos().get(n_dialogo+1).getFrases().get(0).equals("gato.huir()")) {
+                    if (!gato_ido) {
+                        huir = true;
+                    } else {
+                        n_dialogo = n_dialogo+2;
+                    }
+                } else if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas semillas y")){
+                    ruby.getInventario().anadirObjeto(new Semilla_fuego(), 3);
+                    ruby.getInventario().anadirObjeto(new Semilla_agua(), 15);
+                    n_dialogo++;
+                } else if(npc.getDialogos().get(n_dialogo).getFrases().get(0).equals("Toma estas plantas Ruby,")){
+                    ruby.getInventario().anadirObjeto(new Planta_fuego(), 3);
+                    ruby.getInventario().anadirObjeto(new Planta_agua(), 15);
+                    n_dialogo++;
+                }else {
                     n_dialogo++;
                 }
             } else {
@@ -174,9 +238,11 @@ public class Casa extends BasicGameState {
             cursor_hitbox.setY(gc.getInput().getMouseY() - (cursor_hitbox.getWidth() / 2));
 
             //Captura movimiento Ruby
-            mov = InputCapture_Service.capturaMovimiento(gc, i);
-            x += mov[0];    // Agregamos movimiento sobre el ejeX
-            y += mov[1];    // Agregamos movimiento sobre el ejeY
+            if (!huir) {
+                mov = InputCapture_Service.capturaMovimiento(gc, i);
+                x += mov[0];    // Agregamos movimiento sobre el ejeX
+                y += mov[1];    // Agregamos movimiento sobre el ejeY
+            }
 
             //Actualización de elementos del mapa
             map.actualizarElementos(mov[0], mov[1]);
@@ -194,11 +260,29 @@ public class Casa extends BasicGameState {
             if (InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby) != null && !comerciando && !hablando) {
                 hablando = true;
                 npc = InputCapture_Service.clickNpc(gc, map, cursor_hitbox, ruby);
+                if(npc.getNombre().equals("Abuela")){
+                    if(!abuela_gato && ruby.getNivel()!=1){
+                        n_dialogo=2;
+                    }else if(abuela_gato && ruby.getNivel()!=1){
+                        n_dialogo=0;
+                    }else if(ruby.getNivel()==1 && tutorial==0){
+                        n_dialogo=3;
+                        tutorial=1;
+                    }else if(ruby.getNivel()==1 && tutorial==1 && !map.getHuerto().isVacio()){
+                        n_dialogo=10;
+                        tutorial=-1;
+                    }else if(ruby.getNivel()==1 && tutorial==-1){
+                        n_dialogo=0;
+                    }else{
+                        hablando=false;
+                    }
+                }if(npc.getNombre().equals("Gato")){
+                    n_dialogo=0;
+                }
             }
 
             //MOVIMENTO DEL RATÓN
-            coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
-
+            //coordenadas = "(" + gc.getInput().getMouseX() + "," + gc.getInput().getMouseY() + ")";
             //Comprobacion de salto de escenario
             Mazmorra p = (Mazmorra) game.getState(2);
             switch (Colision_Service.saltoMapa(ruby, map)) {
@@ -265,6 +349,11 @@ public class Casa extends BasicGameState {
         map.agregarSpawn("SpawnEste");
         map.actualizarElementos(x, y);
         music.loop();
+        if (gato_ido) {
+            map.setGato(null);
+            gato=null;
+        }
+        dia_nuevo=false;
     }
 
 }

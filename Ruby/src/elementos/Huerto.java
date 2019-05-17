@@ -191,4 +191,16 @@ public class Huerto {
         }
         return hay;
     }
+    
+    public boolean isVacio(){
+        boolean vacio = true;
+        for(int i=0; i<x; i++){
+            for(int j=0; j<y; j++){
+                if(hayPlanta(i,j)){
+                    return false;
+                }
+            }
+        }
+        return vacio;
+    }
 }

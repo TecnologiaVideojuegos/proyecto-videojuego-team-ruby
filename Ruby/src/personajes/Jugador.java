@@ -26,16 +26,16 @@ public class Jugador extends Personaje {
     public Jugador(Hitbox hitbox) throws SlickException {
         super("Ruby", hitbox, 100, 100);
         this.animacion = new Animacion_dinamica("./resources/sprites/Ruby.png");
-        inventario.anadirObjeto(new Planta_fuego(), 25);
-        inventario.anadirObjeto(new Semilla_fuego(), 3);
-        inventario.anadirObjeto(new Planta_agua(), 1);
-        inventario.anadirObjeto(new Semilla_agua(), 5);
-        inventario.anadirObjeto(new Planta_rayo(), 1);
-        inventario.anadirObjeto(new Semilla_rayo(), 2);
-        inventario.anadirObjeto(new Pocion_vida(), 5);
-        inventario.anadirObjeto(new Pocion_ataque(), 2);
-        inventario.eliminarObjeto(new Semilla_rayo());
-        inventario.anadirObjeto(new Planta_agua(), 2);
+        //inventario.anadirObjeto(new Planta_fuego(), 25);
+        //inventario.anadirObjeto(new Semilla_fuego(), 3);
+        //inventario.anadirObjeto(new Planta_agua(), 1);
+        //inventario.anadirObjeto(new Semilla_agua(), 5);
+        //inventario.anadirObjeto(new Planta_rayo(), 1);
+        //inventario.anadirObjeto(new Semilla_rayo(), 2);
+        //inventario.anadirObjeto(new Pocion_vida(), 5);
+        //inventario.anadirObjeto(new Pocion_ataque(), 2);
+        //inventario.eliminarObjeto(new Semilla_rayo());
+        //inventario.anadirObjeto(new Planta_agua(), 2);
         this.nivel = 1;
         this.multiplicadorDanio = false;
     }

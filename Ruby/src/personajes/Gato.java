@@ -18,7 +18,7 @@ public class Gato extends Npc {
     }
 
     public void huir() {
-        this.getHitbox().updatePos(8, 0);
+        this.getHitbox().updatePos(6, 0);
         animacion.setAnimaPersonaje(1);
     }
 }

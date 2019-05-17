@@ -58,12 +58,15 @@ public class Mazmorra extends BasicGameState {
     private boolean hablando = false;
     private boolean inventario = false;
     private boolean hablado = false;
+    
+    private boolean dia_nuevo;
 
     private int n_dialogo = 0;
 
-    public Mazmorra(Jugador ruby, boolean ver_hitbox) {
+    public Mazmorra(Jugador ruby, boolean ver_hitbox, boolean dia_nuevo) {
         this.ruby = ruby;
         this.ver_hitbox = ver_hitbox;
+        this.dia_nuevo = dia_nuevo;
     }
 
     @Override
@@ -106,6 +109,7 @@ public class Mazmorra extends BasicGameState {
         if (ruby.getVida() > 0) {
             if (!hablando && !inventario) {
                 if (finMazmorra) {
+                    dia_nuevo = true;
                     ((Casa) game.getState(1)).init(gc, game);
                     ruby.setVida(100);
                     ruby.setNivel(ruby.getNivel() + 1);
