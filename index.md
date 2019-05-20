@@ -34,6 +34,13 @@ Este proyecto es totalmente educacional, comprendido por un equipo de 5 personas
 - Jesús Villafranca Martínez
 - Enrique Coronado Barco
 
+<br>
+
+<p style="text-align: center">
+    <a style="margin-right: 300px" href="Documentación\RUBY.pdf">Documento de diseño</a>
+    <a href="Documentación\RUBY- Memoria del videojuego.pdf">Memoria</a>
+</p>
+
 <br><br>
 
 Icon GitHub made by [dave-gandy](https://www.flaticon.com/authors/dave-gandy) from www.flaticon.com
